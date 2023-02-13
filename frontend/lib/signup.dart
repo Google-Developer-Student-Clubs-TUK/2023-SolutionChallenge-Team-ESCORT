@@ -1,5 +1,9 @@
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
+import 'package:image_picker/image_picker.dart';
 
 enum Dimentia { yes, no }
 
@@ -421,8 +425,11 @@ class _SignUpState3 extends State<SignUp3> {
 }
 
 class _SignUpState4 extends State<SignUp4> {
+  XFile? _pickedFile;
   @override
   Widget build(BuildContext context) {
+    final imageSize = MediaQuery.of(context).size.width / 4;
+
     return Scaffold(
         appBar: AppBar(
           title: SizedBox(
@@ -470,12 +477,63 @@ class _SignUpState4 extends State<SignUp4> {
                 child: Text("service."),
               ),
               Padding(
-                padding: const EdgeInsets.only(right: 260, top: 15),
+                padding: const EdgeInsets.only(right: 270, top: 15),
                 child: Text(
                   "Your Image",
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
+              const SizedBox(
+                height: 20,
+              ),
+              if (_pickedFile == null)
+                Container(
+                    constraints: BoxConstraints(
+                      minHeight: imageSize,
+                      minWidth: imageSize,
+                    ),
+                    child: GestureDetector(
+                        onTap: () {
+                          _showBottomSheet();
+                        },
+                        child: Stack(
+                          children: [
+                            Image.asset(
+                              "assets/profileimage.png",
+                              width: imageSize,
+                              height: imageSize,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 70, top: 70),
+                              child: Image.asset(
+                                "assets/imageplus.png",
+                                width: 30,
+                                height: 30,
+                              ),
+                            )
+                          ],
+                        )))
+              else
+                Center(
+                  child: Container(
+                    width: imageSize,
+                    height: imageSize,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                          image: FileImage(File(_pickedFile!.path)),
+                          fit: BoxFit.cover),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 70, top: 65),
+                      child: Image.asset(
+                        "assets/imageplus.png",
+                        width: 20,
+                        height: 20,
+                      ),
+                    ),
+                  ),
+                ),
               Container(
                 height: 25,
               ),
@@ -483,56 +541,6 @@ class _SignUpState4 extends State<SignUp4> {
                 padding: const EdgeInsets.only(right: 235, bottom: 20),
                 child: Text(
                   "Characteristics",
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ),
-              SizedBox(
-                width: 350,
-                height: 45,
-                child: TextFormField(
-                  style: TextStyle(color: Colors.black),
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.black12,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide: BorderSide(
-                        width: 0,
-                        style: BorderStyle.none,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(right: 265, bottom: 20, top: 20),
-                child: Text(
-                  "Blood Type",
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ),
-              SizedBox(
-                width: 350,
-                height: 45,
-                child: TextFormField(
-                  style: TextStyle(color: Colors.black),
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.black12,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide: BorderSide(
-                        width: 0,
-                        style: BorderStyle.none,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(right: 265, bottom: 20, top: 20),
-                child: Text(
-                  "Blood Type",
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
@@ -602,6 +610,75 @@ class _SignUpState4 extends State<SignUp4> {
             ),
           ),
         ));
+  }
+
+  _showBottomSheet() {
+    return showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(25),
+        ),
+      ),
+      builder: (context) {
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const SizedBox(
+              height: 20,
+            ),
+            ElevatedButton(
+              onPressed: () => _getCameraImage(),
+              child: const Text('카메라촬영'),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            const Divider(
+              thickness: 3,
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            ElevatedButton(
+              onPressed: () => _getPhotoLibraryImage(),
+              child: const Text('앨범'),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  _getCameraImage() async {
+    final pickedFile =
+        await ImagePicker().pickImage(source: ImageSource.camera);
+    if (pickedFile != null) {
+      setState(() {
+        _pickedFile = pickedFile;
+      });
+    } else {
+      if (kDebugMode) {
+        print('이미지 선택안함');
+      }
+    }
+  }
+
+  _getPhotoLibraryImage() async {
+    final pickedFile =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        _pickedFile = _pickedFile;
+      });
+    } else {
+      if (kDebugMode) {
+        print('이미지 선택안함');
+      }
+    }
   }
 }
 
@@ -740,10 +817,7 @@ class _SignUpState5 extends State<SignUp5> {
           child: SizedBox(
             height: 50,
             child: ElevatedButton(
-              onPressed: () => {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => SignUp5()))
-              },
+              onPressed: () => {},
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(50.0),

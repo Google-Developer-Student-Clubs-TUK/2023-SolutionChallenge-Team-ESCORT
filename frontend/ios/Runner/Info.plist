@@ -49,5 +49,15 @@
 		<true/>
 		<key>UIStatusBarHidden</key>
 		<false/>
+		<key>NSCameraUsageDescription</key>
+		<string>Used to demonstrate image picker plugin</string>
+		<key>NSMicrophoneUsageDescription</key>
+		<string>Used to capture audio for image picker plugin</string>
+		<key>NSPhotoLibraryUsageDescription</key>
+		<string>Used to demonstrate image picker plugin</string>
+		<key>NSPhotoLibraryUsageDescription</key>
+		<string>Allow access to photo library</string>
+		<key>NSPhotoLibraryUsageDescription</key>
+    	<string>photos</string>
 	</dict>
 </plist>
