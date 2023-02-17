@@ -46,6 +46,4 @@ public class ProtegeServiceImpl implements ProtegeService {
 
     }
 
-    
-
 }
