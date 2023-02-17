@@ -1,11 +1,10 @@
 package com.solution.escort.domain.protege.repository;
 
-import com.solution.escort.domain.protege.entity.Protege;
+import com.solution.escort.domain.protege.entity.SafeZone;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ProtegeRepository extends JpaRepository<Protege, Integer> {
-    boolean existsByEmail(String email);
+public interface SafeZoneRepository extends JpaRepository<SafeZone, Integer> {
 
 }

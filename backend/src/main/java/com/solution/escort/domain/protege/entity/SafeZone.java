@@ -1,5 +1,6 @@
 package com.solution.escort.domain.protege.entity;
 
+import com.solution.escort.domain.protege.entity.Protege;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.annotations.DynamicInsert;
@@ -19,45 +20,21 @@ import java.time.LocalDateTime;
 @ToString
 @EntityListeners(AuditingEntityListener.class)
 @Slf4j
-public class Protege {
+public class SafeZone {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column
-    private String name;
-
-    @Column
-    private String email;
-
-    @Column
-    private String password;
-
-//    @Column
-//    private String profileImageUrl;
-
-    @Column
-    private String characteristic;
-
-    @Column
-    private String bloodType;
-
-    @Column
-    private String address;
-
-    @Column
-    private String phone;
-
-    @Column
-    private String clothing;
+    private String safeAddress;
 
     @Column
     @CreatedDate
     private LocalDateTime createdAt;
 
-//    @OneToOne(fetch = FetchType.LAZY) // 프로필사진 1:1 매핑
-//    @JoinColumn(name = "profileImage_id")
-//    private ProfileImage profileImageId;
-
+    // 노인(Protege)과 SafeZone은 다대일 관계
+    @ManyToOne
+    @JoinColumn(name = "protege_id")
+    private Protege protege;
 
 }
