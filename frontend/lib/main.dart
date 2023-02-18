@@ -1,5 +1,5 @@
 import 'package:escort/main_dementia.dart';
-import 'package:escort/main_partner.dart';
+import 'package:escort/main_partner_navigation.dart';
 import 'package:escort/onboarding_page.dart';
 import 'package:escort/signup.dart';
 import 'package:flutter/material.dart';
