@@ -1,4 +1,4 @@
-import 'package:escort/main_dementia.dart';
+import 'package:escort/main_home.dart';
 import 'package:flutter/material.dart';
 
 class MainPartner extends StatefulWidget {
@@ -14,7 +14,7 @@ class MainPartner extends StatefulWidget {
 class _MainPartnerState extends State<MainPartner> {
   int _selectedIndex = 0;
 
-  final List<Widget> _widgetOptions = <Widget>[];
+  final List<Widget> _widgetOptions = <Widget>[MapSample()];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -65,6 +65,9 @@ class _MainPartnerState extends State<MainPartner> {
                 borderRadius:
                     BorderRadius.vertical(bottom: Radius.circular(10))),
           ),
+          body: SafeArea(
+            child: _widgetOptions.elementAt(_selectedIndex),
+          ),
           bottomNavigationBar: BottomNavigationBar(
             type: BottomNavigationBarType.fixed, // item이 4개 이상일 경우 추가
 
@@ -93,5 +96,16 @@ class _MainPartnerState extends State<MainPartner> {
             unselectedFontSize: 12,
           ),
         ));
+  }
+
+  @override
+  void initState() {
+    //해당 클래스가 호출되었을떄
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 }
