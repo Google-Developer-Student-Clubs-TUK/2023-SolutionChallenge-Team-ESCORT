@@ -1,6 +1,7 @@
 package com.solution.escort.domain.protege.service;
 
 import com.solution.escort.domain.protege.dto.request.ProtegeRequestDTO;
+import com.solution.escort.domain.protege.dto.response.ProtegeResponseDTO;
 import com.solution.escort.domain.protege.entity.Protege;
 import com.solution.escort.domain.protege.entity.SafeZone;
 import com.solution.escort.domain.protege.repository.ProtegeRepository;
@@ -44,6 +45,17 @@ public class ProtegeServiceImpl implements ProtegeService {
             safeZoneList.add(safeZone.getSafeAddress());
     }
 
+    }
+
+    // 노인 한명 정보 가져오기 관련 서비스
+    @Override
+    public ProtegeResponseDTO getProtegeById(Integer id) throws Exception {
+        Protege protege = protegeRepository.findById(id).get();
+        List<String> safeZones = new ArrayList<>();
+        List<String> strSafeZones = safeZoneRepository.findSafeZonesByProtegeId(protege.getId());
+        //String safeZone = new String(strSafeZone);
+        safeZones.addAll(strSafeZones);
+        return protege.toProtegeResponseDTO(protege, safeZones);
     }
 
 }

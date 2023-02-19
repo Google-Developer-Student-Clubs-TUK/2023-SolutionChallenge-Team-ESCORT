@@ -26,4 +26,8 @@ public class ProtectorServiceImpl implements ProtectorService {
         protectorRepository.save(saveProtector);
 
     }
+
+    // 보호자 노인 등록 API 관련 서비스
+
+
 }

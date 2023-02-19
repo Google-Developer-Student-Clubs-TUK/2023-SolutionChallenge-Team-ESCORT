@@ -36,4 +36,12 @@ public class ProtegeController {
 
     // 치매노인  (이미지는 GCP 미발급으로 보류)
 
+    // 노인 한명의 정보 가져오기 API
+    @GetMapping("/{id}")
+    public ResponseEntity<ResponseFormat<ProtegeResponseDTO>> getProtegeById(@PathVariable Integer id) throws Exception{
+        ProtegeResponseDTO protege = protegeService.getProtegeById(id);
+        ResponseFormat<ProtegeResponseDTO> responseFormat = new ResponseFormat<>(ResponseStatus.GET_PROTEGE_SUCCESS, protege);
+        return ResponseEntity.status(HttpStatus.OK).body(responseFormat);
+    }
+
 }

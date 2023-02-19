@@ -28,4 +28,12 @@ public class ProtectorController {
         return ResponseEntity.status(HttpStatus.CREATED).body(responseFormat);
 
     }
+
+    // 보호자 노인 등록 API => QR 등록 파트와 연동 예정
+
+
+    // 보호자 아이디에 연결되어있는 노인들의 정보를 가져오는 API
+
+
+    //
 }
