@@ -1,14 +1,13 @@
-import 'package:escort/main_dementia.dart';
-import 'package:escort/main_partner_navigation.dart';
 import 'package:escort/onboarding_page.dart';
 import 'package:escort/signup.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import 'SignIn.dart';
 
 void main() {
-  runApp(const MaterialApp(home: MainPartner()));
+  runApp(const GetMaterialApp(home: MyApp()));
 }
 
 class MyApp extends StatefulWidget {
