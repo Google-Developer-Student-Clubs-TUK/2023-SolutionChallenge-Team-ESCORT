@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,9 +29,6 @@ public class ProtectorController {
         return ResponseEntity.status(HttpStatus.CREATED).body(responseFormat);
 
     }
-
-    // 보호자 노인 등록 API => QR 등록 파트와 연동 예정
-
 
     // 보호자 아이디에 연결되어있는 노인들의 정보를 가져오는 API
 

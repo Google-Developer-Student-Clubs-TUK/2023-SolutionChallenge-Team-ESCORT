@@ -1,5 +1,6 @@
 package com.solution.escort.domain.protector.entity;
 
+import com.solution.escort.domain.PPConnection.entity.ProtectorProtege;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.annotations.DynamicInsert;
@@ -8,6 +9,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -16,7 +19,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @DynamicInsert
-@ToString
 @EntityListeners(AuditingEntityListener.class)
 @Slf4j
 public class Protector {
@@ -42,5 +44,8 @@ public class Protector {
     @Column
     @CreatedDate
     private LocalDateTime createdAt;
+
+    @OneToMany(mappedBy = "protector")
+    private List<ProtectorProtege> proteges = new ArrayList<>();
 
 }

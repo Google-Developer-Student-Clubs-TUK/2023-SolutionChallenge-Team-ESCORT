@@ -1,5 +1,6 @@
 package com.solution.escort.domain.protege.entity;
 
+import com.solution.escort.domain.PPConnection.entity.ProtectorProtege;
 import com.solution.escort.domain.protege.dto.response.ProtegeResponseDTO;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
@@ -9,6 +10,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -18,7 +20,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @DynamicInsert
-@ToString
 @EntityListeners(AuditingEntityListener.class)
 @Slf4j
 public class Protege {
@@ -56,6 +57,9 @@ public class Protege {
     @Column
     @CreatedDate
     private LocalDateTime createdAt;
+
+    @OneToMany(mappedBy = "protege")
+    private List<ProtectorProtege> protectors = new ArrayList<>();
 
 //    @OneToOne(fetch = FetchType.LAZY) // 프로필사진 1:1 매핑
 //    @JoinColumn(name = "profileImage_id")

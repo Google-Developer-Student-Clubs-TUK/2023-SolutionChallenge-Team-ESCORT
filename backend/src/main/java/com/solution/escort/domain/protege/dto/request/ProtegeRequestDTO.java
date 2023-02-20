@@ -10,7 +10,6 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Getter
-@ToString
 @Setter
 @Slf4j
 @NoArgsConstructor
