@@ -44,6 +44,9 @@ dependencies:
   google_maps_flutter: ^2.2.3
   get: ^4.6.5
   path_provider: ^2.0.12
+  firebase_auth: ^4.2.2
+  firebase_core: ^2.7.0
+  cloud_firestore: ^4.4.3
 
 dev_dependencies:
   flutter_test:

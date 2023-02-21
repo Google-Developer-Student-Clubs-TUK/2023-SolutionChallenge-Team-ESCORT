@@ -7,6 +7,8 @@ import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.da
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 enum Dementia { yes, no }
 
@@ -64,6 +66,35 @@ class AuthController extends GetxController {
     final fileName = imagePath.value.split('/').last;
     final path = '${directory!.path}/$fileName';
     return File(path);
+  }
+}
+
+Future<void> firebaseAuth(var emailAddress, var password) async {
+  try {
+    final credential =
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      email: emailAddress,
+      password: password,
+    );
+
+    CollectionReference users = FirebaseFirestore.instance.collection('users');
+
+    users
+        .add({
+          'full_name': emailAddress, // John Doe
+          'company': emailAddress, // Stokes and Sons
+          'age': emailAddress // 42
+        })
+        .then((value) => print("User Added"))
+        .catchError((error) => print("Failed to add user: $error"));
+  } on FirebaseAuthException catch (e) {
+    if (e.code == 'weak-password') {
+      print('The password provided is too weak.');
+    } else if (e.code == 'email-already-in-use') {
+      print('The account already exists for that email.');
+    }
+  } catch (e) {
+    print(e);
   }
 }
 
@@ -938,7 +969,10 @@ class _SignUpState5 extends State<SignUp5> {
           child: SizedBox(
             height: 50,
             child: ElevatedButton(
-              onPressed: () => {authController.checkvalues()},
+              onPressed: () => {
+                firebaseAuth(authController.email.toString(),
+                    authController.password.toString())
+              },
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(50.0),

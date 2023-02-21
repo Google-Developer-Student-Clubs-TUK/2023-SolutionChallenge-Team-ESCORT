@@ -1,12 +1,19 @@
-import 'package:escort/onboarding_page.dart';
-import 'package:escort/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-import 'SignIn.dart';
+import 'package:escort/onboarding_page.dart';
+import 'package:escort/signup.dart';
 
-void main() {
+import 'SignIn.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const GetMaterialApp(home: MyApp()));
 }
 
