@@ -77,16 +77,14 @@ Future<void> firebaseAuth(var emailAddress, var password) async {
       password: password,
     );
 
-    CollectionReference users = FirebaseFirestore.instance.collection('users');
-
-    users
-        .add({
-          'full_name': emailAddress, // John Doe
-          'company': emailAddress, // Stokes and Sons
-          'age': emailAddress // 42
-        })
-        .then((value) => print("User Added"))
-        .catchError((error) => print("Failed to add user: $error"));
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(credential.user?.uid)
+        .set({
+      'emailAddress': emailAddress,
+      'password': password,
+      // Add additional user information here
+    });
   } on FirebaseAuthException catch (e) {
     if (e.code == 'weak-password') {
       print('The password provided is too weak.');

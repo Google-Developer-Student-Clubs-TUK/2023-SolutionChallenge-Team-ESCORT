@@ -1,12 +1,53 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:escort/reset_password.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SignIn extends StatelessWidget {
   const SignIn({super.key});
 
+  Future<void> firebaseLogin(id, password) async {
+    print(id);
+    print(password);
+
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: id, password: password)
+          //아이디와 비밀번호로 로그인 시도
+          .then((value) async {
+        User? user = FirebaseAuth.instance.currentUser;
+        if (user != null) {
+          DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
+              .collection('users')
+              .doc(user.uid)
+              .get();
+          print("read user info");
+          print(documentSnapshot.data());
+        } else {
+          print("fail");
+        }
+
+        print(value);
+        return value;
+      });
+    } on FirebaseAuthException catch (e) {
+      //로그인 예외처리
+      if (e.code == 'user-not-found') {
+        print('등록되지 않은 이메일입니다');
+      } else if (e.code == 'wrong-password') {
+        print('비밀번호가 틀렸습니다');
+      } else {
+        print(e.code);
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    String id = '';
+    String password = '';
+
     return Scaffold(
         appBar: AppBar(
           iconTheme: IconThemeData(
@@ -61,6 +102,7 @@ class SignIn extends StatelessWidget {
                     ),
                   ),
                 ),
+                onChanged: (value) => {id = value},
               ),
             ),
             Padding(
@@ -85,6 +127,7 @@ class SignIn extends StatelessWidget {
                     ),
                   ),
                 ),
+                onChanged: (value) => {password = value},
               ),
             ),
             Padding(
@@ -109,7 +152,7 @@ class SignIn extends StatelessWidget {
           child: SizedBox(
             height: 50,
             child: ElevatedButton(
-              onPressed: () => {},
+              onPressed: () => {firebaseLogin(id, password)},
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(50.0),
