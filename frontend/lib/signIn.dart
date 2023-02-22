@@ -2,9 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:escort/main_dementia.dart';
 import 'package:escort/main_partner_navigation.dart';
 import 'package:escort/reset_password.dart';
+import 'package:escort/userinfo_controller.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 class UserInfo {
   final String imagePath;
@@ -54,7 +57,9 @@ class UserInfo {
 }
 
 class SignIn extends StatelessWidget {
-  const SignIn({super.key});
+  final UserInfoController userinfocontroller = Get.put(UserInfoController());
+
+  SignIn({super.key});
 
   Future<void> firebaseLogin(id, password, BuildContext context) async {
     print(id);
@@ -73,6 +78,18 @@ class SignIn extends StatelessWidget {
               .get();
 
           final data = documentSnapshot.data() as Map<String, dynamic>;
+
+          userinfocontroller.setEmail(data['emailAddress']);
+          userinfocontroller.setPassword(data['password']);
+          userinfocontroller.setName(data['name']);
+          userinfocontroller.setBirth(data['birth']);
+          userinfocontroller.setPhoneNumber(data['phoneNumber']);
+          userinfocontroller.setDementia(data['dementia']);
+          userinfocontroller.setCharacteristics(data['characteristics']);
+          userinfocontroller.setBlood(data['blood']);
+          userinfocontroller.setRegidence(data['regidence']);
+          userinfocontroller.setPlace(data['place']);
+          userinfocontroller.setSafezone(data['safezone']);
 
           print(data['dementia']);
           if (data['dementia'] == "Dementia.yes") {

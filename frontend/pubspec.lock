@@ -246,6 +246,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.7"
+  flutter_qr_code:
+    dependency: "direct main"
+    description:
+      name: flutter_qr_code
+      sha256: ca55e13f203f7a23707b5d7c1190e2fedb1b911590b8b1c4080d07385dc7ec95
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.2+2"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -520,6 +528,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.2.4"
+  qr:
+    dependency: transitive
+    description:
+      name: qr
+      sha256: "5c4208b4dc0d55c3184d10d83ee0ded6212dc2b5e2ba17c5a0c0aab279128d21"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.0"
+  qr_flutter:
+    dependency: "direct main"
+    description:
+      name: qr_flutter
+      sha256: c5c121c54cb6dd837b9b9d57eb7bc7ec6df4aee741032060c8833a678c80b87e
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.0.0"
   sky_engine:
     dependency: transitive
     description: flutter

@@ -1,10 +1,37 @@
+import 'dart:convert';
+
+import 'package:escort/userinfo_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 class MainDementia extends StatelessWidget {
-  const MainDementia({super.key});
+  final UserInfoController userinfoController = Get.put(UserInfoController());
+
+  MainDementia({super.key});
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    Map<String, dynamic> data = {
+      'dementia': userinfoController.dementia.toString(),
+      'email': userinfoController.email.toString(),
+      'password': userinfoController.password.toString(),
+      'name': userinfoController.name.toString(),
+      'birth': userinfoController.birth.toString(),
+      'phoneNumber': userinfoController.phoneNumber.toString(),
+      'characteristics': userinfoController.characteristics.toString(),
+      'blood': userinfoController.blood.toString(),
+      'regidence': userinfoController.regidence.toString(),
+      'place': userinfoController.place.toString(),
+      'safezone': userinfoController.safezone.toString(),
+    };
+
+    String json = jsonEncode(data);
+    var _qrCodeData = json;
+    print(_qrCodeData);
+
+    // QR 코드로 표시 할 데이터
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -245,6 +272,26 @@ class MainDementia extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 60.0),
             child: FloatingActionButton(
               onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    content: Container(
+                      width: 250,
+                      height: 250,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          QrImage(
+                            data: _qrCodeData,
+                            version: QrVersions.auto,
+                            size: 200.0,
+                          ),
+                          SizedBox(height: 10),
+                        ],
+                      ),
+                    ),
+                  ),
+                );
                 // Add your onPressed code here!
               },
               backgroundColor: Colors.transparent,
