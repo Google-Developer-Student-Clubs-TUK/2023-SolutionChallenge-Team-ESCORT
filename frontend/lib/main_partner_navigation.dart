@@ -1,4 +1,5 @@
 import 'package:escort/main_home.dart';
+import 'package:escort/main_registration.dart';
 import 'package:flutter/material.dart';
 
 class MainPartner extends StatefulWidget {
@@ -14,7 +15,12 @@ class MainPartner extends StatefulWidget {
 class _MainPartnerState extends State<MainPartner> {
   int _selectedIndex = 0;
 
-  final List<Widget> _widgetOptions = <Widget>[MapSample()];
+  final List<Widget> _widgetOptions = <Widget>[
+    MapSample(),
+    RegistrationPage(),
+    RegistrationPage(),
+    RegistrationPage()
+  ];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -66,7 +72,7 @@ class _MainPartnerState extends State<MainPartner> {
                     BorderRadius.vertical(bottom: Radius.circular(10))),
           ),
           body: SafeArea(
-            child: _widgetOptions.elementAt(_selectedIndex),
+            child: _widgetOptions[_selectedIndex],
           ),
           bottomNavigationBar: BottomNavigationBar(
             type: BottomNavigationBarType.fixed, // item이 4개 이상일 경우 추가

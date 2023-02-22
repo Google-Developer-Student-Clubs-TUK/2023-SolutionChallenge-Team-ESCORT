@@ -575,7 +575,8 @@ class _SignUpState4 extends State<SignUp4> {
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       image: DecorationImage(
-                          image: FileImage(File(_pickedFile!.path)),
+                          image:
+                              FileImage(authController.getImageFile() as File),
                           fit: BoxFit.cover),
                     ),
                     child: Padding(
