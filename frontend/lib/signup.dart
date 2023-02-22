@@ -69,7 +69,19 @@ class AuthController extends GetxController {
   }
 }
 
-Future<void> firebaseAuth(var emailAddress, var password) async {
+Future<void> firebaseAuth(
+    var emailAddress,
+    var password,
+    var name,
+    var birth,
+    var phoneNumber,
+    var dementia,
+    var characteristics,
+    var blood,
+    var regidence,
+    var place,
+    var safezone,
+    var imagePath) async {
   try {
     final credential =
         await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -81,6 +93,16 @@ Future<void> firebaseAuth(var emailAddress, var password) async {
         .collection('users')
         .doc(credential.user?.uid)
         .set({
+      'name': name,
+      'birth': birth,
+      'phoneNumber': phoneNumber,
+      'dementia': dementia,
+      'characteristics': characteristics,
+      'blood': blood,
+      'regidence': regidence,
+      'place': place,
+      'safezone': safezone,
+      'imagePath': imagePath,
       'emailAddress': emailAddress,
       'password': password,
       // Add additional user information here
@@ -968,8 +990,20 @@ class _SignUpState5 extends State<SignUp5> {
             height: 50,
             child: ElevatedButton(
               onPressed: () => {
-                firebaseAuth(authController.email.toString(),
-                    authController.password.toString())
+                firebaseAuth(
+                  authController.email.toString(),
+                  authController.password.toString(),
+                  authController.name.toString(),
+                  authController.birth.toString(),
+                  authController.phoneNumber.toString(),
+                  authController.dementia.toString(),
+                  authController.characteristics.toString(),
+                  authController.blood.toString(),
+                  authController.regidence.toString(),
+                  authController.place.toString(),
+                  authController.safezone.toString(),
+                  authController.imagePath.toString(),
+                ),
               },
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(

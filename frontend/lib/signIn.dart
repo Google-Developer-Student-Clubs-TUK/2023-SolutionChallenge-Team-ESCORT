@@ -1,13 +1,62 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:escort/main_dementia.dart';
+import 'package:escort/main_partner_navigation.dart';
 import 'package:escort/reset_password.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+class UserInfo {
+  final String imagePath;
+  final String emailAddress;
+  final String place;
+  final String safezone;
+  final String name;
+  final String characteristics;
+  final String birth;
+  final String residence;
+  final String blood;
+  final String password;
+  final String phoneNumber;
+  final bool dementia;
+
+  UserInfo({
+    required this.imagePath,
+    required this.emailAddress,
+    required this.place,
+    required this.safezone,
+    required this.name,
+    required this.characteristics,
+    required this.birth,
+    required this.residence,
+    required this.blood,
+    required this.password,
+    required this.phoneNumber,
+    required this.dementia,
+  });
+
+  factory UserInfo.fromMap(Map<String, dynamic> map) {
+    return UserInfo(
+      imagePath: map['imagePath'] ?? '',
+      emailAddress: map['emailAddress'] ?? '',
+      place: map['place'] ?? '',
+      safezone: map['safezone'] ?? '',
+      name: map['name'] ?? '',
+      characteristics: map['characteristics'] ?? '',
+      birth: map['birth'] ?? '',
+      residence: map['residence'] ?? '',
+      blood: map['blood'] ?? '',
+      password: map['password'] ?? '',
+      phoneNumber: map['phoneNumber'] ?? '',
+      dementia: map['dementia'] ?? '',
+    );
+  }
+}
+
 class SignIn extends StatelessWidget {
   const SignIn({super.key});
 
-  Future<void> firebaseLogin(id, password) async {
+  Future<void> firebaseLogin(id, password, BuildContext context) async {
     print(id);
     print(password);
 
@@ -22,8 +71,18 @@ class SignIn extends StatelessWidget {
               .collection('users')
               .doc(user.uid)
               .get();
-          print("read user info");
-          print(documentSnapshot.data());
+
+          final data = documentSnapshot.data() as Map<String, dynamic>;
+
+          print(data['dementia']);
+          if (data['dementia'] == "Dementia.yes") {
+            print("this is dementia page");
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => MainDementia()));
+          } else {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => MainPartner()));
+          }
         } else {
           print("fail");
         }
@@ -152,7 +211,7 @@ class SignIn extends StatelessWidget {
           child: SizedBox(
             height: 50,
             child: ElevatedButton(
-              onPressed: () => {firebaseLogin(id, password)},
+              onPressed: () => {firebaseLogin(id, password, context)},
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(50.0),
