@@ -1,5 +1,6 @@
 package com.solution.escort.domain.PPConnection.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.solution.escort.domain.protector.entity.Protector;
 import com.solution.escort.domain.protege.entity.Protege;
 import lombok.*;
@@ -26,10 +27,12 @@ public class ProtectorProtege {
 
     @ManyToOne
     @JoinColumn(name = "protector_id")
+    @JsonIgnore
     private Protector protector;
 
     @ManyToOne
     @JoinColumn(name = "protege_id")
+    @JsonIgnore
     private Protege protege;
 
 
