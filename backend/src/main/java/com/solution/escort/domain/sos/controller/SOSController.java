@@ -7,13 +7,11 @@ import com.solution.escort.domain.sos.service.SOSservice;
 import com.solution.escort.global.ResponseFormat;
 import com.solution.escort.global.ResponseStatus;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -38,6 +36,14 @@ public class SOSController {
         List<SOSResponseDTO> sosAll = null;
         sosAll = sosService.getSOSAll();
         ResponseFormat<List<SOSResponseDTO>> responseFormat = new ResponseFormat<>(ResponseStatus.GET_SOS_SUCCESS, sosAll);
+        return ResponseEntity.status(HttpStatus.OK).body(responseFormat);
+    }
+
+    // 배회노인 신고 취소 api
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ResponseFormat<SOSResponseDTO>> deleteSOSByID(@PathVariable Integer id) throws Exception {
+        sosService.deleteSOS(id);
+        ResponseFormat<SOSResponseDTO> responseFormat = new ResponseFormat<>(ResponseStatus.DELETE_SOS_SUCCESS);
         return ResponseEntity.status(HttpStatus.OK).body(responseFormat);
     }
 
