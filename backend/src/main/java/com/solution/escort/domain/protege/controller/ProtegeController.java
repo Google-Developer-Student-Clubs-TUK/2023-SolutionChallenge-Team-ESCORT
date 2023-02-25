@@ -1,5 +1,6 @@
 package com.solution.escort.domain.protege.controller;
 
+import com.solution.escort.domain.protege.dto.request.ProtegeClothRequestDTO;
 import com.solution.escort.domain.protege.dto.request.ProtegeRequestDTO;
 import com.solution.escort.domain.protege.dto.response.ProtegeResponseDTO;
 import com.solution.escort.domain.protege.service.ProtegeService;
@@ -41,6 +42,14 @@ public class ProtegeController {
     public ResponseEntity<ResponseFormat<ProtegeResponseDTO>> getProtegeById(@PathVariable Integer id) throws Exception{
         ProtegeResponseDTO protege = protegeService.getProtegeById(id);
         ResponseFormat<ProtegeResponseDTO> responseFormat = new ResponseFormat<>(ResponseStatus.GET_PROTEGE_SUCCESS, protege);
+        return ResponseEntity.status(HttpStatus.OK).body(responseFormat);
+    }
+
+    // 노인 신고 시 노인의 옷차림 추가하는 API
+    @PutMapping("/{id}")
+    public ResponseEntity<ResponseFormat<ProtegeClothRequestDTO>> protegeCloth(ProtegeClothRequestDTO dto, @PathVariable Integer id) throws Exception {
+        protegeService.protegeCloth(dto, id);
+        ResponseFormat<ProtegeClothRequestDTO> responseFormat = new ResponseFormat<>(ResponseStatus.PUT_PROTEGE_CLOTHING_SUCCESS);
         return ResponseEntity.status(HttpStatus.OK).body(responseFormat);
     }
 

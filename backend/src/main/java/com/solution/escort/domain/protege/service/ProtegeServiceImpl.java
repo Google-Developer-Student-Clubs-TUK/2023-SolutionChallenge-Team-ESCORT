@@ -1,5 +1,6 @@
 package com.solution.escort.domain.protege.service;
 
+import com.solution.escort.domain.protege.dto.request.ProtegeClothRequestDTO;
 import com.solution.escort.domain.protege.dto.request.ProtegeRequestDTO;
 import com.solution.escort.domain.protege.dto.response.ProtegeResponseDTO;
 import com.solution.escort.domain.protege.entity.Protege;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityExistsException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -56,6 +58,18 @@ public class ProtegeServiceImpl implements ProtegeService {
         //String safeZone = new String(strSafeZone);
         safeZones.addAll(strSafeZones);
         return protege.toProtegeResponseDTO(protege, safeZones);
+    }
+
+    // 노인 신고 시 노인의 옷차림 추가하는 API 관련 서비스
+    @Override
+    public void protegeCloth(ProtegeClothRequestDTO protegeClothRequestDTO, Integer id) throws Exception {
+        Optional<Protege> updateProtege = protegeRepository.findById(id);
+
+        updaterotege.ifPresent(selectProtege -> {
+            selectProtege.setClothing(protegeClothRequestDTO.getClothing());
+
+            protegeRepository.save(selectProtege);
+        });
     }
 
 }

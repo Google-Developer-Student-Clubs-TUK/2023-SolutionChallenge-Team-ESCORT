@@ -10,6 +10,7 @@ public enum ResponseStatus {
     POST_PROTEGE_SUCCESS("PE000", "노인 회원 생성 성공"),
     GET_PROTEGE_SUCCESS("PE01", "노인 정보 가져오기 성공"),
     PUT_PROTEGE_SUCCESS("PE02", "노인 정보 수정하기 성공"),
+    PUT_PROTEGE_CLOTHING_SUCCESS("PE03", "노인 옷차림 추가 성공"),
 
     // Protector(보호자) 응답 status
     POST_PROTECTOR_SUCCESS("PR000", "보호자 회원 생성 성공"),

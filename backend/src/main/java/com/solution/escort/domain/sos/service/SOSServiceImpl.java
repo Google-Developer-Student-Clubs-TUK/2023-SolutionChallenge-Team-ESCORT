@@ -35,9 +35,16 @@ public class SOSServiceImpl implements SOSservice{
         return toSOSResponse(sosAll);
     }
 
+    @Override
+    public void deleteSOS(Integer id) throws Exception {
+        SOS sos = sosRepository.findById(id).get();
+        //SOS deleteSOS = sosRequestDTO.toSOSEntity(sosRequestDTO);
+        sosRepository.delete(sos);
+    }
+
     public List<SOSResponseDTO> toSOSResponse(List<SOS> sosAll) throws Exception {
         List<SOSResponseDTO> sosResponseDTOList = new ArrayList<>();
-
+        // 이미 신고된 사람인지 확인하는 예외 처리 필요
         for(SOS sos: sosAll) {
             sosResponseDTOList.add(sos.toSOSResponse(sos));
         }
