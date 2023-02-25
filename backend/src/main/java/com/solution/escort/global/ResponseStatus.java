@@ -14,7 +14,13 @@ public enum ResponseStatus {
     // Protector(보호자) 응답 status
     POST_PROTECTOR_SUCCESS("PR000", "보호자 회원 생성 성공"),
     GET_PROTECTOR_SUCCESS("PR001", "보호자 정보 가져오기 성공"),
-    PUT_PROTECTOR_SUCCESS("PR002", "보호자 정보 수정하기 성공");
+    PUT_PROTECTOR_SUCCESS("PR002", "보호자 정보 수정하기 성공"),
+
+
+    // SOS 신고 응답 status
+    POST_SOS_SUCCESS("SOS000", "노인 신고 생성 성공"),
+    GET_SOS_SUCCESS("SOS001", "노인 신고 정보 가져오기 성공"),
+    DELETE_SOS_SUCCESS("SOS002", "노인 신고 삭제 성공");
 
     private final String code;
     private final String message;
