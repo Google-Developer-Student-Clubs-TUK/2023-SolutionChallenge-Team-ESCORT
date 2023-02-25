@@ -44,4 +44,6 @@ public class ProtegeController {
         return ResponseEntity.status(HttpStatus.OK).body(responseFormat);
     }
 
+
+
 }
