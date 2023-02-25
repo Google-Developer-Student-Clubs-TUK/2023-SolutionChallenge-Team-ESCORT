@@ -55,6 +55,9 @@ public class Protege {
     private String clothing;
 
     @Column
+    private String place;
+
+    @Column
     @CreatedDate
     private LocalDateTime createdAt;
 
