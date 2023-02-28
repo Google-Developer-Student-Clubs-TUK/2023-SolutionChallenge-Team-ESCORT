@@ -65,7 +65,7 @@ public class ProtegeServiceImpl implements ProtegeService {
     public void protegeCloth(ProtegeClothRequestDTO protegeClothRequestDTO, Integer id) throws Exception {
         Optional<Protege> updateProtege = protegeRepository.findById(id);
 
-        updaterotege.ifPresent(selectProtege -> {
+        updateProtege.ifPresent(selectProtege -> {
             selectProtege.setClothing(protegeClothRequestDTO.getClothing());
 
             protegeRepository.save(selectProtege);
