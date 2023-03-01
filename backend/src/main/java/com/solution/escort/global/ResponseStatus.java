@@ -21,7 +21,10 @@ public enum ResponseStatus {
     // SOS 신고 응답 status
     POST_SOS_SUCCESS("SOS000", "노인 신고 생성 성공"),
     GET_SOS_SUCCESS("SOS001", "노인 신고 정보 가져오기 성공"),
-    DELETE_SOS_SUCCESS("SOS002", "노인 신고 삭제 성공");
+    DELETE_SOS_SUCCESS("SOS002", "노인 신고 삭제 성공"),
+
+    // Protector(보호자) Protege(노인) 응답 status
+    POST_PPCONNECTION_SUCCESS("PP000", "보호자 노인 등록 성공");
 
     private final String code;
     private final String message;

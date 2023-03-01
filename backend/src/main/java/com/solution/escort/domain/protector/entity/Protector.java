@@ -1,6 +1,7 @@
 package com.solution.escort.domain.protector.entity;
 
 import com.solution.escort.domain.PPConnection.entity.ProtectorProtege;
+import com.solution.escort.domain.protector.dto.response.ProtectorResponseDTO;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.annotations.DynamicInsert;
@@ -48,4 +49,14 @@ public class Protector {
     @OneToMany(mappedBy = "protector")
     private List<ProtectorProtege> proteges = new ArrayList<>();
 
+    public ProtectorResponseDTO toProtectorResponseDTO(Protector protector) {
+        return ProtectorResponseDTO.builder()
+                .id(protector.getId())
+                .email(protector.getEmail())
+                .name(protector.getName())
+                .phone(protector.getPhone())
+                .address(protector.getAddress())
+                .build();
+
+    }
 }

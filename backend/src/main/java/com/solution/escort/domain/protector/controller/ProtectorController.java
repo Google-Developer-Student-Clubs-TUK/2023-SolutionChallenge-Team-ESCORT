@@ -9,9 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/v1/protector")
@@ -32,5 +30,11 @@ public class ProtectorController {
     // 보호자 아이디에 연결되어있는 노인들의 정보를 가져오는 API
 
 
-    //
+    // 보호자 정보 가져오는 API
+    @GetMapping("/{id}")
+    public ResponseEntity<ResponseFormat<ProtectorResponseDTO>> getProtectorById(@PathVariable Integer id) throws Exception {
+        ProtectorResponseDTO protector = protectorService.getProtectorById(id);
+        ResponseFormat<ProtectorResponseDTO> responseFormat = new ResponseFormat<>(ResponseStatus.GET_PROTECTOR_SUCCESS, protector);
+        return ResponseEntity.status(HttpStatus.OK).body(responseFormat);
+    }
 }

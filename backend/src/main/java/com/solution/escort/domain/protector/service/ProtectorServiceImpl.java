@@ -1,8 +1,10 @@
 package com.solution.escort.domain.protector.service;
 
 import com.solution.escort.domain.protector.dto.request.ProtectorRequestDTO;
+import com.solution.escort.domain.protector.dto.response.ProtectorResponseDTO;
 import com.solution.escort.domain.protector.entity.Protector;
 import com.solution.escort.domain.protector.repository.ProtectorRepository;
+import com.solution.escort.domain.protege.dto.response.ProtegeResponseDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,5 +31,11 @@ public class ProtectorServiceImpl implements ProtectorService {
 
     // 보호자 노인 등록 API 관련 서비스
 
+    // 보호자 한명 정보 가져오는 API
+    @Override
+    public ProtectorResponseDTO getProtectorById(Integer id) throws Exception {
+        Protector protector = protectorRepository.findById(id).get();
+        return protector.toProtectorResponseDTO(protector);
+    }
 
 }
