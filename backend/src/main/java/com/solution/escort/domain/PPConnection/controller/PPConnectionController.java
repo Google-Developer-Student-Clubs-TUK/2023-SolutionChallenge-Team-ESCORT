@@ -23,7 +23,7 @@ public class PPConnectionController {
     @PostMapping
     public ResponseEntity<ResponseFormat<PPConnectionRequestDTO>> ppConnection(PPConnectionRequestDTO dto) throws Exception {
         ppConnectionService.ppConnection(dto);
-        ResponseFormat<PPConnectionRequestDTO> responseFormat = new ResponseFormat<>(ResponseStatus.PUT_PROTEGE_SUCCESS);
+        ResponseFormat<PPConnectionRequestDTO> responseFormat = new ResponseFormat<>(ResponseStatus.POST_PPCONNECTION_SUCCESS);
         return ResponseEntity.status(HttpStatus.CREATED).body(responseFormat);
     }
 }
