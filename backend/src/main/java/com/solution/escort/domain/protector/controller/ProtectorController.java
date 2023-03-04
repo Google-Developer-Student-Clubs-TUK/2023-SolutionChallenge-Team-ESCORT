@@ -27,8 +27,6 @@ public class ProtectorController {
 
     }
 
-    // 보호자 아이디에 연결되어있는 노인들의 정보를 가져오는 API
-
 
     // 보호자 정보 가져오는 API
     @GetMapping("/{id}")
