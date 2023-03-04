@@ -1,5 +1,6 @@
 package com.solution.escort.domain.protege.entity;
 
+import com.solution.escort.domain.PPConnection.dto.response.PgeResponseDTO;
 import com.solution.escort.domain.PPConnection.entity.ProtectorProtege;
 import com.solution.escort.domain.protege.dto.response.ProtegeResponseDTO;
 import lombok.*;
@@ -73,6 +74,19 @@ public class Protege {
                 .id(protege.getId())
                 .email(protege.getEmail())
 //                .password(protege.getPassword())
+                .name(protege.getName())
+                .characteristic(protege.getCharacteristic())
+                .bloodType(protege.getBloodType())
+                .phone(protege.getPhone())
+                .address(protege.getAddress())
+                .safeZones(safeZones)
+                .build();
+    }
+
+    public PgeResponseDTO toPgResponseDTO(Protege protege, List<String> safeZones) {
+        return PgeResponseDTO.builder()
+                .id(protege.getId())
+                .email(protege.getEmail())
                 .name(protege.getName())
                 .characteristic(protege.getCharacteristic())
                 .bloodType(protege.getBloodType())

@@ -1,4 +1,4 @@
-package com.solution.escort.domain.protege.dto.response;
+package com.solution.escort.domain.PPConnection.dto.response;
 
 import com.solution.escort.domain.protege.entity.Protege;
 import lombok.*;
@@ -14,7 +14,8 @@ import java.util.List;
 @Setter
 @Slf4j
 @NoArgsConstructor
-public class ProtegeResponseDTO {
+public class PgeResponseDTO {
+    // 보호자 -> 노인 정보 가져오기
     private Integer id;
     private String email;
     private String name;
@@ -23,9 +24,7 @@ public class ProtegeResponseDTO {
     private String bloodType;
     private String phone;
     private String address;
-    private LocalDateTime createdAt;
     // 옷차림 수정에서 필요할 시 가져올 예정
     //private String clothing;
     private List<String> safeZones;
-
 }
