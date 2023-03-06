@@ -12,4 +12,6 @@ public interface PPConnectionService {
 
     // 보호자 -> 등록된 노인 리스트와 가져오는 API
     public List<PgeResponseDTO> getProtegeByProtectorId(Integer protectorId) throws Exception;
+
+
 }
