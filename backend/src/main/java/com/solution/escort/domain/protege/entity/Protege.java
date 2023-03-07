@@ -47,16 +47,10 @@ public class Protege {
     private String bloodType;
 
     @Column
-    private String address;
-
-    @Column
     private String phone;
 
     @Column
     private String clothing;
-
-    @Column
-    private String place;
 
     @Column
     @CreatedDate
@@ -78,7 +72,6 @@ public class Protege {
                 .characteristic(protege.getCharacteristic())
                 .bloodType(protege.getBloodType())
                 .phone(protege.getPhone())
-                .address(protege.getAddress())
                 .safeZones(safeZones)
                 .build();
     }
@@ -91,7 +84,6 @@ public class Protege {
                 .characteristic(protege.getCharacteristic())
                 .bloodType(protege.getBloodType())
                 .phone(protege.getPhone())
-                .address(protege.getAddress())
                 .safeZones(safeZones)
                 .build();
     }

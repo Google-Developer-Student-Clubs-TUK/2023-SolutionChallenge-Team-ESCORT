@@ -28,6 +28,7 @@ public class SafeZone {
     @Column
     private String safeAddress;
 
+
     @Column
     @CreatedDate
     private LocalDateTime createdAt;
