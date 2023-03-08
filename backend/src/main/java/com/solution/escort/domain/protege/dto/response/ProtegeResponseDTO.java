@@ -28,5 +28,6 @@ public class ProtegeResponseDTO {
     private List<String> safeZones;
     private String countryCode;
     private String deviceToken;
+    private int scope;
 
 }

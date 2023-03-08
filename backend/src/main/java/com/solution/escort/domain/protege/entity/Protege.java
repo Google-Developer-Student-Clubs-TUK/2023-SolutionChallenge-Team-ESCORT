@@ -63,12 +63,17 @@ public class Protege {
     @ColumnDefault("82")
     private String countryCode;
 
+    @Column
+    private int scope;
+
     @OneToMany(mappedBy = "protege")
     private List<ProtectorProtege> protectors = new ArrayList<>();
 
 //    @OneToOne(fetch = FetchType.LAZY) // 프로필사진 1:1 매핑
 //    @JoinColumn(name = "profileImage_id")
 //    private ProfileImage profileImageId;
+
+    //boolean값으로 상태 추가
 
     public ProtegeResponseDTO toProtegeResponseDTO(Protege protege, List<String> safeZones) {
         return ProtegeResponseDTO.builder()
@@ -81,6 +86,7 @@ public class Protege {
                 .safeZones(safeZones)
                 .deviceToken(protege.getDeviceToken())
                 .countryCode(protege.getCountryCode())
+                .scope(protege.getScope())
                 .build();
     }
 
