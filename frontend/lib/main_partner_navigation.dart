@@ -49,7 +49,7 @@ class _MainPartnerState extends State<MainPartner> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 47.0),
+                  padding: const EdgeInsets.only(left: 45),
                   child: IconButton(
                       onPressed: () => {}, icon: Icon(Icons.notifications)),
                 )
