@@ -16,6 +16,7 @@ public class ProtectorRequestDTO {
     private String name;
     private String phone;
     private String address;
+    private String deviceToken;
 
     public Protector toProtectorEntity(ProtectorRequestDTO protectorRequestDTO){
         return Protector.builder()
@@ -24,6 +25,7 @@ public class ProtectorRequestDTO {
                 .name(protectorRequestDTO.getName())
                 .phone(protectorRequestDTO.getPhone())
                 .address(protectorRequestDTO.getAddress())
+                .deviceToken(protectorRequestDTO.getDeviceToken())
                 .build();
     }
 }

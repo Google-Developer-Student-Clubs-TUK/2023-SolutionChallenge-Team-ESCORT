@@ -17,5 +17,7 @@ public class ProtectorResponseDTO {
     private String name;
     private String phone;
     private String address;
+    private String countryCode;
+    private String deviceToken;
 
 }

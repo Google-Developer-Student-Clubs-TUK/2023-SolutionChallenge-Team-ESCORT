@@ -21,6 +21,7 @@ public class ProtegeRequestDTO {
     private String characteristic;
     private String bloodType;
     private String phone;
+    private String deviceToken;
 
     private List<SafeZone> safeZoneAddress;
 
@@ -32,6 +33,7 @@ public class ProtegeRequestDTO {
                 .characteristic(protegeRequestDTO.getCharacteristic())
                 .bloodType(protegeRequestDTO.getBloodType())
                 .phone(protegeRequestDTO.getPhone())
+                .deviceToken(protegeRequestDTO.getDeviceToken())
                 .build();
     }
 }

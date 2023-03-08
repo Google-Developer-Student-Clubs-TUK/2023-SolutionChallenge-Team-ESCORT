@@ -26,5 +26,7 @@ public class ProtegeResponseDTO {
     // 옷차림 수정에서 필요할 시 가져올 예정
     //private String clothing;
     private List<String> safeZones;
+    private String countryCode;
+    private String deviceToken;
 
 }
