@@ -4,6 +4,7 @@ import com.solution.escort.domain.PPConnection.entity.ProtectorProtege;
 import com.solution.escort.domain.protector.dto.response.ProtectorResponseDTO;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -46,6 +47,13 @@ public class Protector {
     @CreatedDate
     private LocalDateTime createdAt;
 
+    @Column
+    private String deviceToken;
+
+    @ColumnDefault("82")
+    private String countryCode;
+
+
     @OneToMany(mappedBy = "protector")
     private List<ProtectorProtege> proteges = new ArrayList<>();
 
@@ -56,6 +64,8 @@ public class Protector {
                 .name(protector.getName())
                 .phone(protector.getPhone())
                 .address(protector.getAddress())
+                .deviceToken(protector.getDeviceToken())
+                .countryCode(protector.getCountryCode())
                 .build();
 
     }

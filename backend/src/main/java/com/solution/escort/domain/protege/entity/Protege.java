@@ -5,6 +5,7 @@ import com.solution.escort.domain.PPConnection.entity.ProtectorProtege;
 import com.solution.escort.domain.protege.dto.response.ProtegeResponseDTO;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -47,20 +48,23 @@ public class Protege {
     private String bloodType;
 
     @Column
-    private String address;
-
-    @Column
     private String phone;
 
     @Column
     private String clothing;
 
     @Column
-    private String place;
-
-    @Column
     @CreatedDate
     private LocalDateTime createdAt;
+
+    @Column
+    private String deviceToken;
+
+    @ColumnDefault("82")
+    private String countryCode;
+
+    @Column
+    private int scope;
 
     @OneToMany(mappedBy = "protege")
     private List<ProtectorProtege> protectors = new ArrayList<>();
@@ -69,17 +73,20 @@ public class Protege {
 //    @JoinColumn(name = "profileImage_id")
 //    private ProfileImage profileImageId;
 
+    //boolean값으로 상태 추가
+
     public ProtegeResponseDTO toProtegeResponseDTO(Protege protege, List<String> safeZones) {
         return ProtegeResponseDTO.builder()
                 .id(protege.getId())
                 .email(protege.getEmail())
-//                .password(protege.getPassword())
                 .name(protege.getName())
                 .characteristic(protege.getCharacteristic())
                 .bloodType(protege.getBloodType())
                 .phone(protege.getPhone())
-                .address(protege.getAddress())
                 .safeZones(safeZones)
+                .deviceToken(protege.getDeviceToken())
+                .countryCode(protege.getCountryCode())
+                .scope(protege.getScope())
                 .build();
     }
 
@@ -91,7 +98,6 @@ public class Protege {
                 .characteristic(protege.getCharacteristic())
                 .bloodType(protege.getBloodType())
                 .phone(protege.getPhone())
-                .address(protege.getAddress())
                 .safeZones(safeZones)
                 .build();
     }

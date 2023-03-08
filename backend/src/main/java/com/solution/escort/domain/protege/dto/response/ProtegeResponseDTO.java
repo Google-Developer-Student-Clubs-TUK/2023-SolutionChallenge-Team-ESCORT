@@ -22,10 +22,12 @@ public class ProtegeResponseDTO {
     private String characteristic;
     private String bloodType;
     private String phone;
-    private String address;
     private LocalDateTime createdAt;
     // 옷차림 수정에서 필요할 시 가져올 예정
     //private String clothing;
     private List<String> safeZones;
+    private String countryCode;
+    private String deviceToken;
+    private int scope;
 
 }
