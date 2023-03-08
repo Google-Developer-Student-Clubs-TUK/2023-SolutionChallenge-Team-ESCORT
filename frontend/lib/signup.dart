@@ -1,11 +1,15 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'firebase_auth.dart';
+import 'auth_controller.dart';
 
-enum Dimentia { yes, no }
+enum Dementia { yes, no }
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -15,35 +19,47 @@ class SignUp extends StatefulWidget {
 }
 
 class SignUp2 extends StatefulWidget {
-  const SignUp2({super.key});
+  final Dementia dementia;
+
+  const SignUp2({
+    Key? key,
+    required this.dementia,
+  }) : super(key: key);
 
   @override
   State<SignUp2> createState() => _SignUpState2();
 }
 
 class SignUp3 extends StatefulWidget {
-  const SignUp3({super.key});
+  const SignUp3({
+    super.key,
+  });
 
   @override
   State<SignUp3> createState() => _SignUpState3();
 }
 
 class SignUp4 extends StatefulWidget {
-  const SignUp4({super.key});
+  const SignUp4({
+    super.key,
+  });
 
   @override
   State<SignUp4> createState() => _SignUpState4();
 }
 
 class SignUp5 extends StatefulWidget {
-  const SignUp5({super.key});
+  const SignUp5({
+    super.key,
+  });
 
   @override
   State<SignUp5> createState() => _SignUpState5();
 }
 
 class _SignUpState extends State<SignUp> {
-  Dimentia _dimentia = Dimentia.yes;
+  Dementia _dementia = Dementia.yes;
+  final AuthController authController = Get.put(AuthController());
 
   @override
   Widget build(BuildContext context) {
@@ -91,11 +107,14 @@ class _SignUpState extends State<SignUp> {
             RadioListTile(
                 activeColor: Color.fromRGBO(16, 64, 59, 10),
                 title: Text("Yes, But I'm good"),
-                value: Dimentia.yes,
-                groupValue: _dimentia,
+                value: Dementia.yes,
+                groupValue: _dementia,
                 onChanged: (value) {
                   setState(() {
-                    _dimentia = value!;
+                    authController.setDementia(value.toString());
+                    print(authController.dementia);
+
+                    _dementia = value!;
                   });
                 }),
             Padding(
@@ -106,11 +125,13 @@ class _SignUpState extends State<SignUp> {
             RadioListTile(
                 activeColor: Color.fromRGBO(16, 64, 59, 10),
                 title: Text("No, I'm good"),
-                value: Dimentia.no,
-                groupValue: _dimentia,
+                value: Dementia.no,
+                groupValue: _dementia,
                 onChanged: (value) {
                   setState(() {
-                    _dimentia = value!;
+                    authController.setDementia(value.toString());
+                    print(authController.dementia);
+                    _dementia = value!;
                   });
                 })
           ],
@@ -122,7 +143,10 @@ class _SignUpState extends State<SignUp> {
             child: ElevatedButton(
               onPressed: () => {
                 Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => SignUp2()))
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SignUp2(dementia: _dementia),
+                    ))
               },
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
@@ -139,6 +163,8 @@ class _SignUpState extends State<SignUp> {
 }
 
 class _SignUpState2 extends State<SignUp2> {
+  final AuthController authController = Get.put(AuthController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -208,6 +234,11 @@ class _SignUpState2 extends State<SignUp2> {
                     ),
                   ),
                 ),
+                onChanged: (text) {
+                  setState(() {
+                    authController.setName(text);
+                  });
+                },
               ),
             ),
             Padding(
@@ -232,6 +263,11 @@ class _SignUpState2 extends State<SignUp2> {
                     ),
                   ),
                 ),
+                onChanged: (text) {
+                  setState(() {
+                    authController.setBirth(text);
+                  });
+                },
               ),
             ),
             Padding(
@@ -256,6 +292,11 @@ class _SignUpState2 extends State<SignUp2> {
                     ),
                   ),
                 ),
+                onChanged: (text) {
+                  setState(() {
+                    authController.setPhoneNumber(text);
+                  });
+                },
               ),
             ),
           ],
@@ -284,6 +325,8 @@ class _SignUpState2 extends State<SignUp2> {
 }
 
 class _SignUpState3 extends State<SignUp3> {
+  final AuthController authController = Get.put(AuthController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -349,6 +392,11 @@ class _SignUpState3 extends State<SignUp3> {
                     ),
                   ),
                 ),
+                onChanged: (text) {
+                  setState(() {
+                    authController.setEmail(text);
+                  });
+                },
               ),
             ),
             Padding(
@@ -373,6 +421,11 @@ class _SignUpState3 extends State<SignUp3> {
                     ),
                   ),
                 ),
+                onChanged: (text) {
+                  setState(() {
+                    authController.setPassword(text);
+                  });
+                },
               ),
             ),
             Padding(
@@ -425,6 +478,7 @@ class _SignUpState3 extends State<SignUp3> {
 }
 
 class _SignUpState4 extends State<SignUp4> {
+  final AuthController authController = Get.put(AuthController());
   XFile? _pickedFile;
   @override
   Widget build(BuildContext context) {
@@ -521,7 +575,8 @@ class _SignUpState4 extends State<SignUp4> {
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       image: DecorationImage(
-                          image: FileImage(File(_pickedFile!.path)),
+                          image:
+                              FileImage(authController.getImageFile() as File),
                           fit: BoxFit.cover),
                     ),
                     child: Padding(
@@ -560,6 +615,8 @@ class _SignUpState4 extends State<SignUp4> {
                       ),
                     ),
                   ),
+                  onChanged: (value) =>
+                      {authController.setCharacteristics(value)},
                 ),
               ),
               Padding(
@@ -585,6 +642,7 @@ class _SignUpState4 extends State<SignUp4> {
                       ),
                     ),
                   ),
+                  onChanged: (value) => {authController.setBlood(value)},
                 ),
               ),
             ],
@@ -659,6 +717,7 @@ class _SignUpState4 extends State<SignUp4> {
     if (pickedFile != null) {
       setState(() {
         _pickedFile = pickedFile;
+        authController.saveImage(File(pickedFile.path));
       });
     } else {
       if (kDebugMode) {
@@ -673,6 +732,8 @@ class _SignUpState4 extends State<SignUp4> {
     if (pickedFile != null) {
       setState(() {
         _pickedFile = _pickedFile;
+        authController.saveImage(File(pickedFile.path));
+        print(authController.imagePath.value);
       });
     } else {
       if (kDebugMode) {
@@ -683,6 +744,8 @@ class _SignUpState4 extends State<SignUp4> {
 }
 
 class _SignUpState5 extends State<SignUp5> {
+  final AuthController authController = Get.put(AuthController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -757,6 +820,7 @@ class _SignUpState5 extends State<SignUp5> {
                       ),
                     ),
                   ),
+                  onChanged: (value) => {authController.setRegidence(value)},
                 ),
               ),
               Padding(
@@ -782,6 +846,7 @@ class _SignUpState5 extends State<SignUp5> {
                       ),
                     ),
                   ),
+                  onChanged: (value) => {authController.setPlace(value)},
                 ),
               ),
               Padding(
@@ -807,6 +872,7 @@ class _SignUpState5 extends State<SignUp5> {
                       ),
                     ),
                   ),
+                  onChanged: (value) => {authController.setSafezone(value)},
                 ),
               ),
             ],
@@ -817,7 +883,22 @@ class _SignUpState5 extends State<SignUp5> {
           child: SizedBox(
             height: 50,
             child: ElevatedButton(
-              onPressed: () => {},
+              onPressed: () => {
+                firebaseAuth(
+                  authController.email.toString(),
+                  authController.password.toString(),
+                  authController.name.toString(),
+                  authController.birth.toString(),
+                  authController.phoneNumber.toString(),
+                  authController.dementia.toString(),
+                  authController.characteristics.toString(),
+                  authController.blood.toString(),
+                  authController.regidence.toString(),
+                  authController.place.toString(),
+                  authController.safezone.toString(),
+                  authController.imagePath.toString(),
+                ),
+              },
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(50.0),

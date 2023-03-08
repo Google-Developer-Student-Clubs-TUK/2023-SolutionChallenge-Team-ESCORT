@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "692960316042",
+    "project_id": "escort-8572e",
+    "storage_bucket": "escort-8572e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:692960316042:android:531799311f229d50003b73",
+        "android_client_info": {
+          "package_name": "com.example.escort"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "692960316042-ur8tp97s0ros4ofvc4m8go09mj942tgr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDB0ABVA69CcmC6uDE2JXYokDy9FpIH7nk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "692960316042-ur8tp97s0ros4ofvc4m8go09mj942tgr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

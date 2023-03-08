@@ -1,12 +1,129 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:escort/main_dementia.dart';
+import 'package:escort/main_partner_navigation.dart';
 import 'package:escort/reset_password.dart';
+import 'package:escort/userinfo_controller.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+
+class UserInfo {
+  final String imagePath;
+  final String emailAddress;
+  final String place;
+  final String safezone;
+  final String name;
+  final String characteristics;
+  final String birth;
+  final String residence;
+  final String blood;
+  final String password;
+  final String phoneNumber;
+  final bool dementia;
+
+  UserInfo({
+    required this.imagePath,
+    required this.emailAddress,
+    required this.place,
+    required this.safezone,
+    required this.name,
+    required this.characteristics,
+    required this.birth,
+    required this.residence,
+    required this.blood,
+    required this.password,
+    required this.phoneNumber,
+    required this.dementia,
+  });
+
+  factory UserInfo.fromMap(Map<String, dynamic> map) {
+    return UserInfo(
+      imagePath: map['imagePath'] ?? '',
+      emailAddress: map['emailAddress'] ?? '',
+      place: map['place'] ?? '',
+      safezone: map['safezone'] ?? '',
+      name: map['name'] ?? '',
+      characteristics: map['characteristics'] ?? '',
+      birth: map['birth'] ?? '',
+      residence: map['residence'] ?? '',
+      blood: map['blood'] ?? '',
+      password: map['password'] ?? '',
+      phoneNumber: map['phoneNumber'] ?? '',
+      dementia: map['dementia'] ?? '',
+    );
+  }
+}
 
 class SignIn extends StatelessWidget {
-  const SignIn({super.key});
+  final UserInfoController userinfocontroller = Get.put(UserInfoController());
+
+  SignIn({super.key});
+
+  Future<void> firebaseLogin(id, password, BuildContext context) async {
+    print(id);
+    print(password);
+
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: id, password: password)
+          //아이디와 비밀번호로 로그인 시도
+          .then((value) async {
+        User? user = FirebaseAuth.instance.currentUser;
+        if (user != null) {
+          DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
+              .collection('users')
+              .doc(user.uid)
+              .get();
+
+          final data = documentSnapshot.data() as Map<String, dynamic>;
+
+          userinfocontroller.setEmail(data['emailAddress']);
+          userinfocontroller.setPassword(data['password']);
+          userinfocontroller.setName(data['name']);
+          userinfocontroller.setBirth(data['birth']);
+          userinfocontroller.setPhoneNumber(data['phoneNumber']);
+          userinfocontroller.setDementia(data['dementia']);
+          userinfocontroller.setCharacteristics(data['characteristics']);
+          userinfocontroller.setBlood(data['blood']);
+          userinfocontroller.setRegidence(data['regidence']);
+          userinfocontroller.setPlace(data['place']);
+          userinfocontroller.setSafezone(data['safezone']);
+
+          print(data['dementia']);
+          if (data['dementia'] == "Dementia.yes") {
+            print("this is dementia page");
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => MainDementia()));
+          } else {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => MainPartner()));
+          }
+        } else {
+          print("fail");
+        }
+
+        print(value);
+        return value;
+      });
+    } on FirebaseAuthException catch (e) {
+      //로그인 예외처리
+      if (e.code == 'user-not-found') {
+        print('등록되지 않은 이메일입니다');
+      } else if (e.code == 'wrong-password') {
+        print('비밀번호가 틀렸습니다');
+      } else {
+        print(e.code);
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    String id = '';
+    String password = '';
+
     return Scaffold(
         appBar: AppBar(
           iconTheme: IconThemeData(
@@ -61,6 +178,7 @@ class SignIn extends StatelessWidget {
                     ),
                   ),
                 ),
+                onChanged: (value) => {id = value},
               ),
             ),
             Padding(
@@ -85,6 +203,7 @@ class SignIn extends StatelessWidget {
                     ),
                   ),
                 ),
+                onChanged: (value) => {password = value},
               ),
             ),
             Padding(
@@ -109,7 +228,7 @@ class SignIn extends StatelessWidget {
           child: SizedBox(
             height: 50,
             child: ElevatedButton(
-              onPressed: () => {},
+              onPressed: () => {firebaseLogin(id, password, context)},
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(50.0),

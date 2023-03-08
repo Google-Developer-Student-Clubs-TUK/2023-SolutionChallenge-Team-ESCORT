@@ -1,3 +1,5 @@
 AppDelegate.swift
 .DS_Store
 Runner/
+firebase_options.dart
+firebase_app_id_file.json

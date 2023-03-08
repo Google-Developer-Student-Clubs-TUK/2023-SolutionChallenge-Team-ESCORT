@@ -1,14 +1,20 @@
-import 'package:escort/main_dementia.dart';
-import 'package:escort/main_partner_navigation.dart';
-import 'package:escort/onboarding_page.dart';
-import 'package:escort/signup.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-import 'SignIn.dart';
+import 'package:escort/onboarding_page.dart';
+import 'package:escort/signup.dart';
 
-void main() {
-  runApp(const MaterialApp(home: MainPartner()));
+import 'SignIn.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  runApp(const GetMaterialApp(home: MyApp()));
 }
 
 class MyApp extends StatefulWidget {
