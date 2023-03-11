@@ -2,9 +2,8 @@ package com.solution.escort.domain.PPConnection.controller;
 
 import com.solution.escort.domain.PPConnection.dto.request.PPConnectionRequestDTO;
 import com.solution.escort.domain.PPConnection.dto.response.PgeResponseDTO;
+import com.solution.escort.domain.PPConnection.dto.response.PtorResponseDTO;
 import com.solution.escort.domain.PPConnection.service.PPConnectionService;
-import com.solution.escort.domain.protege.dto.response.ProtegeResponseDTO;
-import com.solution.escort.domain.protege.entity.Protege;
 import com.solution.escort.global.ResponseFormat;
 import com.solution.escort.global.ResponseStatus;
 import lombok.extern.slf4j.Slf4j;
@@ -40,5 +39,11 @@ public class PPConnectionController {
     }
 
     // 노인 -> 등록된 보호자 리스트 가져오는 API
+    @GetMapping("/protege/{protegeId}")
+    public ResponseEntity<ResponseFormat<List<PtorResponseDTO>>> getPtorResponseId(@PathVariable Integer protegeId) throws Exception {
+        List<PtorResponseDTO> ptorResponseDTO = ppConnectionService.getProtectorByProtegeId(protegeId);
+        ResponseFormat<List<PtorResponseDTO>> responseFormat = new ResponseFormat<>(ResponseStatus.GET_PROTEGE_SUCCESS, ptorResponseDTO);
+        return ResponseEntity.status(HttpStatus.OK).body(responseFormat);
+    }
 
 }
