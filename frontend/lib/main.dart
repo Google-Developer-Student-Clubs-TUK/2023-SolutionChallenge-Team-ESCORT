@@ -12,6 +12,7 @@ import 'firebase_options.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
+    name: 'escort',
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(const GetMaterialApp(home: MyApp()));
