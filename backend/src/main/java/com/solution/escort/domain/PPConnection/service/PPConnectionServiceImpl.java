@@ -52,25 +52,15 @@ public class PPConnectionServiceImpl implements PPConnectionService{
     public List<PgeResponseDTO> getProtegeByProtectorId(Integer protectorId) throws Exception {
         Protege proteges = new Protege();
         List<Integer> strProteges = ppConnectionRepository.findProtegeIdByOrderByProtectorIdDesc(protectorId);
-        //log.info(strProteges.toString());
-        //Protege protesAll = new Protege();
-        //Protege protegeEntity = new Protege();
         List<PgeResponseDTO> protesAll = new ArrayList<>();
         for (Integer protegeEle: strProteges) {
-            log.info(String.valueOf(protegeEle));
-            //여기서 오류남
-            proteges = ppConnectionRepository.findAllByOrderByProtegeIdDesc(protegeEle);
-            log.info(String.valueOf(proteges));
-
+            proteges = protegeRepository.findById(protegeEle).get();
             List<String> safeZones = new ArrayList<>();
             List<String> strSafeZones = safeZoneRepository.findSafeZonesByProtegeId(protegeEle);
             safeZones.addAll(strSafeZones);
-            //proteges.add(protesAll);
 
             protesAll.add(proteges.toPgResponseDTO(proteges,safeZones));
-            //protesAll.setProteges(proteges);
         }
-        log.info(String.valueOf(protesAll));
 
         return protesAll;
 
