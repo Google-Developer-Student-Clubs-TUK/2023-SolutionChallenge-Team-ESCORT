@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "692960316042",
+    "firebase_url": "https://escort-8572e-default-rtdb.asia-southeast1.firebasedatabase.app",
     "project_id": "escort-8572e",
     "storage_bucket": "escort-8572e.appspot.com"
   },
@@ -29,6 +30,13 @@
             {
               "client_id": "692960316042-ur8tp97s0ros4ofvc4m8go09mj942tgr.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "692960316042-m5ilhjcs4r5e8es4kcrptsjjmt66aebp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.escort"
+              }
             }
           ]
         }

@@ -45,12 +45,13 @@ dependencies:
   get: ^4.6.5
   path_provider: ^2.0.12
   firebase_auth: ^4.2.2
-  firebase_core: ^2.7.0
+  firebase_core: ^2.7.1
   cloud_firestore: ^4.4.3
   flutter_qr_code: ^0.0.2+2
   qr_flutter: ^4.0.0
-  qr_code_scanner: ^1.0.1
   qrscan: ^0.3.3
+  firebase_database: ^10.0.15
+  qr_code_scanner: ^1.0.1
 
 dev_dependencies:
   flutter_test:
