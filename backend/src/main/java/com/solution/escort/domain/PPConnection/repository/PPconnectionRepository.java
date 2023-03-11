@@ -15,6 +15,8 @@ public interface PPconnectionRepository extends JpaRepository<ProtectorProtege, 
     @Query(value = "select protege_id from protector_protege where protector_id= (:protectorId)", nativeQuery = true)
     public List<Integer> findProtegeIdByOrderByProtectorIdDesc(@Param("protectorId") Integer protector_id);
 
-    @Query(value = "select * from protege where id = (:protegeId)", nativeQuery = true)
-    public Protege findAllByOrderByProtegeIdDesc(@Param("protegeId") Integer protege_id);
+    @Query(value = "select protector_id from protector_protege where protege_id= (:protegeId)", nativeQuery = true)
+    public List<Integer> findProtectorIdByOrderByProtegeIdDesc(@Param("protegeId") Integer protege_id);
+
+
 }

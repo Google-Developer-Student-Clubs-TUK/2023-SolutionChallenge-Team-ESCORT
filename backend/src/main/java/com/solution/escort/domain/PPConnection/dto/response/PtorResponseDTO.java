@@ -13,5 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 public class PtorResponseDTO {
     // 노인 -> 보호자 정보 가져오기
-    private List Protectors;
+    private Integer id;
+    private String name;
+    private String phone;
 }

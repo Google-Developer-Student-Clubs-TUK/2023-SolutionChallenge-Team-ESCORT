@@ -66,6 +66,9 @@ public class Protege {
     @Column
     private int scope;
 
+    @Column
+    private boolean state = true;
+
     @OneToMany(mappedBy = "protege")
     private List<ProtectorProtege> protectors = new ArrayList<>();
 

@@ -2,12 +2,12 @@ package com.solution.escort.domain.PPConnection.service;
 
 import com.solution.escort.domain.PPConnection.dto.request.PPConnectionRequestDTO;
 import com.solution.escort.domain.PPConnection.dto.response.PgeResponseDTO;
+import com.solution.escort.domain.PPConnection.dto.response.PtorResponseDTO;
 import com.solution.escort.domain.PPConnection.entity.ProtectorProtege;
 import com.solution.escort.domain.PPConnection.repository.PPconnectionRepository;
+import com.solution.escort.domain.protector.entity.Protector;
 import com.solution.escort.domain.protector.repository.ProtectorRepository;
-import com.solution.escort.domain.protege.dto.response.ProtegeResponseDTO;
 import com.solution.escort.domain.protege.entity.Protege;
-import com.solution.escort.domain.protege.entity.SafeZone;
 import com.solution.escort.domain.protege.repository.ProtegeRepository;
 import com.solution.escort.domain.protege.repository.SafeZoneRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -52,28 +52,33 @@ public class PPConnectionServiceImpl implements PPConnectionService{
     public List<PgeResponseDTO> getProtegeByProtectorId(Integer protectorId) throws Exception {
         Protege proteges = new Protege();
         List<Integer> strProteges = ppConnectionRepository.findProtegeIdByOrderByProtectorIdDesc(protectorId);
-        //log.info(strProteges.toString());
-        //Protege protesAll = new Protege();
-        //Protege protegeEntity = new Protege();
-        List<PgeResponseDTO> protesAll = new ArrayList<>();
+        List<PgeResponseDTO> protegesAll = new ArrayList<>();
         for (Integer protegeEle: strProteges) {
-            log.info(String.valueOf(protegeEle));
-            //여기서 오류남
-            proteges = ppConnectionRepository.findAllByOrderByProtegeIdDesc(protegeEle);
-            log.info(String.valueOf(proteges));
-
+            proteges = protegeRepository.findById(protegeEle).get();
             List<String> safeZones = new ArrayList<>();
             List<String> strSafeZones = safeZoneRepository.findSafeZonesByProtegeId(protegeEle);
             safeZones.addAll(strSafeZones);
-            //proteges.add(protesAll);
 
-            protesAll.add(proteges.toPgResponseDTO(proteges,safeZones));
-            //protesAll.setProteges(proteges);
+            protegesAll.add(proteges.toPgResponseDTO(proteges,safeZones));
         }
-        log.info(String.valueOf(protesAll));
 
-        return protesAll;
+        return protegesAll;
 
+    }
+
+    // 노인 -> 등록한 보호자 리스트 가져오는 API
+    public List<PtorResponseDTO> getProtectorByProtegeId(Integer protegeId) throws Exception {
+        Protector protectors = new Protector();
+
+        List<Integer> strProtectors = ppConnectionRepository.findProtectorIdByOrderByProtegeIdDesc(protegeId);
+        List<PtorResponseDTO> protectorsAll = new ArrayList<>();
+
+        for(Integer protectorEle: strProtectors) {
+            protectors = protectorRepository.findById(protectorEle).get();
+
+            protectorsAll.add(protectors.toPtorResponseDTO(protectors));
+        }
+        return protectorsAll;
     }
 
 
