@@ -96,7 +96,7 @@ class AccountPage extends StatelessWidget {
       customBorder:
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       child: Ink(
-        color: Color(0xFFEEF0F0),
+        decoration: BoxDecoration(color: Color(0xFFEEF0F0), borderRadius: BorderRadius.circular(8)),
         child: Padding(
           padding: EdgeInsets.fromLTRB(24, 18, 24, 18),
           child: Row(
