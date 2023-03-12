@@ -39,13 +39,14 @@ public class Company {
     @JoinColumn(name = "protector_id")
     private Protector protector;
 
-    public CompanyResponseDTO toCompanyResponseDTO (Company company) {
+    public CompanyResponseDTO toCompanyResponseDTO (Company company, List<URL> images) {
         return CompanyResponseDTO.builder()
                 .id(company.getId())
                 .address(company.getAddress())
                 .title(company.getTitle())
                 .description(company.getDescription())
                 .protector(company.protector)
+                .images(images)
                 .build();
     }
 

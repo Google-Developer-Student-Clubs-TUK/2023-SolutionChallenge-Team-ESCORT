@@ -6,6 +6,7 @@ import com.solution.escort.domain.company.entity.Company;
 import com.solution.escort.domain.company.entity.CompanyImage;
 import com.solution.escort.domain.company.repository.CompanyImageRepository;
 import com.solution.escort.domain.company.repository.CompanyRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Slf4j
 public class CompanyServiceImpl implements CompanyService{
 
     @Autowired
@@ -53,14 +55,24 @@ public class CompanyServiceImpl implements CompanyService{
     @Override
     public List<CompanyResponseDTO> getCompanyAll() throws Exception {
         List<Company> companyAll = companyRepository.findAll();
+        List<URL> images = new ArrayList<>();
+        
+
         return toCompanyResponse(companyAll);
     }
 
     public List<CompanyResponseDTO> toCompanyResponse(List<Company> companyAll) throws Exception {
         List<CompanyResponseDTO> companyResponseDTOList = new ArrayList<>();
         for(Company company : companyAll) {
-            companyResponseDTOList.add(company.toCompanyResponseDTO(company));
+            List<URL> images = new ArrayList<>();
+            List<String> strUrls = companyImageRepository.findImagesByCompanyId(company.getId());
+            for(String Urls: strUrls) {
+                URL url = new URL(Urls);
+                images.add(url);
+            }
+            companyResponseDTOList.add(company.toCompanyResponseDTO(company, images));
         }
+
         return companyResponseDTOList;
     }
 }

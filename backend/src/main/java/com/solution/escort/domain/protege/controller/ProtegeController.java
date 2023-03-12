@@ -38,8 +38,9 @@ public class ProtegeController {
             log.warn("파일이 존재하지 않습니다");
         }
         String url = gcpService.uploadFile(multipartFile);
-
+        dto.setCountryCode("82");
         protegeService.createProtege(dto, strings, url);
+
         ResponseFormat<ProtegeResponseDTO> responseFormat = new ResponseFormat<>(ResponseStatus.POST_PROTEGE_SUCCESS);
         return ResponseEntity.status(HttpStatus.CREATED).body(responseFormat);
     }

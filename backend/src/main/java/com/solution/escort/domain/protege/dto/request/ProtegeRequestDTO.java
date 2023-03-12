@@ -25,6 +25,7 @@ public class ProtegeRequestDTO {
     private String deviceToken;
     private int scope;
     private MultipartFile profileImage;
+    private String countryCode;
 
     private List<SafeZone> safeZoneAddress;
 
