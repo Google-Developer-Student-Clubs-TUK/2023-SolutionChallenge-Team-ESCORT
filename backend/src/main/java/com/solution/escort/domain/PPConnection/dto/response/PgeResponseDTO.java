@@ -22,7 +22,6 @@ public class PgeResponseDTO {
     private String characteristic;
     private String bloodType;
     private String phone;
-    private String address;
     private String imageUrl;
     private List<String> safeZones;
 }

@@ -34,7 +34,7 @@ public class PPConnectionController {
     public ResponseEntity<ResponseFormat<List<PgeResponseDTO>>> getPgeListByProtectorId(@PathVariable Integer protectorId) throws Exception {
 
         List<PgeResponseDTO> pgeResponseDTO = ppConnectionService.getProtegeByProtectorId(protectorId);
-        ResponseFormat<List<PgeResponseDTO>> responseFormat = new ResponseFormat<>(ResponseStatus.GET_PROTECTOR_SUCCESS, pgeResponseDTO);
+        ResponseFormat<List<PgeResponseDTO>> responseFormat = new ResponseFormat<>(ResponseStatus.GET_PROTEGE_SUCCESS, pgeResponseDTO);
         return ResponseEntity.status(HttpStatus.OK).body(responseFormat);
     }
 
@@ -42,7 +42,7 @@ public class PPConnectionController {
     @GetMapping("/protege/{protegeId}")
     public ResponseEntity<ResponseFormat<List<PtorResponseDTO>>> getPtorResponseId(@PathVariable Integer protegeId) throws Exception {
         List<PtorResponseDTO> ptorResponseDTO = ppConnectionService.getProtectorByProtegeId(protegeId);
-        ResponseFormat<List<PtorResponseDTO>> responseFormat = new ResponseFormat<>(ResponseStatus.GET_PROTEGE_SUCCESS, ptorResponseDTO);
+        ResponseFormat<List<PtorResponseDTO>> responseFormat = new ResponseFormat<>(ResponseStatus.GET_PROTECTOR_SUCCESS, ptorResponseDTO);
         return ResponseEntity.status(HttpStatus.OK).body(responseFormat);
     }
 

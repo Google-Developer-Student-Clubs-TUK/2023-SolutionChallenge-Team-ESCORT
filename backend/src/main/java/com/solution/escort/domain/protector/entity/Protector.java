@@ -4,7 +4,6 @@ import com.solution.escort.domain.PPConnection.dto.response.PgeResponseDTO;
 import com.solution.escort.domain.PPConnection.dto.response.PtorResponseDTO;
 import com.solution.escort.domain.PPConnection.entity.ProtectorProtege;
 import com.solution.escort.domain.protector.dto.response.ProtectorResponseDTO;
-import com.solution.escort.domain.protege.entity.Protege;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.annotations.ColumnDefault;

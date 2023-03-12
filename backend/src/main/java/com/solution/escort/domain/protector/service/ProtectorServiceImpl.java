@@ -25,8 +25,11 @@ public class ProtectorServiceImpl implements ProtectorService {
             throw new EntityExistsException();
         }
         Protector saveProtector = protectorRequestDTO.toProtectorEntity(protectorRequestDTO);
-        protectorRepository.save(saveProtector);
         saveProtector.setImageUrl(url);
+        protectorRepository.save(saveProtector);
+
+
+        //saveProtector.setImageUrl(url);
 
     }
 

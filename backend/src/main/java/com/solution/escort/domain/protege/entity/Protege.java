@@ -38,9 +38,6 @@ public class Protege {
     @Column
     private String password;
 
-//    @Column
-//    private String profileImageUrl;
-
     @Column
     private String characteristic;
 

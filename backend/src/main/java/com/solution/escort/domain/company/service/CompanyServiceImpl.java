@@ -56,7 +56,7 @@ public class CompanyServiceImpl implements CompanyService{
     public List<CompanyResponseDTO> getCompanyAll() throws Exception {
         List<Company> companyAll = companyRepository.findAll();
         List<URL> images = new ArrayList<>();
-        
+
 
         return toCompanyResponse(companyAll);
     }
