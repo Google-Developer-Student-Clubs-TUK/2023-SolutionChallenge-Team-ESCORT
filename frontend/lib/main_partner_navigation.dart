@@ -1,3 +1,4 @@
+import 'package:escort/main_account.dart';
 import 'package:escort/main_home.dart';
 import 'package:escort/main_registration.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,7 @@ class _MainPartnerState extends State<MainPartner> {
     MapSample(),
     RegistrationPage(),
     RegistrationPage(),
-    RegistrationPage()
+    AccountPage()
   ];
 
   void _onItemTapped(int index) {
