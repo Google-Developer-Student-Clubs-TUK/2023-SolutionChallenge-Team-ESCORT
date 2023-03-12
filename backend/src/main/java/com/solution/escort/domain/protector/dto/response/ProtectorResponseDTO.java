@@ -13,11 +13,11 @@ import lombok.extern.slf4j.Slf4j;
 public class ProtectorResponseDTO {
     private Integer id;
     private String email;
-    private String password;
     private String name;
     private String phone;
     private String address;
     private String countryCode;
     private String deviceToken;
+    private String imageUrl;
 
 }

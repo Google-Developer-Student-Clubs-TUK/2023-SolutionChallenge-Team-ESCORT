@@ -9,7 +9,7 @@ import java.util.List;
 
 @Service
 public interface CompanyService {
-    public void createCompany(CompanyRequestDTO companyRequestDTO) throws Exception;
+    public void createCompany(CompanyRequestDTO companyRequestDTO, List<String> urls) throws Exception;
 
     public CompanyResponseDTO getCompanyById(Integer id) throws Exception;
 

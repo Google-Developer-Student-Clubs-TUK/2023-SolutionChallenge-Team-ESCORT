@@ -4,7 +4,9 @@ import com.solution.escort.domain.protege.entity.Protege;
 import com.solution.escort.domain.protege.entity.SafeZone;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.Column;
 import java.util.List;
 
 @AllArgsConstructor
@@ -17,12 +19,13 @@ public class ProtegeRequestDTO {
     private String email;
     private String password;
     private String name;
-    //private String profileImageUrl;
     private String characteristic;
     private String bloodType;
     private String phone;
     private String deviceToken;
     private int scope;
+    private MultipartFile profileImage;
+    private String countryCode;
 
     private List<SafeZone> safeZoneAddress;
 

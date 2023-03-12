@@ -18,7 +18,6 @@ public class ProtegeResponseDTO {
     private Integer id;
     private String email;
     private String name;
-    //private String profileImageUrl;
     private String characteristic;
     private String bloodType;
     private String phone;
@@ -29,5 +28,6 @@ public class ProtegeResponseDTO {
     private String countryCode;
     private String deviceToken;
     private int scope;
+    private String imageUrl;
 
 }

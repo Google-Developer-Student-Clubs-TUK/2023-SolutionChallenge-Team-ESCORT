@@ -4,7 +4,6 @@ import com.solution.escort.domain.PPConnection.dto.response.PgeResponseDTO;
 import com.solution.escort.domain.PPConnection.dto.response.PtorResponseDTO;
 import com.solution.escort.domain.PPConnection.entity.ProtectorProtege;
 import com.solution.escort.domain.protector.dto.response.ProtectorResponseDTO;
-import com.solution.escort.domain.protege.entity.Protege;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.annotations.ColumnDefault;
@@ -56,6 +55,9 @@ public class Protector {
     @ColumnDefault("82")
     private String countryCode;
 
+    @Column
+    private String imageUrl;
+
 
     @OneToMany(mappedBy = "protector")
     private List<ProtectorProtege> proteges = new ArrayList<>();
@@ -69,6 +71,7 @@ public class Protector {
                 .address(protector.getAddress())
                 .deviceToken(protector.getDeviceToken())
                 .countryCode(protector.getCountryCode())
+                .imageUrl(protector.getImageUrl())
                 .build();
 
     }
@@ -78,6 +81,7 @@ public class Protector {
                 .id(protector.getId())
                 .name(protector.getName())
                 .phone(protector.getPhone())
+                .imageUrl(protector.getImageUrl())
                 .build();
     }
 }

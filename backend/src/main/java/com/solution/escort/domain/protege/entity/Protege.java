@@ -38,9 +38,6 @@ public class Protege {
     @Column
     private String password;
 
-//    @Column
-//    private String profileImageUrl;
-
     @Column
     private String characteristic;
 
@@ -60,23 +57,22 @@ public class Protege {
     @Column
     private String deviceToken;
 
-    @ColumnDefault("82")
-    private String countryCode;
-
     @Column
     private int scope;
 
     @Column
     private boolean state = true;
 
+    @Column
+    private String imageUrl;
+
+    @ColumnDefault("82")
+    private String countryCode;
+
+
     @OneToMany(mappedBy = "protege")
     private List<ProtectorProtege> protectors = new ArrayList<>();
 
-//    @OneToOne(fetch = FetchType.LAZY) // 프로필사진 1:1 매핑
-//    @JoinColumn(name = "profileImage_id")
-//    private ProfileImage profileImageId;
-
-    //boolean값으로 상태 추가
 
     public ProtegeResponseDTO toProtegeResponseDTO(Protege protege, List<String> safeZones) {
         return ProtegeResponseDTO.builder()
@@ -90,6 +86,7 @@ public class Protege {
                 .deviceToken(protege.getDeviceToken())
                 .countryCode(protege.getCountryCode())
                 .scope(protege.getScope())
+                .imageUrl(protege.getImageUrl())
                 .build();
     }
 
@@ -102,6 +99,7 @@ public class Protege {
                 .bloodType(protege.getBloodType())
                 .phone(protege.getPhone())
                 .safeZones(safeZones)
+                .imageUrl(protege.getImageUrl())
                 .build();
     }
 }

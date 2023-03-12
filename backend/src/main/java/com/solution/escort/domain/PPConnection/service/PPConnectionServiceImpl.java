@@ -19,7 +19,8 @@ import java.util.List;
 
 @Service
 @Slf4j
-public class PPConnectionServiceImpl implements PPConnectionService{
+public class
+PPConnectionServiceImpl implements PPConnectionService{
 
     @Autowired
     private PPconnectionRepository ppConnectionRepository;

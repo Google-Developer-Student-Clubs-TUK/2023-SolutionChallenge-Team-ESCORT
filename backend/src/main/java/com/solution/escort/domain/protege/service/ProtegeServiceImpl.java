@@ -30,12 +30,14 @@ public class ProtegeServiceImpl implements ProtegeService {
 
     // 노인 회원가입 API 관련 서비스
     @Override
-    public void createProtege(ProtegeRequestDTO protegeRequestDTO, List<String> safeZoneAddress) throws Exception {
+    public void createProtege(ProtegeRequestDTO protegeRequestDTO, List<String> safeZoneAddress, String url) throws Exception {
         if(protegeRepository.existsByEmail(protegeRequestDTO.getEmail())){
             throw new EntityExistsException();
         }
         Protege saveProtege = protegeRequestDTO.toProtegeEntity(protegeRequestDTO);
         protegeRepository.save(saveProtege);
+
+        saveProtege.setImageUrl(url);
 
         List<String> safeZoneList = new ArrayList<>();
         for(String safeZoneadd: safeZoneAddress) {
