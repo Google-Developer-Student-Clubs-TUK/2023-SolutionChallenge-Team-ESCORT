@@ -135,3 +135,8 @@ out/
 
 ### aws S3 ###
 application-env.properties
+
+### GCP storage ###
+escort-8572e-a922e374999c.json
+
+firebase_service_key.json

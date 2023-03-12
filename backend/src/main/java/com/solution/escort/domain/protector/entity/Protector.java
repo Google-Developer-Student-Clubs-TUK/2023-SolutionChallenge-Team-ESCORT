@@ -56,6 +56,9 @@ public class Protector {
     @ColumnDefault("82")
     private String countryCode;
 
+    @Column
+    private String imageUrl;
+
 
     @OneToMany(mappedBy = "protector")
     private List<ProtectorProtege> proteges = new ArrayList<>();
@@ -69,6 +72,7 @@ public class Protector {
                 .address(protector.getAddress())
                 .deviceToken(protector.getDeviceToken())
                 .countryCode(protector.getCountryCode())
+                .imageUrl(protector.getImageUrl())
                 .build();
 
     }
@@ -78,6 +82,7 @@ public class Protector {
                 .id(protector.getId())
                 .name(protector.getName())
                 .phone(protector.getPhone())
+                .imageUrl(protector.getImageUrl())
                 .build();
     }
 }

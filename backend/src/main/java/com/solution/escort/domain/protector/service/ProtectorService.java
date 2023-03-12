@@ -8,7 +8,7 @@ import java.util.List;
 
 @Service
 public interface ProtectorService {
-    public void createProtector(ProtectorRequestDTO protectorRequestDTO) throws Exception;
+    public void createProtector(ProtectorRequestDTO protectorRequestDTO, String url) throws Exception;
 
     public ProtectorResponseDTO getProtectorById(Integer id) throws Exception;
 }

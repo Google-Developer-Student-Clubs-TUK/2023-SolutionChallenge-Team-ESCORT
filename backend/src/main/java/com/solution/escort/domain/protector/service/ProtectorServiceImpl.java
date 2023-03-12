@@ -20,12 +20,13 @@ public class ProtectorServiceImpl implements ProtectorService {
 
     // 보호자 회원가입 API 관련 서비스
     @Override
-    public void createProtector(ProtectorRequestDTO protectorRequestDTO) throws Exception {
+    public void createProtector(ProtectorRequestDTO protectorRequestDTO, String url) throws Exception {
         if (protectorRepository.existsByEmail(protectorRequestDTO.getEmail())){
             throw new EntityExistsException();
         }
         Protector saveProtector = protectorRequestDTO.toProtectorEntity(protectorRequestDTO);
         protectorRepository.save(saveProtector);
+        saveProtector.setImageUrl(url);
 
     }
 

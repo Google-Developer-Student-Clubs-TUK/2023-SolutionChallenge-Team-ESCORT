@@ -9,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
 import javax.sound.sampled.AudioFileFormat;
+import java.net.URL;
+import java.util.List;
 
 @Entity
 @Getter
@@ -44,6 +46,17 @@ public class Company {
                 .title(company.getTitle())
                 .description(company.getDescription())
                 .protector(company.protector)
+                .build();
+    }
+
+    public CompanyResponseDTO toCompanyListResponseDTO (Company company, List<URL> images) {
+        return CompanyResponseDTO.builder()
+                .id(company.getId())
+                .address(company.getAddress())
+                .title(company.getTitle())
+                .description(company.getDescription())
+                .protector(company.protector)
+                .images(images)
                 .build();
     }
 

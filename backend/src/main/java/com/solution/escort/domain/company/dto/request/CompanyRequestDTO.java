@@ -5,6 +5,8 @@ import com.solution.escort.domain.protector.entity.Protector;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.List;
+
 @AllArgsConstructor
 @Builder
 @Getter
@@ -16,6 +18,8 @@ public class CompanyRequestDTO {
     private String title;
     private String description;
     private Protector protectorId;
+
+    private List images;
 
     public Company toCompanyEntity(CompanyRequestDTO companyRequestDTO) {
         return Company.builder()

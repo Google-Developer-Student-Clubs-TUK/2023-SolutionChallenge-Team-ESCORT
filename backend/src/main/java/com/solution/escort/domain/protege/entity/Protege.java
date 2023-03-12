@@ -69,6 +69,11 @@ public class Protege {
     @Column
     private boolean state = true;
 
+    @Column
+    private String imageUrl;
+
+
+
     @OneToMany(mappedBy = "protege")
     private List<ProtectorProtege> protectors = new ArrayList<>();
 
@@ -90,6 +95,7 @@ public class Protege {
                 .deviceToken(protege.getDeviceToken())
                 .countryCode(protege.getCountryCode())
                 .scope(protege.getScope())
+                .imageUrl(protege.getImageUrl())
                 .build();
     }
 
@@ -102,6 +108,7 @@ public class Protege {
                 .bloodType(protege.getBloodType())
                 .phone(protege.getPhone())
                 .safeZones(safeZones)
+                .imageUrl(protege.getImageUrl())
                 .build();
     }
 }
