@@ -51,7 +51,7 @@ class AccountPage extends StatelessWidget {
             child: Column(
               children: [
                 buildNavigateButton(
-                  Icons.account_circle,
+                  Icons.person,
                   "Personal Information",
                   () {
                     print("TODO: Personal Information");
@@ -61,7 +61,7 @@ class AccountPage extends StatelessWidget {
                   padding: EdgeInsets.only(top: 16),
                 ),
                 buildNavigateButton(
-                  Icons.mail,
+                  Icons.attach_email,
                   "Account Settings",
                   () {
                     print("TODO: Account Settings");
@@ -115,9 +115,10 @@ class AccountPage extends StatelessWidget {
                   ),
                 ],
               ),
-              Icon(
-                Icons.navigate_next,
-                size: 24,
+              Image.asset(
+                "assets/arrow_next.png",
+                width: 24,
+                height: 24,
               ),
             ],
           ),
