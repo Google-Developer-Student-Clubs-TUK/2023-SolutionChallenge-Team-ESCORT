@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:escort/main_dementia_controller.dart';
 import 'package:escort/userinfo_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,6 +8,7 @@ import 'package:qr_flutter/qr_flutter.dart';
 
 class MainDementia extends StatelessWidget {
   final UserInfoController userinfoController = Get.put(UserInfoController());
+  final DementiaController dementiaController = Get.put(DementiaController());
 
   MainDementia({super.key});
 
@@ -191,54 +193,106 @@ class MainDementia extends StatelessWidget {
                 ),
                 Expanded(
                   flex: 26,
-                  child: Container(
+                  child: SizedBox(
                     width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Color(0xFFE8E9EB),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 10, bottom: 7),
-                      child: Column(
-                        children: [
-                          Expanded(
-                            child: FractionallySizedBox(
-                              widthFactor: 0.385,
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                      image: NetworkImage(
-                                          'https://tistory1.daumcdn.net/tistory/2743554/attach/cb196de69425482b93b43ad7fc207bf6'),
+                    child: InkWell(
+                      customBorder: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      onTap: dementiaController.clickCall,
+                      child: Ink(
+                        decoration: BoxDecoration(
+                          color: Color(0xFFE8E9EB),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(top: 10, bottom: 7),
+                              child: Column(
+                                children: [
+                                  Expanded(
+                                    child: FractionallySizedBox(
+                                      widthFactor: 0.385,
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                              image: NetworkImage(
+                                                  'https://tistory1.daumcdn.net/tistory/2743554/attach/cb196de69425482b93b43ad7fc207bf6'),
+                                            ),
+                                            shape: BoxShape.circle),
+                                      ),
                                     ),
-                                    shape: BoxShape.circle),
+                                  ),
+                                  Column(
+                                    children: const [
+                                      SizedBox(
+                                        height: 8,
+                                      ),
+                                      Text(
+                                        'Minsu Kim',
+                                        style: TextStyle(
+                                            color: Color(0xFF10403B),
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      SizedBox(
+                                        height: 4,
+                                      ),
+                                      Text(
+                                        'Relationship: Son',
+                                        style: TextStyle(
+                                          color: Color(0xFF808584),
+                                          fontSize: 12,
+                                        ),
+                                      )
+                                    ],
+                                  )
+                                ],
                               ),
                             ),
-                          ),
-                          Column(
-                            children: const [
-                              SizedBox(
-                                height: 8,
-                              ),
-                              Text(
-                                'Minsu Kim',
-                                style: TextStyle(
-                                    color: Color(0xFF10403B),
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              SizedBox(
-                                height: 4,
-                              ),
-                              Text(
-                                'Relationship: Son',
-                                style: TextStyle(
-                                  color: Color(0xFF808584),
-                                  fontSize: 12,
-                                ),
-                              )
-                            ],
-                          )
-                        ],
+                            Obx(
+                              () {
+                                return AnimatedOpacity(
+                                  opacity: dementiaController.isShowCall.value
+                                      ? 1.0
+                                      : 0.0,
+                                  duration: const Duration(milliseconds: 200),
+                                  child: Container(
+                                    width: double.infinity,
+                                    decoration: BoxDecoration(
+                                      color: Color(0xCC10403B),
+                                      borderRadius: BorderRadius.circular(12),
+                                    ),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: const [
+                                        Icon(
+                                          Icons.call_outlined,
+                                          size: 80,
+                                          color: Colors.white,
+                                        ),
+                                        SizedBox(
+                                          height: 26,
+                                        ),
+                                        Text(
+                                          '+82-10-1234-5678',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
