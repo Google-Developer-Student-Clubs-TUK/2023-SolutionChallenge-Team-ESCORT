@@ -9,6 +9,7 @@ class MainDementia extends StatelessWidget {
   final UserInfoController userinfoController = Get.put(UserInfoController());
 
   MainDementia({super.key});
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -71,200 +72,179 @@ class MainDementia extends StatelessWidget {
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.vertical(bottom: Radius.circular(10))),
         ),
-        body: Padding(
-          padding: const EdgeInsets.only(
-              top: 12, left: 12.0, right: 12.0, bottom: 5),
-          child: Column(
-            children: [
-              Container(
-                height: 310,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(20),
-                  ),
-                  color: Color.fromRGBO(32, 92, 73, 89),
-                ),
-                child: Column(
-                  children: const [
-                    SizedBox(
-                      child: Padding(
-                        padding: EdgeInsets.all(25.0),
-                        child: SizedBox(
-                          width: 375,
-                          height: 190,
-                          child: CircleAvatar(
-                            backgroundColor: Colors.white,
-                            radius: 50, // Image radius
-                            backgroundImage: NetworkImage('imageUrl'),
-                          ),
-                        ),
+        body: SizedBox(
+          width: double.infinity,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(24, 16, 24, 4),
+            child: Column(
+              children: [
+                Expanded(
+                  flex: 51,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(12),
+                        bottomRight: Radius.circular(12),
+                      ),
+                      gradient: LinearGradient(
+                        colors: const [
+                          Color(0xFF347E5B),
+                          Color(0xE6205C49),
+                          Color(0xCC10403B),
+                        ],
                       ),
                     ),
-                    Text(
-                      "Jenny Kim",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 22,
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 8.0),
-                      child: Text(
-                        "010 2170 9514",
-                        style: TextStyle(color: Colors.white, fontSize: 12),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                height: 130,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(2.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(20),
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(32, 24, 32, 22),
+                      child: Column(
+                        children: [
+                          Expanded(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: NetworkImage(
+                                        'https://tistory1.daumcdn.net/tistory/2743554/attach/cb196de69425482b93b43ad7fc207bf6'),
+                                  ),
+                                  shape: BoxShape.circle),
                             ),
-                            color: Colors.black12),
-                        width: 350,
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 20.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                          ),
+                          Column(
                             children: const [
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    top: 8.0, right: 160, bottom: 30),
-                                child: Text(
-                                  'Characteristics',
-                                  style: TextStyle(
-                                      fontSize: 19,
-                                      color: Color.fromRGBO(16, 64, 59, 100),
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
+                              SizedBox(height: 16),
                               Text(
-                                "● A mole under the nose",
+                                "GwangMoo You",
                                 style: TextStyle(
-                                  color: Color.fromRGBO(16, 64, 59, 100),
-                                ),
+                                    color: Colors.white,
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold),
                               ),
+                              SizedBox(height: 4),
                               Text(
-                                "● Big ears and smalls lips",
+                                "+82 10 6348 1143",
                                 style: TextStyle(
-                                  color: Color.fromRGBO(16, 64, 59, 100),
-                                ),
-                              ),
-                              Text(
-                                "● Reacting to the name 'Frank",
-                                style: TextStyle(
-                                  color: Color.fromRGBO(16, 64, 59, 100),
+                                  color: Colors.white,
+                                  fontSize: 14,
                                 ),
                               ),
                             ],
-                          ),
-                        ),
+                          )
+                        ],
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(2.0),
-                      child: Container(
-                        width: 370,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(20),
-                            ),
-                            color: Colors.black12),
-                        child: const Center(
-                            child: Text(
-                          'Item 2',
-                          style: TextStyle(fontSize: 18, color: Colors.white),
-                        )),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(2.0),
-                      child: Container(
-                        width: 370,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(20),
-                          ),
-                          color: Colors.black12,
-                        ),
-                        child: const Center(
-                            child: Text(
-                          'Item 3',
-                          style: TextStyle(fontSize: 18, color: Colors.white),
-                        )),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(2.0),
-                      child: Container(
-                        width: 370,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(20),
-                            ),
-                            color: Colors.black12),
-                        child: const Center(
-                            child: Text(
-                          'Item 4',
-                          style: TextStyle(fontSize: 18, color: Colors.white),
-                        )),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 2.0),
-                child: Container(
-                  height: 100,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(20),
-                      ),
-                      color: Colors.black12),
-                  child: Column(
-                    children: const [
-                      SizedBox(
-                        child: SizedBox(
-                          width: 375,
-                          height: 100,
-                          child: Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: CircleAvatar(
-                              backgroundColor: Colors.white,
-                              radius: 50, // Image radius
-                              backgroundImage: NetworkImage('imageUrl'),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
                   ),
                 ),
-              ),
-              Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(6),
+                SizedBox(
+                  height: 4,
+                ),
+                Expanded(
+                  flex: 20,
+                  child: Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Color(0xFFE8E9EB),
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(12),
+                        bottomRight: Radius.circular(12),
+                      ),
                     ),
-                    color: Colors.black12),
-                width: 350,
-                height: 32,
-                child: Text("asdasdasd",
-                    style: TextStyle(
-                      color: Color.fromRGBO(16, 64, 59, 100),
-                    )),
-              ),
-            ],
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(24, 8, 24, 8),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Characteristics",
+                            style: TextStyle(
+                              color: Color(0xFF10403B),
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Expanded(child: Container()),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: const [
+                              Text(
+                                '● A mole under the nose',
+                                style: TextStyle(
+                                    color: Color(0xFF10403B), fontSize: 14),
+                              ),
+                              Text(
+                                '● Big ears and small lips',
+                                style: TextStyle(
+                                    color: Color(0xFF10403B), fontSize: 14),
+                              ),
+                              Text(
+                                '● Reacting to the name ‘Frank’',
+                                style: TextStyle(
+                                    color: Color(0xFF10403B), fontSize: 14),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 4,
+                ),
+                Expanded(
+                  flex: 26,
+                  child: Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Color(0xFFE8E9EB),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 10, bottom: 7),
+                      child: Column(
+                        children: [
+                          Expanded(
+                            child: FractionallySizedBox(
+                              widthFactor: 0.385,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: NetworkImage(
+                                          'https://tistory1.daumcdn.net/tistory/2743554/attach/cb196de69425482b93b43ad7fc207bf6'),
+                                    ),
+                                    shape: BoxShape.circle),
+                              ),
+                            ),
+                          ),
+                          Column(
+                            children: const [
+                              SizedBox(
+                                height: 8,
+                              ),
+                              Text(
+                                'Minsu Kim',
+                                style: TextStyle(
+                                    color: Color(0xFF10403B),
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              SizedBox(
+                                height: 4,
+                              ),
+                              Text(
+                                'Relationship: Son',
+                                style: TextStyle(
+                                  color: Color(0xFF808584),
+                                  fontSize: 12,
+                                ),
+                              )
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
         floatingActionButton: SizedBox(
