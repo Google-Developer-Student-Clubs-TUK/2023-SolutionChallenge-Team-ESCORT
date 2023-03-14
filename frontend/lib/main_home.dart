@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:escort/firebase_realtimedb.dart';
 import 'package:escort/signup.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'firebase_realtimedb.dart';
@@ -63,7 +64,8 @@ class MapSample extends StatefulWidget {
 }
 
 class MapSampleState extends State<MapSample> {
-  final Map<String, Marker> _markers = {};
+  Map<String, dynamic> _markers = {};
+  List<Marker> markers = [];
 
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
@@ -74,13 +76,33 @@ class MapSampleState extends State<MapSample> {
   );
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    RealtimeDatabase.locations();
     DementiaLocationTracker dementiaTracking = DementiaLocationTracker();
+    RealtimeDatabase.locations().then((value) => {
+          setState(() {
+            _markers = value;
+            _markers.forEach((key, value) {
+              double longitude = value['longitude'];
+              double latitude = value['latitude'];
+              markers.add(
+                Marker(
+                  markerId: MarkerId(key),
+                  position: LatLng(latitude, longitude),
+                ),
+              );
+            });
+          })
+        });
 
     return Scaffold(
       body: GoogleMap(
         myLocationButtonEnabled: false,
+        markers: Set<Marker>.of(markers),
         mapType: MapType.terrain,
         initialCameraPosition: _kGooglePlex,
         onMapCreated: (GoogleMapController controller) {

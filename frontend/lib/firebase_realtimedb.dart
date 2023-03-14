@@ -53,12 +53,12 @@ class RealtimeDatabase {
 
   static Future<Map<String, dynamic>> locations() async {
     try {
-      _databaseReference.child("users/");
-      final snapshot = await _databaseReference.get();
+      final snapshot = await _databaseReference.child("users/").get();
+
       if (snapshot.exists) {
         Map<String, dynamic> _snapshotValue =
             Map<String, dynamic>.from(snapshot.value as Map);
-        print(_snapshotValue['users']);
+
         return _snapshotValue;
       } else {
         return {};
