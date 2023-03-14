@@ -3,6 +3,7 @@ package com.solution.escort.domain.protege.controller;
 import com.solution.escort.domain.protege.dto.request.ProtegeClothRequestDTO;
 import com.solution.escort.domain.protege.dto.request.ProtegeRequestDTO;
 import com.solution.escort.domain.protege.dto.response.ProtegeResponseDTO;
+import com.solution.escort.domain.protege.repository.ProtegeRepository;
 import com.solution.escort.domain.protege.service.ProtegeService;
 import com.solution.escort.global.GCP.GCPService;
 import com.solution.escort.global.ResponseFormat;
@@ -26,6 +27,9 @@ public class ProtegeController {
     @Autowired
     private GCPService gcpService;
 
+    @Autowired
+    private ProtegeRepository protegeRepository;
+
 
 
     // 치매노인 회원 가입 API
@@ -48,8 +52,12 @@ public class ProtegeController {
     // 치매노인  (이미지는 GCP 미발급으로 보류)
 
     // 노인 한명의 정보 가져오기 API
-    @GetMapping("/{id}")
-    public ResponseEntity<ResponseFormat<ProtegeResponseDTO>> getProtegeById(@PathVariable Integer id) throws Exception{
+    @GetMapping("/{uId}")
+    public ResponseEntity<ResponseFormat<ProtegeResponseDTO>> getProtegeById(@PathVariable String uId) throws Exception{
+        // 구동하면 아래 코드 방식으로 실행
+        int id = protegeRepository.findByUId(uId).getId();
+
+
         ProtegeResponseDTO protege = protegeService.getProtegeById(id);
         ResponseFormat<ProtegeResponseDTO> responseFormat = new ResponseFormat<>(ResponseStatus.GET_PROTEGE_SUCCESS, protege);
         return ResponseEntity.status(HttpStatus.OK).body(responseFormat);

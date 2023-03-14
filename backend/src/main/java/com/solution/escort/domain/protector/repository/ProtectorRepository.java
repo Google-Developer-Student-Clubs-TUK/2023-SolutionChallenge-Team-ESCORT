@@ -14,4 +14,7 @@ public interface ProtectorRepository extends JpaRepository<Protector, Integer> {
     @Query(value = "select deviceToken from Protector")
     List<String> selectAllDevicetoken();
 
+    // firebase protector uId로 찾는 메소드(단건)
+    Protector findByUId(String uId);
+
 }

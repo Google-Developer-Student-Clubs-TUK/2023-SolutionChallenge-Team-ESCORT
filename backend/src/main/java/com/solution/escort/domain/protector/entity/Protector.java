@@ -58,6 +58,9 @@ public class Protector {
     @Column
     private String imageUrl;
 
+    @Column
+    private String uId;
+
 
     @OneToMany(mappedBy = "protector")
     private List<ProtectorProtege> proteges = new ArrayList<>();
@@ -72,10 +75,12 @@ public class Protector {
                 .deviceToken(protector.getDeviceToken())
                 .countryCode(protector.getCountryCode())
                 .imageUrl(protector.getImageUrl())
+                .uId(protector.getUId())
                 .build();
 
     }
 
+    // uid 추가 필요할수도
     public PtorResponseDTO toPtorResponseDTO(Protector protector) {
         return PtorResponseDTO.builder()
                 .id(protector.getId())

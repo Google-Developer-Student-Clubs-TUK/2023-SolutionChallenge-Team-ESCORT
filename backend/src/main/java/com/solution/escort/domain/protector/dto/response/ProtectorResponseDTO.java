@@ -20,4 +20,7 @@ public class ProtectorResponseDTO {
     private String deviceToken;
     private String imageUrl;
 
+    // 불확실
+    private String uId;
+
 }

@@ -30,4 +30,6 @@ public class ProtegeResponseDTO {
     private int scope;
     private String imageUrl;
 
+    private String uId;
+
 }
