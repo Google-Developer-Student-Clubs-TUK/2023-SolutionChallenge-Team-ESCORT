@@ -50,6 +50,7 @@ dependencies:
   qr_flutter: ^4.0.0
   firebase_database: ^10.0.15
   qr_code_scanner: ^1.0.1
+  url_launcher: ^6.0.12
 
 dev_dependencies:
   flutter_test:

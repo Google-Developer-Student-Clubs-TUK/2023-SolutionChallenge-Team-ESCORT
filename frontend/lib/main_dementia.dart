@@ -99,7 +99,7 @@ class MainDementia extends StatelessWidget {
           partnerInfo,
           dementiaController.isShowCall,
           () {
-            dementiaController.clickCall();
+            dementiaController.clickCall(partnerInfo.phone);
           },
         ),
         floatingActionButton: SizedBox(
