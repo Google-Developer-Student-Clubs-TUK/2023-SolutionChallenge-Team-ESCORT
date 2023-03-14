@@ -1,7 +1,7 @@
 package com.solution.escort.domain.sos.service;
 
 import com.solution.escort.domain.protege.entity.Protege;
-import com.solution.escort.domain.sos.dto.request.SOSRequestDTO;
+import com.solution.escort.domain.protege.repository.ProtegeRepository;
 import com.solution.escort.domain.sos.dto.response.SOSResponseDTO;
 import com.solution.escort.domain.sos.entity.SOS;
 import com.solution.escort.domain.sos.repository.SOSRepository;
@@ -18,6 +18,7 @@ public class SOSServiceImpl implements SOSservice{
 
     @Autowired
     private SOSRepository sosRepository;
+
 
     // 배회 노인 신고 등록 서비스
     @Override
@@ -39,7 +40,7 @@ public class SOSServiceImpl implements SOSservice{
 
     @Override
     public void deleteSOS(Integer id) throws Exception {
-        SOS sos = sosRepository.findById(id).get();
+        SOS sos = sosRepository.findByProtegeId(id);
         //SOS deleteSOS = sosRequestDTO.toSOSEntity(sosRequestDTO);
         sosRepository.delete(sos);
     }
