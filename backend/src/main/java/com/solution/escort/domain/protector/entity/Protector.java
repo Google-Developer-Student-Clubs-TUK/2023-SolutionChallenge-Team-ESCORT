@@ -59,7 +59,7 @@ public class Protector {
     private String imageUrl;
 
     @Column
-    private String uId;
+    private String fbId;
 
 
     @OneToMany(mappedBy = "protector")
@@ -75,7 +75,7 @@ public class Protector {
                 .deviceToken(protector.getDeviceToken())
                 .countryCode(protector.getCountryCode())
                 .imageUrl(protector.getImageUrl())
-                .uId(protector.getUId())
+                .uId(protector.getFbId())
                 .build();
 
     }

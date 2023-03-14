@@ -36,17 +36,19 @@ PPConnectionServiceImpl implements PPConnectionService{
 
     // 보호자 노인 등록 API 관련 서비스
     @Override
-    public void ppConnection(PPConnectionRequestDTO ppConnectionRequestDTO) throws Exception {
-        log.info(String.valueOf(ppConnectionRequestDTO));
+    public void ppConnection(Protege protege, Protector protector) throws Exception {
 
-        if (ppConnectionRequestDTO.getProtegeId() == null) {
+        if (protege== null) {
             throw new Exception("유효하지 않은 노인 아이디 정보 입니다.");
         }
-        if (ppConnectionRequestDTO.getProtectorId() == null){
+        if (protector == null){
             throw new Exception("유효하지 않은 보호자 아이디 정보입니다.");
         }
-        ProtectorProtege savePPConnection = ppConnectionRequestDTO.toPPEntity(ppConnectionRequestDTO);
-        ppConnectionRepository.save(savePPConnection);
+        ProtectorProtege protectorProtege = new ProtectorProtege();
+        protectorProtege.setProtege(protege);
+        protectorProtege.setProtector(protector);
+
+        ppConnectionRepository.save(protectorProtege);
     }
 
     // 보호자 -> 등록된 노인 리스트와 가져오는 API

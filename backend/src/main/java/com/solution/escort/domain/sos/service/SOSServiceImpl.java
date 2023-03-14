@@ -1,9 +1,10 @@
 package com.solution.escort.domain.sos.service;
 
+import com.solution.escort.domain.protege.entity.Protege;
 import com.solution.escort.domain.sos.dto.request.SOSRequestDTO;
 import com.solution.escort.domain.sos.dto.response.SOSResponseDTO;
 import com.solution.escort.domain.sos.entity.SOS;
-import com.solution.escort.domain.sos.repository.SOSREpository;
+import com.solution.escort.domain.sos.repository.SOSRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,16 +17,17 @@ import java.util.List;
 public class SOSServiceImpl implements SOSservice{
 
     @Autowired
-    private SOSREpository sosRepository;
+    private SOSRepository sosRepository;
 
     // 배회 노인 신고 등록 서비스
     @Override
-    public void createSOS(SOSRequestDTO sosRequestDTO) throws Exception{
-        if (sosRequestDTO.getProtegeId() == null) {
+    public void createSOS(Protege protege) throws Exception{
+        if (protege == null) {
             throw new Exception("유효하지 않은 노인 아이디 정보 입니다.");
         }
-        SOS saveSOS = sosRequestDTO.toSOSEntity(sosRequestDTO);
-        sosRepository.save(saveSOS);
+        SOS sos = new SOS();
+        sos.setProtege(protege);
+        sosRepository.save(sos);
     }
 
     // 모든 배회노인 리스트 가져오기 서비스

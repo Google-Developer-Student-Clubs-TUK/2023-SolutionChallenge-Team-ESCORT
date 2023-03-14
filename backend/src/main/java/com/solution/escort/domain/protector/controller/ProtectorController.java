@@ -45,9 +45,7 @@ public class ProtectorController {
     // 보호자 정보 가져오는 API -> uId로 수정
     @GetMapping("/{uId}")
     public ResponseEntity<ResponseFormat<ProtectorResponseDTO>> getProtectorById(@PathVariable String uId) throws Exception {
-        // 아래코드로 문제없이 실행되면 아래 방식으로 유지
-        int id = protectorRepository.findByUId(uId).getId();
-
+        int id = protectorRepository.findByFbId(uId).getId();
 
         ProtectorResponseDTO protector = protectorService.getProtectorById(id);
         ResponseFormat<ProtectorResponseDTO> responseFormat = new ResponseFormat<>(ResponseStatus.GET_PROTECTOR_SUCCESS, protector);

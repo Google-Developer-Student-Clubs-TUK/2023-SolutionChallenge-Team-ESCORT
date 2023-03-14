@@ -9,6 +9,11 @@ import org.springframework.stereotype.Repository;
 public interface ProtegeRepository extends JpaRepository<Protege, Integer> {
     boolean existsByEmail(String email);
 
-    Protege findByUId(String uId);
+    Protege findByFbId(String uId);
+
+    Protege findById(int id);
+
+
+
 
 }

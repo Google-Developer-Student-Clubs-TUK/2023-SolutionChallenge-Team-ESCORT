@@ -19,8 +19,6 @@ public class ProtectorResponseDTO {
     private String countryCode;
     private String deviceToken;
     private String imageUrl;
-
-    // 불확실
     private String uId;
 
 }

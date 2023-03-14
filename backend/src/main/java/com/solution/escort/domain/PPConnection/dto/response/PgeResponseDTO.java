@@ -24,4 +24,7 @@ public class PgeResponseDTO {
     private String phone;
     private String imageUrl;
     private List<String> safeZones;
+    private String countryCode;
+    private String clothing;
+    private String uId;
 }

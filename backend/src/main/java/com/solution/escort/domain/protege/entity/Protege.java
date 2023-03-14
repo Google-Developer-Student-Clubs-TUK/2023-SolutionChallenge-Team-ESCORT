@@ -70,7 +70,7 @@ public class Protege {
     private String countryCode;
 
     @Column
-    private String uId;
+    private String fbId;
 
 
     @OneToMany(mappedBy = "protege")
@@ -90,7 +90,8 @@ public class Protege {
                 .countryCode(protege.getCountryCode())
                 .scope(protege.getScope())
                 .imageUrl(protege.getImageUrl())
-                .uId(protege.getUId())
+                .uId(protege.getFbId())
+                .clothing(protege.getClothing())
                 .build();
     }
 
@@ -105,6 +106,9 @@ public class Protege {
                 .phone(protege.getPhone())
                 .safeZones(safeZones)
                 .imageUrl(protege.getImageUrl())
+                .countryCode(protege.getCountryCode())
+                .clothing(protege.getClothing())
+                .uId(protege.getFbId())
                 .build();
     }
 }

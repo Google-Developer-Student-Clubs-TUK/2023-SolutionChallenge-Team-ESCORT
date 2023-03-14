@@ -41,7 +41,8 @@ public class ProtegeRequestDTO {
                 .phone(protegeRequestDTO.getPhone())
                 .deviceToken(protegeRequestDTO.getDeviceToken())
                 .scope(protegeRequestDTO.getScope())
-                .uId(protegeRequestDTO.getUId())
+                .countryCode(protegeRequestDTO.getCountryCode())
+                .fbId(protegeRequestDTO.getUId())
                 .build();
     }
 }

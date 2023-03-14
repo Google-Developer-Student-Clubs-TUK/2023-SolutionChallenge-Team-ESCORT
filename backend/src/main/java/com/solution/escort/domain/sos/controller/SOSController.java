@@ -1,6 +1,8 @@
 package com.solution.escort.domain.sos.controller;
 
 import com.solution.escort.domain.protector.repository.ProtectorRepository;
+import com.solution.escort.domain.protege.entity.Protege;
+import com.solution.escort.domain.protege.repository.ProtegeRepository;
 import com.solution.escort.domain.sos.dto.request.SOSRequestDTO;
 import com.solution.escort.domain.sos.dto.response.SOSResponseDTO;
 import com.solution.escort.domain.sos.service.SOSservice;
@@ -29,19 +31,25 @@ public class SOSController {
     @Autowired
     private ProtectorRepository protectorRepository;
 
+    @Autowired
+    private ProtegeRepository protegeRepository;
+
 
     // 배회노인 신고 api
     @PostMapping
     public ResponseEntity<ResponseFormat<SOSRequestDTO>> createSOS(SOSRequestDTO sosdto) throws Exception {
-        sosService.createSOS(sosdto);
+        int protegeId = protegeRepository.findByFbId(sosdto.getProtegeUId()).getId();
+        Protege protege = protegeRepository.findById(protegeId);
+
+        sosService.createSOS(protege);
 
         // FCM
         for(String deviceToken: protectorRepository.selectAllDevicetoken()){
-            System.out.println(deviceToken + " " + "HELP" + " " + sosdto.getProtegeId().getName() +"is in danger. Please find "+ sosdto.getProtegeId().getName());
+            System.out.println(deviceToken + " " + "HELP" + " " + protege.getName() +"is in danger. Please find "+ protege.getName());
             firebaseCloudMessageService.sendMessageTo(
                     deviceToken,
                     "HELP",
-                    sosdto.getProtegeId().getName() +" is in danger. Please find "+ sosdto.getProtegeId().getName() + "!"
+                    protege.getName() +" is in danger. Please find "+ protege.getName() + "!"
             );
 
         }
@@ -60,8 +68,9 @@ public class SOSController {
     }
 
     // 배회노인 신고 취소 api
-    @DeleteMapping("/{id}")
-    public ResponseEntity<ResponseFormat<SOSResponseDTO>> deleteSOSByID(@PathVariable Integer id) throws Exception {
+    @DeleteMapping("/{uId}")
+    public ResponseEntity<ResponseFormat<SOSResponseDTO>> deleteSOSByID(@PathVariable String uId) throws Exception {
+        int id = protegeRepository.findByFbId(uId).getId();
         sosService.deleteSOS(id);
         ResponseFormat<SOSResponseDTO> responseFormat = new ResponseFormat<>(ResponseStatus.DELETE_SOS_SUCCESS);
         return ResponseEntity.status(HttpStatus.OK).body(responseFormat);
