@@ -54,6 +54,8 @@ dependencies:
   qr_code_scanner: ^1.0.1
   geolocator: ^9.0.2
   geocoding: ^2.1.0
+  firebase_messaging: ^14.2.6
+  flutter_local_notifications: ^8.2.0
 
 dev_dependencies:
   flutter_test:

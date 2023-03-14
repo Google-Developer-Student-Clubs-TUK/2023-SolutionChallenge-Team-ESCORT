@@ -1,7 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 Future<void> firebaseAuth(
   var emailAddress,
@@ -23,6 +27,51 @@ Future<void> firebaseAuth(
       email: emailAddress,
       password: password,
     );
+
+    print(credential.user);
+    // Firebase Messaging 초기화
+    await FirebaseMessaging.instance.requestPermission();
+    final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+
+    // FCM 토큰 요청
+    String? token = await _firebaseMessaging.getToken();
+    print(token);
+
+    if (dementia == 'dementia.yes') {
+      http.MultipartRequest request = new http.MultipartRequest(
+          'POST', Uri.parse("http://34.22.70.120:8080/api/v1/protege"));
+      request.fields['email'] = emailAddress;
+      request.fields['password'] = password;
+      request.fields['name'] = name;
+      request.fields['characteristic'] = characteristics;
+      request.fields['bloodType'] = blood;
+      request.fields['phone'] = phoneNumber;
+      request.fields['safeZones'] = safezone;
+      request.fields['deviceToken'] = token!;
+      request.fields['uId'] = credential.user!.uid;
+
+      //요청에 이미지 파일 추가
+      request.files
+          .add(await http.MultipartFile.fromPath('profileImage', imagePath));
+
+      var response = await request.send();
+    } else {
+      http.MultipartRequest request = new http.MultipartRequest(
+          'POST', Uri.parse("http://34.22.70.120:8080/api/v1/protector"));
+      request.fields['email'] = emailAddress;
+      request.fields['password'] = password;
+      request.fields['name'] = name;
+      request.fields['phone'] = phoneNumber;
+      request.fields['address'] = regidence;
+      request.fields['deviceToken'] = token!;
+      request.fields['safeZones'] = safezone;
+      request.fields['uId'] = credential.user!.uid;
+
+      //요청에 이미지 파일 추가
+      request.files
+          .add(await http.MultipartFile.fromPath('profileImage', imagePath));
+      var response = await request.send();
+    }
 
     await FirebaseFirestore.instance
         .collection('users')

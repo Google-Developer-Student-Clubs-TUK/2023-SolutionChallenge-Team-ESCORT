@@ -479,7 +479,8 @@ class _SignUpState3 extends State<SignUp3> {
 
 class _SignUpState4 extends State<SignUp4> {
   final AuthController authController = Get.put(AuthController());
-  XFile? _pickedFile;
+
+  var _pickedFile;
   @override
   Widget build(BuildContext context) {
     final imageSize = MediaQuery.of(context).size.width / 4;
@@ -575,9 +576,7 @@ class _SignUpState4 extends State<SignUp4> {
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       image: DecorationImage(
-                          image:
-                              FileImage(authController.getImageFile() as File),
-                          fit: BoxFit.cover),
+                          image: FileImage(_pickedFile), fit: BoxFit.cover),
                     ),
                     child: Padding(
                       padding: const EdgeInsets.only(left: 70, top: 65),
@@ -716,7 +715,9 @@ class _SignUpState4 extends State<SignUp4> {
         await ImagePicker().pickImage(source: ImageSource.camera);
     if (pickedFile != null) {
       setState(() {
-        _pickedFile = pickedFile;
+        _pickedFile = File(pickedFile.path);
+        print(_pickedFile);
+
         authController.saveImage(File(pickedFile.path));
       });
     } else {
@@ -729,11 +730,14 @@ class _SignUpState4 extends State<SignUp4> {
   _getPhotoLibraryImage() async {
     final pickedFile =
         await ImagePicker().pickImage(source: ImageSource.gallery);
+    print("pickedfile!!");
+    print(pickedFile);
     if (pickedFile != null) {
       setState(() {
-        _pickedFile = _pickedFile;
+        _pickedFile = File(pickedFile.path);
+        print(_pickedFile);
+
         authController.saveImage(File(pickedFile.path));
-        print(authController.imagePath.value);
       });
     } else {
       if (kDebugMode) {
