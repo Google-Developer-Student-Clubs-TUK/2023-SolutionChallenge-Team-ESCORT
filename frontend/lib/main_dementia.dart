@@ -107,8 +107,7 @@ class MainDementia extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 60.0),
             child: FloatingActionButton(
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => MainDementiaQr()));
+                Get.to(MainDementiaQr(), arguments: [dementiaInfo.name]);
                 // Add your onPressed code here!
               },
               backgroundColor: Colors.transparent,

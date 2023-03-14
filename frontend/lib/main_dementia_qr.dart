@@ -1,5 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 class MainDementiaQr extends StatelessWidget {
@@ -7,6 +8,8 @@ class MainDementiaQr extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final qrData = Get.arguments[0];
+
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -71,7 +74,7 @@ class MainDementiaQr extends StatelessWidget {
                       AspectRatio(
                         aspectRatio: 1,
                         child: QrImage(
-                          data: "A",
+                          data: qrData,
                           version: QrVersions.auto,
                         ),
                       ),
