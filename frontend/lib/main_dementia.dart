@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:escort/main_dementia_controller.dart';
+import 'package:escort/main_dementia_qr.dart';
 import 'package:escort/userinfo_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -293,31 +294,15 @@ class MainDementia extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 60.0),
             child: FloatingActionButton(
               onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                    content: Container(
-                      width: 250,
-                      height: 250,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          QrImage(
-                            data: _qrCodeData,
-                            version: QrVersions.auto,
-                            size: 200.0,
-                          ),
-                          SizedBox(height: 10),
-                        ],
-                      ),
-                    ),
-                  ),
-                );
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => MainDementiaQr()));
                 // Add your onPressed code here!
               },
               backgroundColor: Colors.transparent,
               elevation: 0,
               child: SizedBox(
+                width: 52,
+                height: 52,
                 child: Image.asset(
                   "assets/floatbutton.png",
                   fit: BoxFit.cover,
