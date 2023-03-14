@@ -1,20 +1,22 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 Future<void> firebaseAuth(
-    var emailAddress,
-    var password,
-    var name,
-    var birth,
-    var phoneNumber,
-    var dementia,
-    var characteristics,
-    var blood,
-    var regidence,
-    var place,
-    var safezone,
-    var imagePath) async {
+  var emailAddress,
+  var password,
+  var name,
+  var birth,
+  var phoneNumber,
+  var dementia,
+  var characteristics,
+  var blood,
+  var regidence,
+  var place,
+  var safezone,
+  var imagePath,
+) async {
   try {
     final credential =
         await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -40,6 +42,12 @@ Future<void> firebaseAuth(
       'password': password,
       // Add additional user information here
     });
+
+    DatabaseReference _databaseReference = FirebaseDatabase(
+            databaseURL:
+                'https://escort-8572e-default-rtdb.asia-southeast1.firebasedatabase.app')
+        .ref("users/" + emailAddress.split('@')[0]);
+    await _databaseReference.set({'isSafe': true});
   } on FirebaseAuthException catch (e) {
     if (e.code == 'weak-password') {
       print('The password provided is too weak.');

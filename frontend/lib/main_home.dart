@@ -1,8 +1,11 @@
 import 'dart:async';
 
+import 'package:escort/firebase_realtimedb.dart';
+import 'package:escort/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'firebase_realtimedb.dart';
 
 class User {
   String? id;
@@ -18,47 +21,37 @@ class User {
   });
 }
 
-class RealtimeDatabase {
-  static void write({
-    required String userId,
-    required Map<String, dynamic> data,
-  }) async {
-    try {
-      DatabaseReference _databaseReference =
-          FirebaseDatabase.instance.ref("users");
+class DementiaLocationTracker {
+  final DatabaseReference _databaseRef = FirebaseDatabase(
+          databaseURL:
+              'https://escort-8572e-default-rtdb.asia-southeast1.firebasedatabase.app')
+      .ref();
 
-      await _databaseReference.set(data);
-    } catch (e) {
-      rethrow;
-    }
+  // 1. Firebase Realtime Database에서 치매노인 위치 정보 읽기
+  getLocationStream() {
+    return _databaseRef.child('users').onValue;
   }
 
-  static Future<String> read({required String userId}) async {
-    try {
-      DatabaseReference _databaseReference =
-          FirebaseDatabase.instance.ref("users/userid1");
-      final snapshot = await _databaseReference.get();
-      if (snapshot.exists) {
-        Map<String, dynamic> _snapshotValue =
-            Map<String, dynamic>.from(snapshot.value as Map);
-        return _snapshotValue['name'] ?? '';
-      } else {
-        return '';
-      }
-    } catch (e) {
-      rethrow;
-    }
+  // 2. 보호자가 선택한 치매노인들의 위치 정보 필터링
+  getFilteredLocationStream(List<String> selectedIds) {
+    return getLocationStream().map((event) {
+      final locations = Map<String, dynamic>.from(event.snapshot.value);
+      final filteredLocations = locations.entries
+          .where((entry) => selectedIds.contains(entry.key))
+          .map((entry) => MapEntry(entry.key, entry.value))
+          .toList();
+      return {'users': Map.fromEntries(filteredLocations)};
+    });
   }
-}
 
-void read() async {
-  DatabaseReference _databaseReference =
-      FirebaseDatabase().reference().child("users").child("userid1");
-  final snapshot = await _databaseReference.get();
-  if (snapshot.exists) {
-    print(snapshot.value);
-  } else {
-    print('No data available.');
+  // 3. 필터링된 치매노인들의 위치 정보 실시간 업데이트
+  void trackSelectedDementiaLocations(List<String> selectedIds,
+      Function(Map<String, dynamic> locations) onUpdate) {
+    getFilteredLocationStream(selectedIds).listen((event) {
+      final locations =
+          Map<String, dynamic>.from(event.snapshot.value['users']);
+      onUpdate(locations);
+    });
   }
 }
 
@@ -82,7 +75,9 @@ class MapSampleState extends State<MapSample> {
 
   @override
   Widget build(BuildContext context) {
-    read();
+    RealtimeDatabase.locations();
+    DementiaLocationTracker dementiaTracking = DementiaLocationTracker();
+
     return Scaffold(
       body: GoogleMap(
         myLocationButtonEnabled: false,

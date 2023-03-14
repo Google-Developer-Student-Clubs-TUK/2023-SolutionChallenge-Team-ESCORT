@@ -24,6 +24,7 @@ class _MainPartnerState extends State<MainPartner> {
 
   void _onItemTapped(int index) {
     setState(() {
+      print(index);
       _selectedIndex = index;
     });
   }
@@ -34,43 +35,46 @@ class _MainPartnerState extends State<MainPartner> {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         home: Scaffold(
-          appBar: AppBar(
-            title: Row(
-              children: [
-                SizedBox(
-                  width: 220,
-                  height: 20,
-                  child: Text(
-                    "Escort",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 17,
-                        fontWeight: FontWeight.bold),
+          appBar: _selectedIndex == 1
+              ? null
+              : AppBar(
+                  title: Row(
+                    children: [
+                      SizedBox(
+                        width: 220,
+                        height: 20,
+                        child: Text(
+                          "Escort",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 17,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 45),
+                        child: IconButton(
+                            onPressed: () => {},
+                            icon: Icon(Icons.notifications)),
+                      )
+                    ],
                   ),
+                  iconTheme: IconThemeData(
+                    color: Colors.black,
+                  ),
+                  backgroundColor: Colors.white,
+                  bottomOpacity: 0.0,
+                  titleSpacing: 20,
+                  leadingWidth: 20,
+                  centerTitle: false,
+                  leading: Transform.translate(
+                    offset: Offset(10, 0),
+                    child: Image.asset("assets/logo.png"),
+                  ),
+                  shape: RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.vertical(bottom: Radius.circular(10))),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 45),
-                  child: IconButton(
-                      onPressed: () => {}, icon: Icon(Icons.notifications)),
-                )
-              ],
-            ),
-            iconTheme: IconThemeData(
-              color: Colors.black,
-            ),
-            backgroundColor: Colors.white,
-            bottomOpacity: 0.0,
-            titleSpacing: 20,
-            leadingWidth: 20,
-            centerTitle: false,
-            leading: Transform.translate(
-              offset: Offset(10, 0),
-              child: Image.asset("assets/logo.png"),
-            ),
-            shape: RoundedRectangleBorder(
-                borderRadius:
-                    BorderRadius.vertical(bottom: Radius.circular(10))),
-          ),
           body: SafeArea(
             child: _widgetOptions[_selectedIndex],
           ),

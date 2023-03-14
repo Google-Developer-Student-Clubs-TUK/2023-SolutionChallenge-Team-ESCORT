@@ -30,7 +30,5 @@
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
 	<string>1:692960316042:ios:6f667c340de5efda003b73</string>
-	<key>DATABASE_URL</key>
-	<string>https://escort-8572e-default-rtdb.asia-southeast1.firebasedatabase.app</string>
 </dict>
 </plist>

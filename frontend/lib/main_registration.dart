@@ -11,6 +11,7 @@ class RegistrationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: null,
       body: Container(width: 300, height: 500, child: Text("")),
       floatingActionButton: SizedBox(
         child: Padding(
