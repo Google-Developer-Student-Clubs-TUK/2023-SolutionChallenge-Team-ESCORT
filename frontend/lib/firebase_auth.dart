@@ -37,7 +37,7 @@ Future<void> firebaseAuth(
     String? token = await _firebaseMessaging.getToken();
     print(token);
 
-    if (dementia == 'dementia.yes') {
+    if (dementia == 'Dementia.yes') {
       http.MultipartRequest request = new http.MultipartRequest(
           'POST', Uri.parse("http://34.22.70.120:8080/api/v1/protege"));
       request.fields['email'] = emailAddress;
@@ -55,6 +55,12 @@ Future<void> firebaseAuth(
           .add(await http.MultipartFile.fromPath('profileImage', imagePath));
 
       var response = await request.send();
+
+      DatabaseReference _databaseReference = FirebaseDatabase(
+              databaseURL:
+                  'https://escort-8572e-default-rtdb.asia-southeast1.firebasedatabase.app')
+          .ref("users/" + credential.user!.uid);
+      await _databaseReference.set({'isSafe': true});
     } else {
       http.MultipartRequest request = new http.MultipartRequest(
           'POST', Uri.parse("http://34.22.70.120:8080/api/v1/protector"));
@@ -91,12 +97,6 @@ Future<void> firebaseAuth(
       'password': password,
       // Add additional user information here
     });
-
-    DatabaseReference _databaseReference = FirebaseDatabase(
-            databaseURL:
-                'https://escort-8572e-default-rtdb.asia-southeast1.firebasedatabase.app')
-        .ref("users/" + emailAddress.split('@')[0]);
-    await _databaseReference.set({'isSafe': true});
   } on FirebaseAuthException catch (e) {
     if (e.code == 'weak-password') {
       print('The password provided is too weak.');

@@ -2,6 +2,8 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:escort/userinfo_controller.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -53,7 +55,6 @@ Future<Position> _determinePosition() async {
 
 Future<List<Location>> getLocationFromAddress(String address) async {
   List<Location> locations = await locationFromAddress(address);
-  print("this is getLocationFromAddress");
   return locations;
 }
 
@@ -63,30 +64,26 @@ void locationfunc(userid, address) async {
   var safezone = await getLocationFromAddress(address);
   var latitude = safezone[0].latitude;
   var longitude = safezone[0].longitude;
-  var subuserId = userid.split('@')[0];
-  var isSafe = await RealtimeDatabase.read(userId: subuserId);
+
+  var uId = await FirebaseAuth.instance.currentUser?.uid;
+  var isSafe = await RealtimeDatabase.read(uId: uId as String);
 
   final LocationSettings locationSettings = LocationSettings(
     accuracy: LocationAccuracy.high,
     distanceFilter: 1,
   );
 
-  Map<String, dynamic> data;
-  data = {'userId': userid, 'latitude': latitude, 'longitude': longitude};
-
   StreamSubscription<Position> positionStream =
       Geolocator.getPositionStream(locationSettings: locationSettings)
           .listen((Position? position) {
     RealtimeDatabase.updateLatLng(
-        userId: subuserId,
-        latitude: position!.latitude,
-        longitude: position.longitude);
+        uId: uId, latitude: position!.latitude, longitude: position.longitude);
 
     if (Geolocator.distanceBetween(
-                latitude, longitude, position!.latitude, position.longitude) >=
+                latitude, longitude, position.latitude, position.longitude) >=
             100.0 &&
         isSafe == true) {
-      RealtimeDatabase.updateSafe(userId: subuserId);
+      RealtimeDatabase.updateSafe(uId: uId);
       onLocationChanged(position);
     }
 

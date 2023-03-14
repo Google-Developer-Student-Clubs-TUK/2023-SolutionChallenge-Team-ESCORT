@@ -29,21 +29,6 @@ class AuthController extends GetxController {
   void setPlace(String value) => place.value = value;
   void setSafezone(String value) => safezone.value = value;
 
-  void checkvalues() => {
-        print(name),
-        print(birth),
-        print(phoneNumber),
-        print(email),
-        print(password),
-        print(dementia),
-        print(characteristics),
-        print(blood),
-        print(regidence),
-        print(place),
-        print(safezone),
-        print(imagePath),
-      };
-
   Future<void> saveImage(File imageFile) async {
     var directory;
     if (Platform.isAndroid) {

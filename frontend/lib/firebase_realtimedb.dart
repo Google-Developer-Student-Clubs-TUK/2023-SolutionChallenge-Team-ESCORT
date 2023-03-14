@@ -20,29 +20,28 @@ class RealtimeDatabase {
   }
 
   static void updateLatLng(
-      {required String userId,
+      {required String uId,
       required double latitude,
       required double longitude}) async {
-    _databaseReference.child("users/" + userId);
-
     await _databaseReference
+        .child("users/$uId")
         .update({"latitude": latitude, "longitude": longitude});
   }
 
   static void updateSafe({
-    required String userId,
+    required String uId,
   }) async {
-    _databaseReference.child("users/" + userId);
-    await _databaseReference.update({"isSafe": false});
+    await _databaseReference.child("users/$uId").update({"isSafe": false});
   }
 
-  static Future<bool> read({required String userId}) async {
+  static Future<bool> read({required String uId}) async {
     try {
-      _databaseReference.child("users/" + userId);
-      final snapshot = await _databaseReference.get();
+      final snapshot = await _databaseReference.child("users/$uId").get();
+
       if (snapshot.exists) {
         Map<String, dynamic> _snapshotValue =
             Map<String, dynamic>.from(snapshot.value as Map);
+
         return _snapshotValue['isSafe'];
       } else {
         return true;
