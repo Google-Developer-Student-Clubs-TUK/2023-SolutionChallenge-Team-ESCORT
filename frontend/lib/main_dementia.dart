@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:escort/dementia.dart';
 import 'package:escort/main_dementia_controller.dart';
 import 'package:escort/main_dementia_qr.dart';
 import 'package:escort/userinfo_controller.dart';
@@ -34,7 +35,25 @@ class MainDementia extends StatelessWidget {
     var _qrCodeData = json;
     print(_qrCodeData);
 
-    // QR 코드로 표시 할 데이터
+    DementiaInfo dementiaInfo = DementiaInfo(
+      image:
+          'https://tistory1.daumcdn.net/tistory/2743554/attach/cb196de69425482b93b43ad7fc207bf6',
+      name: data['name'],
+      phone: data['phoneNumber'],
+      characteristics: data['characteristics'],
+      safeZone: data['safezone'],
+      regidence: data['regidence'],
+      bloodType: data['blood'],
+      favoritePlace: data['place'],
+    );
+
+    PartnerInfo partnerInfo = PartnerInfo(
+      image:
+          'https://tistory1.daumcdn.net/tistory/2743554/attach/cb196de69425482b93b43ad7fc207bf6',
+      name: 'GwangMoo You',
+      phone: '+82-10-6348-1143',
+      relationship: 'Son',
+    );
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -75,219 +94,13 @@ class MainDementia extends StatelessWidget {
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.vertical(bottom: Radius.circular(10))),
         ),
-        body: SizedBox(
-          width: double.infinity,
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(24, 16, 24, 4),
-            child: Column(
-              children: [
-                Expanded(
-                  flex: 51,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(12),
-                        topRight: Radius.circular(12),
-                      ),
-                      gradient: LinearGradient(
-                        colors: const [
-                          Color(0xFF347E5B),
-                          Color(0xE6205C49),
-                          Color(0xCC10403B),
-                        ],
-                      ),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(32, 24, 32, 22),
-                      child: Column(
-                        children: [
-                          Expanded(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    image: NetworkImage(
-                                        'https://tistory1.daumcdn.net/tistory/2743554/attach/cb196de69425482b93b43ad7fc207bf6'),
-                                  ),
-                                  shape: BoxShape.circle),
-                            ),
-                          ),
-                          Column(
-                            children: [
-                              SizedBox(height: 16),
-                              Text(
-                                data['name'],
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              SizedBox(height: 4),
-                              Text(
-                                data['phoneNumber'],
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 14,
-                                ),
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 4,
-                ),
-                Expanded(
-                  flex: 20,
-                  child: Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Color(0xFFE8E9EB),
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(12),
-                        bottomRight: Radius.circular(12),
-                      ),
-                    ),
-                    child: PageView(
-                      children: [
-                        buildInformation(
-                          'Characteristics',
-                          data['characteristics'],
-                        ),
-                        buildInformation(
-                          'Safe Zone',
-                          data['safezone'],
-                        ),
-                        buildInformation(
-                          'Regidence',
-                          data['regidence'],
-                        ),
-                        buildInformation(
-                          'Blood Type',
-                          data['blood'],
-                        ),
-                        buildInformation(
-                          'Favorite Place',
-                          data['place'],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 4,
-                ),
-                Expanded(
-                  flex: 26,
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: InkWell(
-                      customBorder: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      onTap: dementiaController.clickCall,
-                      child: Ink(
-                        decoration: BoxDecoration(
-                          color: Color(0xFFE8E9EB),
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(top: 10, bottom: 10),
-                              child: Column(
-                                children: [
-                                  Expanded(
-                                    child: FractionallySizedBox(
-                                      widthFactor: 0.385,
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                            image: DecorationImage(
-                                              image: NetworkImage(
-                                                  'https://tistory1.daumcdn.net/tistory/2743554/attach/cb196de69425482b93b43ad7fc207bf6'),
-                                            ),
-                                            shape: BoxShape.circle),
-                                      ),
-                                    ),
-                                  ),
-                                  Column(
-                                    children: [
-                                      SizedBox(
-                                        height: 8,
-                                      ),
-                                      Text(
-                                        data['regidence'],
-                                        style: TextStyle(
-                                            color: Color(0xFF10403B),
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      SizedBox(
-                                        height: 4,
-                                      ),
-                                      Text(
-                                        'Relationship: Son',
-                                        style: TextStyle(
-                                          color: Color(0xFF808584),
-                                          fontSize: 12,
-                                        ),
-                                      )
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ),
-                            Obx(
-                              () {
-                                return AnimatedOpacity(
-                                  opacity: dementiaController.isShowCall.value
-                                      ? 1.0
-                                      : 0.0,
-                                  duration: const Duration(milliseconds: 200),
-                                  child: Container(
-                                    width: double.infinity,
-                                    decoration: BoxDecoration(
-                                      color: Color(0xCC10403B),
-                                      borderRadius: BorderRadius.circular(12),
-                                    ),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: const [
-                                        Icon(
-                                          Icons.call_outlined,
-                                          size: 80,
-                                          color: Colors.white,
-                                        ),
-                                        SizedBox(
-                                          height: 26,
-                                        ),
-                                        Text(
-                                          '+82-10-1234-5678',
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
+        body: buildDementia(
+          dementiaInfo,
+          partnerInfo,
+          dementiaController.isShowCall,
+          () {
+            dementiaController.clickCall();
+          },
         ),
         floatingActionButton: SizedBox(
           child: Padding(
@@ -311,35 +124,6 @@ class MainDementia extends StatelessWidget {
             ),
           ),
         ),
-      ),
-    );
-  }
-
-  Padding buildInformation(String type, String description) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(24, 12, 24, 12),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            type,
-            style: TextStyle(
-              color: Color(0xFF10403B),
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          Expanded(child: Container()),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "● $description",
-                style: TextStyle(color: Color(0xFF10403B), fontSize: 14),
-              ),
-            ],
-          ),
-        ],
       ),
     );
   }
