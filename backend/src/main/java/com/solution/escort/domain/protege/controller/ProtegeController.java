@@ -3,6 +3,7 @@ package com.solution.escort.domain.protege.controller;
 import com.solution.escort.domain.protege.dto.request.ProtegeClothRequestDTO;
 import com.solution.escort.domain.protege.dto.request.ProtegeRequestDTO;
 import com.solution.escort.domain.protege.dto.response.ProtegeResponseDTO;
+import com.solution.escort.domain.protege.repository.ProtegeRepository;
 import com.solution.escort.domain.protege.service.ProtegeService;
 import com.solution.escort.global.GCP.GCPService;
 import com.solution.escort.global.ResponseFormat;
@@ -26,6 +27,9 @@ public class ProtegeController {
     @Autowired
     private GCPService gcpService;
 
+    @Autowired
+    private ProtegeRepository protegeRepository;
+
 
 
     // 치매노인 회원 가입 API
@@ -38,31 +42,29 @@ public class ProtegeController {
             log.warn("파일이 존재하지 않습니다");
         }
         String url = gcpService.uploadFile(multipartFile);
-        dto.setCountryCode("82");
         protegeService.createProtege(dto, strings, url);
 
         ResponseFormat<ProtegeResponseDTO> responseFormat = new ResponseFormat<>(ResponseStatus.POST_PROTEGE_SUCCESS);
         return ResponseEntity.status(HttpStatus.CREATED).body(responseFormat);
     }
 
-    // 치매노인  (이미지는 GCP 미발급으로 보류)
 
     // 노인 한명의 정보 가져오기 API
-    @GetMapping("/{id}")
-    public ResponseEntity<ResponseFormat<ProtegeResponseDTO>> getProtegeById(@PathVariable Integer id) throws Exception{
+    @GetMapping("/{uId}")
+    public ResponseEntity<ResponseFormat<ProtegeResponseDTO>> getProtegeById(@PathVariable String uId) throws Exception{
+        int id = protegeRepository.findByFbId(uId).getId();
         ProtegeResponseDTO protege = protegeService.getProtegeById(id);
         ResponseFormat<ProtegeResponseDTO> responseFormat = new ResponseFormat<>(ResponseStatus.GET_PROTEGE_SUCCESS, protege);
         return ResponseEntity.status(HttpStatus.OK).body(responseFormat);
     }
 
     // 노인 신고 시 노인의 옷차림 추가하는 API
-    @PutMapping("/{id}")
-    public ResponseEntity<ResponseFormat<ProtegeClothRequestDTO>> protegeCloth(ProtegeClothRequestDTO dto, @PathVariable Integer id) throws Exception {
+    @PutMapping("/{uId}")
+    public ResponseEntity<ResponseFormat<ProtegeClothRequestDTO>> protegeCloth(ProtegeClothRequestDTO dto, @PathVariable String uId) throws Exception {
+        int id = protegeRepository.findByFbId(uId).getId();
         protegeService.protegeCloth(dto, id);
         ResponseFormat<ProtegeClothRequestDTO> responseFormat = new ResponseFormat<>(ResponseStatus.PUT_PROTEGE_CLOTHING_SUCCESS);
         return ResponseEntity.status(HttpStatus.OK).body(responseFormat);
     }
-
-
 
 }

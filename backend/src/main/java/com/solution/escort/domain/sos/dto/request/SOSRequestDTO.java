@@ -14,11 +14,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @NoArgsConstructor
 public class SOSRequestDTO {
-    private Protege protegeId;
+    private String protegeUId;
 
-    public SOS toSOSEntity(SOSRequestDTO sosRequestDTO) {
-        return SOS.builder()
-                .protege((sosRequestDTO.protegeId))
-                .build();
-    }
 }

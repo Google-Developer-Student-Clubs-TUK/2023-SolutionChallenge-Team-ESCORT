@@ -16,5 +16,6 @@ public class PtorResponseDTO {
     private Integer id;
     private String name;
     private String phone;
+    private String countryCode;
     private String imageUrl;
 }

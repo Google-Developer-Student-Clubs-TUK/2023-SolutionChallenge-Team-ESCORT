@@ -13,13 +13,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @NoArgsConstructor
 public class PPConnectionRequestDTO {
-    private Protector protectorId;
-    private Protege protegeId;
+    private String protectorUId;
 
-    public ProtectorProtege toPPEntity(PPConnectionRequestDTO ppConnectionRequestDTO) {
-        return ProtectorProtege.builder()
-                .protector(ppConnectionRequestDTO.protectorId)
-                .protege(ppConnectionRequestDTO.protegeId)
-                .build();
-    }
+    private String protegeUId;
+
 }

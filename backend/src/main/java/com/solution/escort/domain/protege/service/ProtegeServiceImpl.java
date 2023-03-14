@@ -35,6 +35,7 @@ public class ProtegeServiceImpl implements ProtegeService {
             throw new EntityExistsException();
         }
         Protege saveProtege = protegeRequestDTO.toProtegeEntity(protegeRequestDTO);
+        saveProtege.setCountryCode("82");
         protegeRepository.save(saveProtege);
 
         saveProtege.setImageUrl(url);

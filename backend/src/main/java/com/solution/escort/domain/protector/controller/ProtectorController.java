@@ -2,7 +2,9 @@ package com.solution.escort.domain.protector.controller;
 
 import com.solution.escort.domain.protector.dto.request.ProtectorRequestDTO;
 import com.solution.escort.domain.protector.dto.response.ProtectorResponseDTO;
+import com.solution.escort.domain.protector.repository.ProtectorRepository;
 import com.solution.escort.domain.protector.service.ProtectorService;
+import com.solution.escort.domain.protege.repository.ProtegeRepository;
 import com.solution.escort.global.GCP.GCPService;
 import com.solution.escort.global.ResponseFormat;
 import com.solution.escort.global.ResponseStatus;
@@ -21,6 +23,9 @@ public class ProtectorController {
     private ProtectorService protectorService;
 
     @Autowired
+    private ProtectorRepository protectorRepository;
+
+    @Autowired
     private GCPService gcpService;
 
     // 보호자 회원 가입 API
@@ -37,9 +42,11 @@ public class ProtectorController {
     }
 
 
-    // 보호자 정보 가져오는 API
-    @GetMapping("/{id}")
-    public ResponseEntity<ResponseFormat<ProtectorResponseDTO>> getProtectorById(@PathVariable Integer id) throws Exception {
+    // 보호자 정보 가져오는 API -> uId로 수정
+    @GetMapping("/{uId}")
+    public ResponseEntity<ResponseFormat<ProtectorResponseDTO>> getProtectorById(@PathVariable String uId) throws Exception {
+        int id = protectorRepository.findByFbId(uId).getId();
+
         ProtectorResponseDTO protector = protectorService.getProtectorById(id);
         ResponseFormat<ProtectorResponseDTO> responseFormat = new ResponseFormat<>(ResponseStatus.GET_PROTECTOR_SUCCESS, protector);
         return ResponseEntity.status(HttpStatus.OK).body(responseFormat);

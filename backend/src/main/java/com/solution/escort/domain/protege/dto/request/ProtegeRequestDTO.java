@@ -27,6 +27,8 @@ public class ProtegeRequestDTO {
     private MultipartFile profileImage;
     private String countryCode;
 
+    private String uId;
+
     private List<SafeZone> safeZoneAddress;
 
     public Protege toProtegeEntity(ProtegeRequestDTO protegeRequestDTO) {
@@ -39,6 +41,8 @@ public class ProtegeRequestDTO {
                 .phone(protegeRequestDTO.getPhone())
                 .deviceToken(protegeRequestDTO.getDeviceToken())
                 .scope(protegeRequestDTO.getScope())
+                .countryCode(protegeRequestDTO.getCountryCode())
+                .fbId(protegeRequestDTO.getUId())
                 .build();
     }
 }

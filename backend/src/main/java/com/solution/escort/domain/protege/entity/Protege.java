@@ -69,6 +69,9 @@ public class Protege {
     @ColumnDefault("82")
     private String countryCode;
 
+    @Column
+    private String fbId;
+
 
     @OneToMany(mappedBy = "protege")
     private List<ProtectorProtege> protectors = new ArrayList<>();
@@ -87,9 +90,12 @@ public class Protege {
                 .countryCode(protege.getCountryCode())
                 .scope(protege.getScope())
                 .imageUrl(protege.getImageUrl())
+                .uId(protege.getFbId())
+                .clothing(protege.getClothing())
                 .build();
     }
 
+    // uid 추가 필요할수도
     public PgeResponseDTO toPgResponseDTO(Protege protege, List<String> safeZones) {
         return PgeResponseDTO.builder()
                 .id(protege.getId())
@@ -100,6 +106,9 @@ public class Protege {
                 .phone(protege.getPhone())
                 .safeZones(safeZones)
                 .imageUrl(protege.getImageUrl())
+                .countryCode(protege.getCountryCode())
+                .clothing(protege.getClothing())
+                .uId(protege.getFbId())
                 .build();
     }
 }
