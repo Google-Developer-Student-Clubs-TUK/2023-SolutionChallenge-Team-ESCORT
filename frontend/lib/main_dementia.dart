@@ -85,8 +85,8 @@ class MainDementia extends StatelessWidget {
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(12),
-                        bottomRight: Radius.circular(12),
+                        topLeft: Radius.circular(12),
+                        topRight: Radius.circular(12),
                       ),
                       gradient: LinearGradient(
                         colors: const [
@@ -111,10 +111,10 @@ class MainDementia extends StatelessWidget {
                             ),
                           ),
                           Column(
-                            children: const [
+                            children: [
                               SizedBox(height: 16),
                               Text(
-                                "GwangMoo You",
+                                data['name'],
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 24,
@@ -122,7 +122,7 @@ class MainDementia extends StatelessWidget {
                               ),
                               SizedBox(height: 4),
                               Text(
-                                "+82 10 6348 1143",
+                                data['phoneNumber'],
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 14,
@@ -149,42 +149,29 @@ class MainDementia extends StatelessWidget {
                         bottomRight: Radius.circular(12),
                       ),
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(24, 8, 24, 8),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Characteristics",
-                            style: TextStyle(
-                              color: Color(0xFF10403B),
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Expanded(child: Container()),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
-                              Text(
-                                '● A mole under the nose',
-                                style: TextStyle(
-                                    color: Color(0xFF10403B), fontSize: 14),
-                              ),
-                              Text(
-                                '● Big ears and small lips',
-                                style: TextStyle(
-                                    color: Color(0xFF10403B), fontSize: 14),
-                              ),
-                              Text(
-                                '● Reacting to the name ‘Frank’',
-                                style: TextStyle(
-                                    color: Color(0xFF10403B), fontSize: 14),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
+                    child: PageView(
+                      children: [
+                        buildInformation(
+                          'Characteristics',
+                          data['characteristics'],
+                        ),
+                        buildInformation(
+                          'Safe Zone',
+                          data['safezone'],
+                        ),
+                        buildInformation(
+                          'Regidence',
+                          data['regidence'],
+                        ),
+                        buildInformation(
+                          'Blood Type',
+                          data['blood'],
+                        ),
+                        buildInformation(
+                          'Favorite Place',
+                          data['place'],
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -210,7 +197,7 @@ class MainDementia extends StatelessWidget {
                           children: [
                             Padding(
                               padding:
-                                  const EdgeInsets.only(top: 10, bottom: 7),
+                                  const EdgeInsets.only(top: 10, bottom: 10),
                               child: Column(
                                 children: [
                                   Expanded(
@@ -227,12 +214,12 @@ class MainDementia extends StatelessWidget {
                                     ),
                                   ),
                                   Column(
-                                    children: const [
+                                    children: [
                                       SizedBox(
                                         height: 8,
                                       ),
                                       Text(
-                                        'Minsu Kim',
+                                        data['regidence'],
                                         style: TextStyle(
                                             color: Color(0xFF10403B),
                                             fontSize: 16,
@@ -339,6 +326,35 @@ class MainDementia extends StatelessWidget {
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  Padding buildInformation(String type, String description) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(24, 12, 24, 12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            type,
+            style: TextStyle(
+              color: Color(0xFF10403B),
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Expanded(child: Container()),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "● $description",
+                style: TextStyle(color: Color(0xFF10403B), fontSize: 14),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
