@@ -1,5 +1,6 @@
 package com.solution.escort.domain.protege.service;
 
+import com.solution.escort.domain.protector.repository.ProtectorRepository;
 import com.solution.escort.domain.protege.dto.request.ProtegeClothRequestDTO;
 import com.solution.escort.domain.protege.dto.request.ProtegeRequestDTO;
 import com.solution.escort.domain.protege.dto.response.ProtegeResponseDTO;
@@ -28,10 +29,16 @@ public class ProtegeServiceImpl implements ProtegeService {
     @Autowired
     private SafeZoneRepository safeZoneRepository;
 
+    @Autowired
+    private ProtectorRepository protectorRepository;
+
     // 노인 회원가입 API 관련 서비스
     @Override
     public void createProtege(ProtegeRequestDTO protegeRequestDTO, List<String> safeZoneAddress, String url) throws Exception {
-        if(protegeRepository.existsByEmail(protegeRequestDTO.getEmail())){
+        if(protegeRepository.existsByEmail(protegeRequestDTO.getEmail()) || protectorRepository.existsByEmail(protegeRequestDTO.getEmail())){
+            throw new EntityExistsException();
+        }
+        if(protegeRepository.existsByFbId(protegeRequestDTO.getUId()) || protectorRepository.existsByFbId(protegeRequestDTO.getUId())){
             throw new EntityExistsException();
         }
         Protege saveProtege = protegeRequestDTO.toProtegeEntity(protegeRequestDTO);
@@ -58,7 +65,6 @@ public class ProtegeServiceImpl implements ProtegeService {
         Protege protege = protegeRepository.findById(id).get();
         List<String> safeZones = new ArrayList<>();
         List<String> strSafeZones = safeZoneRepository.findSafeZonesByProtegeId(protege.getId());
-        //String safeZone = new String(strSafeZone);
         safeZones.addAll(strSafeZones);
         return protege.toProtegeResponseDTO(protege, safeZones);
     }

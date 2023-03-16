@@ -5,6 +5,7 @@ import com.solution.escort.domain.protector.dto.response.ProtectorResponseDTO;
 import com.solution.escort.domain.protector.entity.Protector;
 import com.solution.escort.domain.protector.repository.ProtectorRepository;
 import com.solution.escort.domain.protege.dto.response.ProtegeResponseDTO;
+import com.solution.escort.domain.protege.repository.ProtegeRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,22 +19,24 @@ public class ProtectorServiceImpl implements ProtectorService {
     @Autowired
     private ProtectorRepository protectorRepository;
 
+    @Autowired
+    private ProtegeRepository protegeRepository;
+
     // 보호자 회원가입 API 관련 서비스
     @Override
     public void createProtector(ProtectorRequestDTO protectorRequestDTO, String url) throws Exception {
-        if (protectorRepository.existsByEmail(protectorRequestDTO.getEmail())){
+        if (protectorRepository.existsByEmail(protectorRequestDTO.getEmail()) || protegeRepository.existsByEmail(protectorRequestDTO.getEmail())){
+            throw new EntityExistsException();
+        }
+
+        if (protectorRepository.existsByFbId(protectorRequestDTO.getUId()) || protegeRepository.existsByFbId(protectorRequestDTO.getUId())){
             throw new EntityExistsException();
         }
         Protector saveProtector = protectorRequestDTO.toProtectorEntity(protectorRequestDTO);
         saveProtector.setImageUrl(url);
         protectorRepository.save(saveProtector);
 
-
-        //saveProtector.setImageUrl(url);
-
     }
-
-    // 보호자 노인 등록 API 관련 서비스
 
     // 보호자 한명 정보 가져오는 API
     @Override
