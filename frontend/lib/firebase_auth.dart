@@ -49,12 +49,16 @@ Future<void> firebaseAuth(
       request.fields['safeZones'] = safezone;
       request.fields['deviceToken'] = token!;
       request.fields['uId'] = credential.user!.uid;
+      request.fields['birth'] = birth;
 
       //요청에 이미지 파일 추가
       request.files
           .add(await http.MultipartFile.fromPath('profileImage', imagePath));
 
       var response = await request.send();
+      print(dementia);
+
+      print(await response.stream.bytesToString());
 
       DatabaseReference _databaseReference = FirebaseDatabase(
               databaseURL:
@@ -71,12 +75,15 @@ Future<void> firebaseAuth(
       request.fields['address'] = regidence;
       request.fields['deviceToken'] = token!;
       request.fields['safeZones'] = safezone;
+      request.fields['birth'] = birth;
       request.fields['uId'] = credential.user!.uid;
 
       //요청에 이미지 파일 추가
       request.files
           .add(await http.MultipartFile.fromPath('profileImage', imagePath));
       var response = await request.send();
+      print(dementia);
+      print(await response.stream.bytesToString());
     }
 
     await FirebaseFirestore.instance

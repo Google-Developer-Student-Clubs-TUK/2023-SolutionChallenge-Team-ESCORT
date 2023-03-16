@@ -1,17 +1,18 @@
+import 'dart:convert';
 import 'dart:ffi';
 
 import 'package:firebase_database/firebase_database.dart';
 
 class RealtimeDatabase {
-  static DatabaseReference _databaseReference = FirebaseDatabase(
-          databaseURL:
-              'https://escort-8572e-default-rtdb.asia-southeast1.firebasedatabase.app')
-      .ref();
   static void write({
     required String userId,
     required Map<String, dynamic> data,
   }) async {
     try {
+      DatabaseReference _databaseReference = await FirebaseDatabase(
+              databaseURL:
+                  'https://escort-8572e-default-rtdb.asia-southeast1.firebasedatabase.app')
+          .ref();
       _databaseReference.child("users/" + userId);
       await _databaseReference.set(data);
     } catch (e) {
@@ -23,6 +24,10 @@ class RealtimeDatabase {
       {required String uId,
       required double latitude,
       required double longitude}) async {
+    DatabaseReference _databaseReference = await FirebaseDatabase(
+            databaseURL:
+                'https://escort-8572e-default-rtdb.asia-southeast1.firebasedatabase.app')
+        .ref();
     await _databaseReference
         .child("users/$uId")
         .update({"latitude": latitude, "longitude": longitude});
@@ -31,11 +36,19 @@ class RealtimeDatabase {
   static void updateSafe({
     required String uId,
   }) async {
+    DatabaseReference _databaseReference = await FirebaseDatabase(
+            databaseURL:
+                'https://escort-8572e-default-rtdb.asia-southeast1.firebasedatabase.app')
+        .ref();
     await _databaseReference.child("users/$uId").update({"isSafe": false});
   }
 
   static Future<bool> read({required String uId}) async {
     try {
+      DatabaseReference _databaseReference = await FirebaseDatabase(
+              databaseURL:
+                  'https://escort-8572e-default-rtdb.asia-southeast1.firebasedatabase.app')
+          .ref();
       final snapshot = await _databaseReference.child("users/$uId").get();
 
       if (snapshot.exists) {
@@ -51,18 +64,37 @@ class RealtimeDatabase {
     }
   }
 
-  static Future<Map<String, dynamic>> locations() async {
+  static Future<List<Map<String, dynamic>>> locations(
+      Map<String, dynamic> protegeList) async {
     try {
-      final snapshot = await _databaseReference.child("users/").get();
+      //print(protegeList['result']);
+      var snapshot;
 
-      if (snapshot.exists) {
+      List<dynamic> data = protegeList['result'];
+
+      List<Map<String, dynamic>> mapData = [];
+
+      for (var element in data) {
+        var uid = element['uid'];
+
+        DatabaseReference _databaseReference = await FirebaseDatabase(
+                databaseURL:
+                    'https://escort-8572e-default-rtdb.asia-southeast1.firebasedatabase.app')
+            .ref();
+
+        snapshot = await _databaseReference.child("users/$uid").get();
         Map<String, dynamic> _snapshotValue =
-            Map<String, dynamic>.from(snapshot.value as Map);
-
-        return _snapshotValue;
-      } else {
-        return {};
+            await Map<String, dynamic>.from(snapshot.value as Map);
+        _snapshotValue['uid'] = uid;
+        mapData.add(_snapshotValue);
       }
+
+      return mapData;
+      //data.map((value) => {print(value), print("hello")}).toList();
+
+      // protegeList.forEach((key, value) {
+      //   print(value);
+      // });
     } catch (e) {
       rethrow;
     }

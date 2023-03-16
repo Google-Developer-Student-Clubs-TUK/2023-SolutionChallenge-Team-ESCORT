@@ -1,12 +1,15 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:escort/firebase_realtimedb.dart';
 import 'package:escort/signup.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'firebase_realtimedb.dart';
+import 'package:http/http.dart' as http;
 
 class User {
   String? id;
@@ -64,8 +67,9 @@ class MapSample extends StatefulWidget {
 }
 
 class MapSampleState extends State<MapSample> {
-  Map<String, dynamic> _markers = {};
+  List<Map<String, dynamic>> _markers = [{}];
   List<Marker> markers = [];
+  Map<String, dynamic> protegeList = {};
 
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
@@ -75,29 +79,58 @@ class MapSampleState extends State<MapSample> {
     zoom: 14.4746,
   );
 
+  getDementia() async {
+    var uId = await FirebaseAuth.instance.currentUser?.uid;
+
+    var request = http.MultipartRequest(
+        'GET',
+        Uri.parse(
+            'http://34.22.70.120:8080/api/v1/ppConnection/protector/$uId'));
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      print("success");
+
+      Map<String, dynamic> data =
+          json.decode(await response.stream.bytesToString());
+      setState(() {
+        protegeList = data;
+      });
+      RealtimeDatabase.locations(protegeList).then((value) => {
+            setState(() {
+              _markers = value;
+              print(_markers);
+
+              _markers.forEach((element) {
+                ;
+
+                double longitude = (element['longitude']);
+                double latitude = (element['latitude']);
+
+                markers.add(
+                  Marker(
+                    markerId: MarkerId(element['uid']),
+                    position: LatLng(latitude, longitude),
+                  ),
+                );
+              });
+            })
+          });
+    } else {
+      print(response.reasonPhrase);
+    }
+  }
+
   @override
   void initState() {
     super.initState();
+    getDementia();
   }
 
   @override
   Widget build(BuildContext context) {
     DementiaLocationTracker dementiaTracking = DementiaLocationTracker();
-    RealtimeDatabase.locations().then((value) => {
-          setState(() {
-            _markers = value;
-            _markers.forEach((key, value) {
-              double longitude = value['longitude'];
-              double latitude = value['latitude'];
-              markers.add(
-                Marker(
-                  markerId: MarkerId(key),
-                  position: LatLng(latitude, longitude),
-                ),
-              );
-            });
-          })
-        });
 
     return Scaffold(
       body: GoogleMap(
