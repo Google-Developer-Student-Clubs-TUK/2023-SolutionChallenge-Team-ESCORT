@@ -100,20 +100,29 @@ class MapSampleState extends State<MapSample> {
       RealtimeDatabase.locations(protegeList).then((value) => {
             setState(() {
               _markers = value;
-              print(_markers);
 
-              _markers.forEach((element) {
-                ;
-
+              _markers.forEach((element) async {
                 double longitude = (element['longitude']);
                 double latitude = (element['latitude']);
 
-                markers.add(
-                  Marker(
+                BitmapDescriptor safeMarker =
+                    await BitmapDescriptor.fromAssetImage(
+                  ImageConfiguration(size: Size(48, 48)),
+                  'assets/safemarker.png',
+                ) as BitmapDescriptor;
+
+                BitmapDescriptor dangerMarker =
+                    await BitmapDescriptor.fromAssetImage(
+                  ImageConfiguration(size: Size(48, 48)),
+                  'assets/dangermarker.png',
+                ) as BitmapDescriptor;
+
+                bool isSafe = element['isSafe'];
+
+                markers.add(Marker(
                     markerId: MarkerId(element['uid']),
                     position: LatLng(latitude, longitude),
-                  ),
-                );
+                    icon: isSafe ? safeMarker : dangerMarker));
               });
             })
           });
