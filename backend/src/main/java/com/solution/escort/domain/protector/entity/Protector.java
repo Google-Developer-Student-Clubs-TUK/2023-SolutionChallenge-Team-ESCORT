@@ -30,26 +30,22 @@ public class Protector {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column
+    @Column(nullable = false)
     private String name;
 
-    @Column
+    @Column(nullable = false)
     private String email;
 
-    @Column
+    @Column(nullable = false)
     private String password;
 
-    @Column
+    @Column(nullable = false)
     private String phone;
 
-    @Column
+    @Column(nullable = false)
     private String address;
 
-    @Column
-    @CreatedDate
-    private LocalDateTime createdAt;
-
-    @Column
+    @Column(nullable = false)
     private String deviceToken;
 
     @ColumnDefault("82")
@@ -58,8 +54,11 @@ public class Protector {
     @Column
     private String imageUrl;
 
-    @Column
+    @Column(nullable = false)
     private String fbId;
+
+    @Column(nullable = false)
+    private String birth;
 
 
     @OneToMany(mappedBy = "protector")
@@ -76,6 +75,7 @@ public class Protector {
                 .countryCode(protector.getCountryCode())
                 .imageUrl(protector.getImageUrl())
                 .uId(protector.getFbId())
+                .birth(protector.getBirth())
                 .build();
 
     }
