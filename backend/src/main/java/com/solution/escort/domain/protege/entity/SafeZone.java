@@ -25,12 +25,8 @@ public class SafeZone {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column
+    @Column(nullable = false)
     private String safeAddress;
-
-    @Column
-    @CreatedDate
-    private LocalDateTime createdAt;
 
     // 노인(Protege)과 SafeZone은 다대일 관계
     @ManyToOne

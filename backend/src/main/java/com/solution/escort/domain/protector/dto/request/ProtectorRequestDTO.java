@@ -20,6 +20,7 @@ public class ProtectorRequestDTO {
     private String deviceToken;
     private MultipartFile profileImage;
     private String uId;
+    private String birth;
 
     public Protector toProtectorEntity(ProtectorRequestDTO protectorRequestDTO){
         return Protector.builder()
@@ -30,6 +31,7 @@ public class ProtectorRequestDTO {
                 .address(protectorRequestDTO.getAddress())
                 .deviceToken(protectorRequestDTO.getDeviceToken())
                 .fbId(protectorRequestDTO.getUId())
+                .birth(protectorRequestDTO.getBirth())
                 .build();
     }
 }
