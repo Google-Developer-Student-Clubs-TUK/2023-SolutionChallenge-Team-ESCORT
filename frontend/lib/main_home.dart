@@ -2,14 +2,13 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:escort/firebase_realtimedb.dart';
-import 'package:escort/signup.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'firebase_realtimedb.dart';
 import 'package:http/http.dart' as http;
+import 'package:location/location.dart';
+import 'package:geolocator/geolocator.dart';
 
 class User {
   String? id;
@@ -70,6 +69,7 @@ class MapSampleState extends State<MapSample> {
   List<Map<String, dynamic>> _markers = [{}];
   List<Marker> markers = [];
   Map<String, dynamic> protegeList = {};
+  var currentLocation = LatLng(0, 0);
 
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
@@ -109,13 +109,13 @@ class MapSampleState extends State<MapSample> {
                     await BitmapDescriptor.fromAssetImage(
                   ImageConfiguration(size: Size(48, 48)),
                   'assets/safemarker.png',
-                ) as BitmapDescriptor;
+                );
 
                 BitmapDescriptor dangerMarker =
                     await BitmapDescriptor.fromAssetImage(
                   ImageConfiguration(size: Size(48, 48)),
                   'assets/dangermarker.png',
-                ) as BitmapDescriptor;
+                );
 
                 bool isSafe = element['isSafe'];
 
@@ -139,6 +139,8 @@ class MapSampleState extends State<MapSample> {
 
   @override
   Widget build(BuildContext context) {
+    Location location = Location();
+
     DementiaLocationTracker dementiaTracking = DementiaLocationTracker();
 
     return Scaffold(
@@ -147,8 +149,14 @@ class MapSampleState extends State<MapSample> {
         markers: Set<Marker>.of(markers),
         mapType: MapType.terrain,
         initialCameraPosition: _kGooglePlex,
-        onMapCreated: (GoogleMapController controller) {
-          _controller.complete(controller);
+        onMapCreated: (GoogleMapController controller) async {
+          final currentLocation = await Geolocator.getCurrentPosition();
+
+          print(currentLocation);
+
+          controller.animateCamera(CameraUpdate.newLatLngZoom(
+              LatLng(currentLocation.latitude!, currentLocation.longitude!),
+              15.0));
         },
       ),
     );
