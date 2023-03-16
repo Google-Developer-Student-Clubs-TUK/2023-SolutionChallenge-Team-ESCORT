@@ -35,7 +35,7 @@ class _MainPartnerState extends State<MainPartner> {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         home: Scaffold(
-          appBar: AppBar(
+          appBar: _selectedIndex != 0 ? null : AppBar(
             title: Row(
               children: [
                 SizedBox(
