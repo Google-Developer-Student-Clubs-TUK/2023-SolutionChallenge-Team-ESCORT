@@ -15,6 +15,8 @@ class RegistrationPage extends StatelessWidget {
     final RegistrationController registrationController =
         Get.put(RegistrationController());
 
+    print("PangMoo - UID = ${FirebaseAuth.instance.currentUser?.uid}");
+
     return Scaffold(
       body: Container(
         child: Column(
@@ -84,7 +86,7 @@ class RegistrationPage extends StatelessWidget {
   InkWell buildRegistration(
       String image, String name, String age, String safeZone) {
     return InkWell(
-      onTap: (){ },
+      onTap: () {},
       borderRadius: BorderRadius.circular(20),
       child: Ink(
         decoration: BoxDecoration(
@@ -267,9 +269,33 @@ class _QRViewExampleState extends State<QRViewExample> {
       this.controller = controller;
     });
     controller.scannedDataStream.listen((scanData) {
-      setState(() {
-        result = scanData;
-      });
+      setState(
+        () {
+          result = scanData;
+          String? code = result?.code;
+
+          controller.stopCamera();
+
+          print("PangMoo - code: $code");
+
+          if (code != null) {
+            GetConnect().post(
+              'http://34.22.70.120:8080/api/v1/ppConnection',
+              {
+                "protectorUId": FirebaseAuth.instance.currentUser?.uid ?? "-",
+                "protegeUId": result!.code
+              },
+            ).then((value) => {
+              print("PangMOO: ${value.body}"),
+
+              if (value.body['code'] == 'PP000')
+                Navigator.pop(context)
+              else
+                controller.resumeCamera()
+            });
+          }
+        },
+      );
     });
   }
 

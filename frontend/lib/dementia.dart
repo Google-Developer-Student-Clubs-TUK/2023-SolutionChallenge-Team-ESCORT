@@ -9,18 +9,17 @@ class DementiaInfo {
       characteristics,
       safeZone,
       regidence,
-      bloodType,
-      favoritePlace;
+      bloodType;
 
-  DementiaInfo(
-      {required this.image,
-      required this.name,
-      required this.phone,
-      required this.characteristics,
-      required this.safeZone,
-      required this.regidence,
-      required this.bloodType,
-      required this.favoritePlace});
+  DementiaInfo({
+    required this.image,
+    required this.name,
+    required this.phone,
+    required this.characteristics,
+    required this.safeZone,
+    required this.regidence,
+    required this.bloodType,
+  });
 }
 
 class PartnerInfo {
@@ -127,10 +126,6 @@ SizedBox buildDementia(DementiaInfo dementiaInfo, PartnerInfo partnerInfo,
                   _buildInformation(
                     'Blood Type',
                     dementiaInfo.bloodType,
-                  ),
-                  _buildInformation(
-                    'Favorite Place',
-                    dementiaInfo.favoritePlace,
                   ),
                 ],
               ),
