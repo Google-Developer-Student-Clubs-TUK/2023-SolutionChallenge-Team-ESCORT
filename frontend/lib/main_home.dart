@@ -1,14 +1,17 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:escort/firebase_realtimedb.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:location/location.dart';
-import 'package:geolocator/geolocator.dart';
+
+import 'package:escort/firebase_realtimedb.dart';
+import 'package:lottie/lottie.dart' as lottie;
 
 class User {
   String? id;
@@ -88,17 +91,22 @@ void cancleSos(dementauid) async {
 }
 
 class MapSample extends StatefulWidget {
-  const MapSample({Key? key}) : super(key: key);
+  const MapSample({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<MapSample> createState() => MapSampleState();
 }
 
-class MapSampleState extends State<MapSample> {
+class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
   List<Map<String, dynamic>> _markers = [{}];
   List<Marker> markers = [];
   Map<String, dynamic> protegeList = {};
   var currentLocation = LatLng(0, 0);
+  var safeLight = false;
+
+  late final AnimationController _animationController;
 
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
@@ -147,6 +155,12 @@ class MapSampleState extends State<MapSample> {
                 );
 
                 bool isSafe = element['isSafe'];
+
+                setState(() {
+                  if (isSafe == false) {
+                    safeLight = true;
+                  }
+                });
 
                 print(element);
 
@@ -477,15 +491,60 @@ class MapSampleState extends State<MapSample> {
   void initState() {
     super.initState();
     getDementia();
+    _animationController = AnimationController(vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    bool _isPressed = false;
+
     Location location = Location();
 
     DementiaLocationTracker dementiaTracking = DementiaLocationTracker();
 
     return Scaffold(
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          FloatingActionButton(
+            backgroundColor: Colors.white,
+            foregroundColor: Colors.black,
+            onPressed: () {},
+            child: Icon(Icons.my_location_outlined),
+          ),
+          SizedBox(height: 16),
+          Stack(
+            children: <Widget>[
+              Positioned(
+                  left: 0,
+                  right: 0,
+                  top: 0,
+                  bottom: 0,
+                  child: OverflowBox(
+                    maxWidth: MediaQuery.of(context).size.width * 0.7,
+                    maxHeight: MediaQuery.of(context).size.height * 0.7,
+                    child: safeLight
+                        ? lottie.Lottie.asset(
+                            'assets/lottie/104817-red-wave.json',
+                          )
+                        : Container(),
+                  )),
+              FloatingActionButton(
+                backgroundColor: Colors.white,
+                foregroundColor: Colors.black,
+                onPressed: () {},
+                child: Image.asset("assets/warning.png"),
+              ),
+            ],
+          ), // 두 번째 FAB와 간격을 둡니다.
+        ],
+      ),
       body: GoogleMap(
         myLocationButtonEnabled: false,
         markers: Set<Marker>.of(markers),
