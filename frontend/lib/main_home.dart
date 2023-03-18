@@ -101,7 +101,7 @@ class MapSampleState extends State<MapSample> {
             setState(() {
               _markers = value;
 
-              _markers.forEach((element) async {
+              _markers.map((element) async {
                 double longitude = (element['longitude']);
                 double latitude = (element['latitude']);
 
@@ -119,11 +119,315 @@ class MapSampleState extends State<MapSample> {
 
                 bool isSafe = element['isSafe'];
 
+                print(element);
+
                 markers.add(Marker(
                     markerId: MarkerId(element['uid']),
                     position: LatLng(latitude, longitude),
+                    onTap: () => {
+                          element['isSafe']
+                              ? showModalBottomSheet(
+                                  isScrollControlled: true,
+                                  barrierColor: Colors.white.withOpacity(0),
+                                  context: context,
+                                  shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.vertical(
+                                      top: Radius.circular(35.0),
+                                    ),
+                                  ),
+                                  builder: (BuildContext context) {
+                                    return Container(
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.3,
+                                        child: Column(
+                                          children: [
+                                            Container(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.05,
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.002,
+                                              color: Colors.grey,
+                                              margin: EdgeInsets.all(20.0),
+                                            ),
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                  color: Colors.black12,
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(20))),
+                                              width: double.infinity,
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.23,
+                                              margin: EdgeInsets.all(16.0),
+                                              child: Row(children: [
+                                                Container(
+                                                  padding: EdgeInsets.all(50),
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.3,
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .height *
+                                                      0.4,
+                                                  child: Container(
+                                                    child: Image.network(
+                                                      element['imageUrl'],
+                                                      fit: BoxFit.fill,
+                                                    ),
+                                                  ),
+                                                ),
+                                                Container(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.6,
+                                                  child: Column(children: [
+                                                    Container(
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              0.6,
+                                                      child: Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Text(
+                                                              element['name'],
+                                                              style: TextStyle(
+                                                                  fontSize: 25),
+                                                            ),
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                          .only(
+                                                                      top:
+                                                                          40.0),
+                                                              child: Image.asset(
+                                                                  "assets/safemarker.png"),
+                                                            )
+                                                          ]),
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              top: 20.0),
+                                                      child: Container(
+                                                        width: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width *
+                                                            0.6,
+                                                        child: Text(
+                                                          element['safeZones']
+                                                              [0],
+                                                          style: TextStyle(
+                                                              fontSize: 20),
+                                                          textAlign:
+                                                              TextAlign.left,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ]),
+                                                ),
+                                              ]),
+                                            )
+                                          ],
+                                        ));
+                                  },
+                                )
+                              : showModalBottomSheet(
+                                  isScrollControlled: true,
+                                  barrierColor: Colors.white.withOpacity(0),
+                                  context: context,
+                                  shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.vertical(
+                                      top: Radius.circular(35.0),
+                                    ),
+                                  ),
+                                  builder: (BuildContext context) {
+                                    return Container(
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.3,
+                                        child: Column(
+                                          children: [
+                                            Container(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.05,
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.002,
+                                              color: Colors.grey,
+                                              margin: EdgeInsets.all(20.0),
+                                            ),
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                  color: Colors.black12,
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(20))),
+                                              width: double.infinity,
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.15,
+                                              margin: EdgeInsets.all(16.0),
+                                              child: Row(children: [
+                                                Container(
+                                                  padding: EdgeInsets.all(20),
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.2,
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .height *
+                                                      0.4,
+                                                  child: Container(
+                                                    child: Image.network(
+                                                      element['imageUrl'],
+                                                      fit: BoxFit.fill,
+                                                    ),
+                                                  ),
+                                                ),
+                                                Container(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.6,
+                                                  child: Column(children: [
+                                                    Container(
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              0.6,
+                                                      child: Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Text(
+                                                              element['name'],
+                                                              style: TextStyle(
+                                                                  fontSize: 25),
+                                                            ),
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                          .only(
+                                                                      top:
+                                                                          40.0),
+                                                              child: Image.asset(
+                                                                  "assets/rounddangermarker.png"),
+                                                            )
+                                                          ]),
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              top: 0.0),
+                                                      child: Container(
+                                                        width: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width *
+                                                            0.6,
+                                                        child: Text(
+                                                          element['safeZones']
+                                                              [0],
+                                                          style: TextStyle(
+                                                              fontSize: 20),
+                                                          textAlign:
+                                                              TextAlign.left,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ]),
+                                                ),
+                                              ]),
+                                            ),
+                                            Container(
+                                              child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    ElevatedButton(
+                                                        style: ElevatedButton
+                                                            .styleFrom(
+                                                                primary: Colors
+                                                                    .black12),
+                                                        onPressed: () => {},
+                                                        child: Container(
+                                                            width: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .height *
+                                                                0.05,
+                                                            height: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .height *
+                                                                0.05,
+                                                            child: Image.asset(
+                                                                "assets/xvector.png"))),
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              left: 30.0),
+                                                      child: ElevatedButton(
+                                                          style: ElevatedButton
+                                                              .styleFrom(
+                                                            primary:
+                                                                Color.fromRGBO(
+                                                                    16,
+                                                                    64,
+                                                                    59,
+                                                                    10),
+                                                          ),
+                                                          onPressed: () => {},
+                                                          child: Container(
+                                                            width: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .height *
+                                                                0.57,
+                                                            height: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .height *
+                                                                0.05,
+                                                            child: Center(
+                                                                child: Text(
+                                                                    "Ask For Help")),
+                                                          )),
+                                                    )
+                                                  ]),
+                                            )
+                                          ],
+                                        ));
+                                  },
+                                )
+                        },
                     icon: isSafe ? safeMarker : dangerMarker));
-              });
+              }).toList();
             })
           });
     } else {

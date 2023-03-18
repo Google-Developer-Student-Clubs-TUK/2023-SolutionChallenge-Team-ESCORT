@@ -15,6 +15,9 @@ class MainPartner extends StatefulWidget {
 class _MainPartnerState extends State<MainPartner> {
   int _selectedIndex = 0;
 
+  bool _isBottomNavVisible = true;
+  bool _isSheetVisible = false;
+
   final List<Widget> _widgetOptions = <Widget>[
     MapSample(),
     RegistrationPage(),

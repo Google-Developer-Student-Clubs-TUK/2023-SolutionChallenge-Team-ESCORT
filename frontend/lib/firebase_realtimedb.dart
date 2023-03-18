@@ -76,6 +76,9 @@ class RealtimeDatabase {
 
       for (var element in data) {
         var uid = element['uid'];
+        var imageUrl = element['imageUrl'];
+        var name = element['name'];
+        var safezones = element['safeZones'];
 
         DatabaseReference _databaseReference = await FirebaseDatabase(
                 databaseURL:
@@ -86,6 +89,10 @@ class RealtimeDatabase {
         Map<String, dynamic> _snapshotValue =
             await Map<String, dynamic>.from(snapshot.value as Map);
         _snapshotValue['uid'] = uid;
+        _snapshotValue['imageUrl'] = imageUrl;
+        _snapshotValue['name'] = name;
+        _snapshotValue['safeZones'] = safezones;
+
         mapData.add(_snapshotValue);
       }
 
