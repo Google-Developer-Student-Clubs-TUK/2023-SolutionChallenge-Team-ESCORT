@@ -103,18 +103,13 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
   List<Map<String, dynamic>> _markers = [{}];
   List<Marker> markers = [];
   Map<String, dynamic> protegeList = {};
-  var currentLocation = LatLng(0, 0);
-  var safeLight = false;
 
+  var safeLight = false;
+  var currLocation;
   late final AnimationController _animationController;
 
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
-
-  static const CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(37.42796133580664, -122.085749655962),
-    zoom: 14.4746,
-  );
 
   getDementia() async {
     var uId = await FirebaseAuth.instance.currentUser?.uid;
@@ -487,10 +482,30 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
     }
   }
 
+  void getCurrentLocation() async {
+    currLocation = await Geolocator.getCurrentPosition();
+
+    setState(() {
+      currLocation;
+    });
+    GoogleMapController controller = await _controller.future;
+    controller.animateCamera(
+      CameraUpdate.newCameraPosition(
+        CameraPosition(
+          target: LatLng(currLocation.latitude, currLocation.longitude),
+          zoom: 15,
+        ),
+      ),
+    );
+
+    print(currLocation);
+  }
+
   @override
   void initState() {
     super.initState();
     getDementia();
+    getCurrentLocation();
     _animationController = AnimationController(vsync: this);
   }
 
@@ -502,10 +517,6 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    bool _isPressed = false;
-
-    Location location = Location();
-
     DementiaLocationTracker dementiaTracking = DementiaLocationTracker();
 
     return Scaffold(
@@ -515,7 +526,9 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
           FloatingActionButton(
             backgroundColor: Colors.white,
             foregroundColor: Colors.black,
-            onPressed: () {},
+            onPressed: () {
+              getCurrentLocation();
+            },
             child: Icon(Icons.my_location_outlined),
           ),
           SizedBox(height: 16),
@@ -549,16 +562,13 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
         myLocationButtonEnabled: false,
         markers: Set<Marker>.of(markers),
         mapType: MapType.terrain,
-        initialCameraPosition: _kGooglePlex,
-        onMapCreated: (GoogleMapController controller) async {
-          final currentLocation = await Geolocator.getCurrentPosition();
-
-          print(currentLocation);
-
-          controller.animateCamera(CameraUpdate.newLatLngZoom(
-              LatLng(currentLocation.latitude!, currentLocation.longitude!),
-              15.0));
+        onMapCreated: (GoogleMapController controller) {
+          _controller.complete(controller);
         },
+        initialCameraPosition: currLocation != null
+            ? CameraPosition(
+                target: LatLng(currLocation.latitude, currLocation.longitude))
+            : CameraPosition(target: LatLng(37.7749, -122.4194), zoom: 14),
       ),
     );
   }
