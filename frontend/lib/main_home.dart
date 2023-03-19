@@ -483,6 +483,8 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
   }
 
   void getCurrentLocation() async {
+    LocationPermission permission = await Geolocator.requestPermission();
+
     currLocation = await Geolocator.getCurrentPosition();
 
     setState(() {
@@ -558,18 +560,50 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
           ), // 두 번째 FAB와 간격을 둡니다.
         ],
       ),
-      body: GoogleMap(
-        myLocationButtonEnabled: false,
-        markers: Set<Marker>.of(markers),
-        mapType: MapType.terrain,
-        onMapCreated: (GoogleMapController controller) {
-          _controller.complete(controller);
-        },
-        initialCameraPosition: currLocation != null
-            ? CameraPosition(
-                target: LatLng(currLocation.latitude, currLocation.longitude))
-            : CameraPosition(target: LatLng(37.7749, -122.4194), zoom: 14),
-      ),
+      body: Stack(children: <Widget>[
+        GoogleMap(
+          myLocationButtonEnabled: false,
+          markers: Set<Marker>.of(markers),
+          mapType: MapType.terrain,
+          onMapCreated: (GoogleMapController controller) {
+            _controller.complete(controller);
+          },
+          initialCameraPosition: currLocation != null
+              ? CameraPosition(
+                  target: LatLng(currLocation.latitude, currLocation.longitude))
+              : CameraPosition(target: LatLng(37.7749, -122.4194), zoom: 14),
+        ),
+        Positioned(
+          child: Container(
+            width: MediaQuery.of(context).size.width * 0.9,
+            height: MediaQuery.of(context).size.height * 0.07,
+            margin: EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 2,
+                  blurRadius: 5,
+                  offset: Offset(0, 3), // changes position of shadow
+                ),
+              ],
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: Row(
+              children: [
+                Image.asset("assets/maincircleicon.png",
+                    width: MediaQuery.of(context).size.width / 5),
+                SizedBox(width: MediaQuery.of(context).size.width / 90),
+                Text("Clairo"),
+                SizedBox(width: MediaQuery.of(context).size.width * 0.43),
+                Image.asset("assets/sort.png",
+                    width: MediaQuery.of(context).size.width * 0.1),
+              ],
+            ),
+          ),
+        ),
+      ]),
     );
   }
 }
