@@ -1,3 +1,4 @@
+import 'package:escort/component/header_component.dart';
 import 'package:flutter/material.dart';
 
 class AccountPage extends StatelessWidget {
@@ -8,6 +9,7 @@ class AccountPage extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
+          buildHeader("Account", icon: Icons.person),
           Padding(
             padding: EdgeInsets.only(top: 28),
           ),
