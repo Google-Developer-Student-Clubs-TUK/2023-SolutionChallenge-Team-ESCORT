@@ -65,7 +65,8 @@ class RegistrationPage extends StatelessWidget {
                                   .registrationList.value[index]['imageUrl'],
                               registrationController
                                   .registrationList.value[index]['name'],
-                              "72",
+                              registrationController
+                                  .registrationList.value[index]['age'].toString(),
                               registrationController.registrationList
                                   .value[index]['safeZones'][0],
                               () {
@@ -159,7 +160,7 @@ class RegistrationPage extends StatelessWidget {
                     SizedBox(
                       height: 6,
                     ),
-                    buildKeyValueInfo('Age', '72 years old'),
+                    buildKeyValueInfo('Age', '$age years old'),
                     buildKeyValueInfo('Safe Zone', safeZone),
                   ],
                 ),
