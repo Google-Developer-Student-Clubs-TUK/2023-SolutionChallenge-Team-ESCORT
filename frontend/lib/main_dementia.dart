@@ -42,7 +42,6 @@ class MainDementia extends StatelessWidget {
       phone: data['phoneNumber'],
       characteristics: data['characteristics'],
       safeZone: data['safezone'],
-      regidence: data['regidence'],
       bloodType: data['blood'],
     );
 

@@ -8,7 +8,6 @@ class DementiaInfo {
       phone,
       characteristics,
       safeZone,
-      regidence,
       bloodType;
 
   DementiaInfo({
@@ -17,7 +16,6 @@ class DementiaInfo {
     required this.phone,
     required this.characteristics,
     required this.safeZone,
-    required this.regidence,
     required this.bloodType,
   });
 }
@@ -33,7 +31,7 @@ class PartnerInfo {
   });
 }
 
-SizedBox buildDementia(DementiaInfo dementiaInfo, PartnerInfo partnerInfo,
+Widget buildDementia(DementiaInfo dementiaInfo, PartnerInfo partnerInfo,
     RxBool isShowCall, GestureTapCallback onClickCall) {
   return SizedBox(
     width: double.infinity,
@@ -118,10 +116,6 @@ SizedBox buildDementia(DementiaInfo dementiaInfo, PartnerInfo partnerInfo,
                   _buildInformation(
                     'Safe Zone',
                     dementiaInfo.safeZone,
-                  ),
-                  _buildInformation(
-                    'Regidence',
-                    dementiaInfo.regidence,
                   ),
                   _buildInformation(
                     'Blood Type',
