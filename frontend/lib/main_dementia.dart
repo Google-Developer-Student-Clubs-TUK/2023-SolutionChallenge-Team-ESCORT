@@ -31,27 +31,8 @@ class MainDementia extends StatelessWidget {
       'safezone': userinfoController.safezone.toString(),
     };
 
-    String json = jsonEncode(data);
-    var _qrCodeData = json;
-    print(_qrCodeData);
-
-    DementiaInfo dementiaInfo = DementiaInfo(
-      image:
-          'https://tistory1.daumcdn.net/tistory/2743554/attach/cb196de69425482b93b43ad7fc207bf6',
-      name: data['name'],
-      phone: data['phoneNumber'],
-      characteristics: data['characteristics'],
-      safeZone: data['safezone'],
-      bloodType: data['blood'],
-    );
-
-    PartnerInfo partnerInfo = PartnerInfo(
-      image:
-          'https://tistory1.daumcdn.net/tistory/2743554/attach/cb196de69425482b93b43ad7fc207bf6',
-      name: 'GwangMoo You',
-      phone: '+82-10-6348-1143',
-      relationship: 'Son',
-    );
+    dementiaController.loadDementia();
+    dementiaController.loadPartner();
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -92,12 +73,23 @@ class MainDementia extends StatelessWidget {
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.vertical(bottom: Radius.circular(10))),
         ),
-        body: buildDementia(
-          dementiaInfo,
-          partnerInfo,
-          dementiaController.isShowCall,
+        body: Obx(
           () {
-            dementiaController.clickCall(partnerInfo.phone);
+            DementiaInfo? dementiaInfo = dementiaController.dementiainfo.value;
+            PartnerInfo? partnerInfo = dementiaController.partnerInfo.value;
+
+            if (dementiaInfo != null && partnerInfo != null) {
+              return buildDementia(
+                dementiaInfo,
+                partnerInfo,
+                dementiaController.isShowCall,
+                () {
+                  dementiaController.clickCall(partnerInfo.phone);
+                },
+              );
+            } else {
+              return Text('Loading...');
+            }
           },
         ),
         floatingActionButton: SizedBox(
@@ -105,18 +97,20 @@ class MainDementia extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 60.0),
             child: FloatingActionButton(
               onPressed: () {
-                Get.to(MainDementiaQr(), arguments: [FirebaseAuth.instance.currentUser?.uid ?? "-"]);
+                Get.to(
+                  MainDementiaQr(),
+                  arguments: [
+                    dementiaController.dementiainfo.value?.name ?? "-",
+                    FirebaseAuth.instance.currentUser?.uid ?? "-",
+                  ],
+                );
                 // Add your onPressed code here!
               },
               backgroundColor: Colors.transparent,
               elevation: 0,
-              child: SizedBox(
-                width: 52,
-                height: 52,
-                child: Image.asset(
-                  "assets/floatbutton.png",
-                  fit: BoxFit.cover,
-                ),
+              child: Image.asset(
+                "assets/floatbutton.png",
+                fit: BoxFit.cover,
               ),
             ),
           ),

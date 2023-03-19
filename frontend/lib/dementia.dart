@@ -3,12 +3,7 @@ import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 
 class DementiaInfo {
-  String image,
-      name,
-      phone,
-      characteristics,
-      safeZone,
-      bloodType;
+  String image, name, phone, characteristics, safeZone, bloodType;
 
   DementiaInfo({
     required this.image,
@@ -21,13 +16,12 @@ class DementiaInfo {
 }
 
 class PartnerInfo {
-  String image, name, phone, relationship;
+  String image, name, phone;
 
   PartnerInfo({
     required this.image,
     required this.name,
     required this.phone,
-    required this.relationship,
   });
 }
 
@@ -64,6 +58,7 @@ Widget buildDementia(DementiaInfo dementiaInfo, PartnerInfo partnerInfo,
                         decoration: BoxDecoration(
                             image: DecorationImage(
                               image: NetworkImage(dementiaInfo.image),
+                              fit: BoxFit.fill
                             ),
                             shape: BoxShape.circle),
                       ),
@@ -156,8 +151,9 @@ Widget buildDementia(DementiaInfo dementiaInfo, PartnerInfo partnerInfo,
                                   decoration: BoxDecoration(
                                       image: DecorationImage(
                                         image: NetworkImage(partnerInfo.image),
+                                        fit: BoxFit.fill
                                       ),
-                                      shape: BoxShape.circle),
+                                      shape: BoxShape.circle,),
                                 ),
                               ),
                             ),
@@ -173,16 +169,6 @@ Widget buildDementia(DementiaInfo dementiaInfo, PartnerInfo partnerInfo,
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold),
                                 ),
-                                SizedBox(
-                                  height: 4,
-                                ),
-                                Text(
-                                  'Relationship: ${partnerInfo.relationship}',
-                                  style: TextStyle(
-                                    color: Color(0xFF808584),
-                                    fontSize: 12,
-                                  ),
-                                )
                               ],
                             )
                           ],
@@ -201,7 +187,7 @@ Widget buildDementia(DementiaInfo dementiaInfo, PartnerInfo partnerInfo,
                               ),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
-                                children: const [
+                                children: [
                                   Icon(
                                     Icons.call_outlined,
                                     size: 80,
@@ -211,11 +197,12 @@ Widget buildDementia(DementiaInfo dementiaInfo, PartnerInfo partnerInfo,
                                     height: 26,
                                   ),
                                   Text(
-                                    '+82-10-1234-5678',
+                                    partnerInfo.phone,
                                     style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold),
+                                      color: Colors.white,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ],
                               ),

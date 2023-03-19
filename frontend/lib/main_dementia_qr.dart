@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -8,7 +9,8 @@ class MainDementiaQr extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final qrData = Get.arguments[0];
+    final name = Get.arguments[0];
+    final uid = Get.arguments[1];
 
     return Scaffold(
       body: SafeArea(
@@ -61,7 +63,7 @@ class MainDementiaQr extends StatelessWidget {
                       SizedBox(
                         width: double.infinity,
                         child: Text(
-                          'GwangMoo You',
+                          name,
                           style: TextStyle(
                               color: Color(0xFF212121),
                               fontSize: 24,
@@ -74,7 +76,7 @@ class MainDementiaQr extends StatelessWidget {
                       AspectRatio(
                         aspectRatio: 1,
                         child: QrImage(
-                          data: qrData,
+                          data: uid,
                           version: QrVersions.auto,
                         ),
                       ),

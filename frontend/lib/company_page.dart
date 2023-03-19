@@ -184,7 +184,7 @@ class CompanyPage extends StatelessWidget {
             children: [
               Image.network(
                 companyInfo.images[0],
-                fit: BoxFit.fitWidth,
+                fit: BoxFit.fitHeight,
               ).applyConstraintId(id: bannerId),
               detailCompanyInfoItem(companyInfo)
                   .applyConstraintId(id: companyInfoId),
