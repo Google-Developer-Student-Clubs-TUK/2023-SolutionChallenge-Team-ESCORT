@@ -50,7 +50,6 @@ class MainDementia extends StatelessWidget {
           'https://tistory1.daumcdn.net/tistory/2743554/attach/cb196de69425482b93b43ad7fc207bf6',
       name: 'GwangMoo You',
       phone: '+82-10-6348-1143',
-      relationship: 'Son',
     );
 
     return MaterialApp(

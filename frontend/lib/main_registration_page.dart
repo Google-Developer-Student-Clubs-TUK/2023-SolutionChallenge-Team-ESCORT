@@ -111,6 +111,7 @@ class RegistrationPage extends StatelessWidget {
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         image: NetworkImage(image),
+                        fit: BoxFit.fill
                       ),
                       borderRadius: BorderRadius.circular(8),
                     ),
@@ -176,14 +177,6 @@ class RegistrationPage extends StatelessWidget {
       String uid, GestureTapCallback onClickBack) {
     dementiaController.loadDetail(uid);
 
-    final PartnerInfo partnerInfo = PartnerInfo(
-      image:
-      'https://tistory1.daumcdn.net/tistory/2743554/attach/cb196de69425482b93b43ad7fc207bf6',
-      name: 'GwangMoo You',
-      phone: '+82-10-6348-1143',
-      relationship: 'Son',
-    );
-
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -197,7 +190,7 @@ class RegistrationPage extends StatelessWidget {
               child: Obx(
                 () {
                   var demntiaInfo = dementiaController.dmentiaInfo.value;
-                  // var partnerInfo = dementiaController.partnerInfo.value;
+                  var partnerInfo = dementiaController.partnerInfo.value;
                   if (demntiaInfo != null && partnerInfo != null) {
                     return buildDementia(
                       demntiaInfo,

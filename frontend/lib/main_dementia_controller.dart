@@ -1,4 +1,5 @@
 import 'package:escort/dementia.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -16,11 +17,12 @@ class DementiaController extends GetxController {
   }
 
   void loadDetail(String uid) async {
+    isShowCall.value = false;
+
     var response = await GetConnect()
         .get('http://34.22.70.120:8080/api/v1/protege/$uid')
         .then((value) => value.body['result']);
 
-    // print(response);
     dmentiaInfo.value = DementiaInfo(
       image: response['imageUrl'],
       name: response['name'],
@@ -31,9 +33,14 @@ class DementiaController extends GetxController {
     );
 
     response = await GetConnect()
-        .get('http://34.22.70.120:8080/api/v1/protector/$uid')
+        .get(
+            'http://34.22.70.120:8080/api/v1/protector/${FirebaseAuth.instance.currentUser?.uid ?? "-"}')
         .then((value) => value.body['result']);
 
-    partnerInfo.value = response;
+    partnerInfo.value = PartnerInfo(
+      image: response['imageUrl'],
+      name: response['name'],
+      phone: response['phone'],
+    );
   }
 }
