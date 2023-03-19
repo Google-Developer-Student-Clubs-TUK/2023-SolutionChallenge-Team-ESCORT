@@ -43,39 +43,40 @@ class RegistrationPage extends StatelessWidget {
                 icon: Icons.elderly,
                 onClickNotification: () {},
               ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(24, 16, 24, 0),
-                child: SizedBox(
-                  height: 600,
-                  child: ListView.builder(
-                    itemCount:
-                        registrationController.registrationList.value.length,
-                    itemBuilder: (context, index) {
-                      return Column(
-                        children: [
-                          buildRegistration(
-                            registrationController.registrationList.value[index]
-                                ['imageUrl'],
-                            registrationController.registrationList.value[index]
-                                ['name'],
-                            "72",
-                            registrationController.registrationList.value[index]
-                                ['safeZones'][0],
-                            () {
-                              registrationController.showDetail(
-                                  registrationController
-                                      .registrationList.value[index]['uid']);
-                            },
-                          ),
-                          SizedBox(
-                            height: 12,
-                          ),
-                        ],
-                      );
-                    },
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(24, 16, 24, 0),
+                  child: SizedBox(
+                    child: ListView.builder(
+                      itemCount:
+                          registrationController.registrationList.value.length,
+                      itemBuilder: (context, index) {
+                        return Column(
+                          children: [
+                            buildRegistration(
+                              registrationController
+                                  .registrationList.value[index]['imageUrl'],
+                              registrationController
+                                  .registrationList.value[index]['name'],
+                              "72",
+                              registrationController.registrationList
+                                  .value[index]['safeZones'][0],
+                              () {
+                                registrationController.showDetail(
+                                    registrationController
+                                        .registrationList.value[index]['uid']);
+                              },
+                            ),
+                            SizedBox(
+                              height: 12,
+                            ),
+                          ],
+                        );
+                      },
+                    ),
                   ),
                 ),
-              ),
+              )
             ],
           );
         }),
@@ -110,9 +111,7 @@ class RegistrationPage extends StatelessWidget {
                     height: double.infinity,
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: NetworkImage(image),
-                        fit: BoxFit.fill
-                      ),
+                          image: NetworkImage(image), fit: BoxFit.fill),
                       borderRadius: BorderRadius.circular(8),
                     ),
                   ),
