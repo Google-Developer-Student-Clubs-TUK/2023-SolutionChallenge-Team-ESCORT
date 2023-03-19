@@ -25,8 +25,29 @@ class PartnerInfo {
   });
 }
 
-Widget buildDementia(DementiaInfo dementiaInfo, PartnerInfo partnerInfo,
-    RxBool isShowCall, GestureTapCallback onClickCall) {
+Widget buildDementia(
+  DementiaInfo dementiaInfo,
+  PartnerInfo partnerInfo,
+  bool isSafe,
+  RxBool isShowCall,
+  GestureTapCallback onClickCall,
+) {
+  List<Color> safeStatusGradientColors;
+
+  if (isSafe) {
+    safeStatusGradientColors = const [
+      Color(0xFF347E5B),
+      Color(0xE6205C49),
+      Color(0xCC10403B),
+    ];
+  } else {
+    safeStatusGradientColors = const [
+      Color(0xFFC23A42),
+      Color(0xE698223E),
+      Color(0xCC98223E),
+    ];
+  }
+
   return SizedBox(
     width: double.infinity,
     child: Padding(
@@ -42,11 +63,7 @@ Widget buildDementia(DementiaInfo dementiaInfo, PartnerInfo partnerInfo,
                   topRight: Radius.circular(12),
                 ),
                 gradient: LinearGradient(
-                  colors: const [
-                    Color(0xFF347E5B),
-                    Color(0xE6205C49),
-                    Color(0xCC10403B),
-                  ],
+                  colors: safeStatusGradientColors,
                 ),
               ),
               child: Padding(
@@ -57,9 +74,8 @@ Widget buildDementia(DementiaInfo dementiaInfo, PartnerInfo partnerInfo,
                       child: Container(
                         decoration: BoxDecoration(
                             image: DecorationImage(
-                              image: NetworkImage(dementiaInfo.image),
-                              fit: BoxFit.fill
-                            ),
+                                image: NetworkImage(dementiaInfo.image),
+                                fit: BoxFit.fill),
                             shape: BoxShape.circle),
                       ),
                     ),
@@ -149,11 +165,11 @@ Widget buildDementia(DementiaInfo dementiaInfo, PartnerInfo partnerInfo,
                                 widthFactor: 0.385,
                                 child: Container(
                                   decoration: BoxDecoration(
-                                      image: DecorationImage(
+                                    image: DecorationImage(
                                         image: NetworkImage(partnerInfo.image),
-                                        fit: BoxFit.fill
-                                      ),
-                                      shape: BoxShape.circle,),
+                                        fit: BoxFit.fill),
+                                    shape: BoxShape.circle,
+                                  ),
                                 ),
                               ),
                             ),

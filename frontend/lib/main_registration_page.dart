@@ -1,7 +1,9 @@
 import 'dart:developer';
+import 'dart:ui';
 
 import 'package:escort/main_dementia_controller.dart';
 import 'package:escort/registration_controller.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
@@ -18,6 +20,7 @@ class RegistrationPage extends StatelessWidget {
         Get.put(RegistrationController());
 
     final DementiaController dementiaController = Get.put(DementiaController());
+
     registrationController.hideDetail();
 
     return Scaffold(
@@ -63,7 +66,8 @@ class RegistrationPage extends StatelessWidget {
                                   .registrationList.value[index]['imageUrl'],
                               registrationController
                                   .registrationList.value[index]['name'],
-                              "72",
+                              registrationController
+                                  .registrationList.value[index]['age'].toString(),
                               registrationController.registrationList
                                   .value[index]['safeZones'][0],
                               () {
@@ -157,7 +161,7 @@ class RegistrationPage extends StatelessWidget {
                     SizedBox(
                       height: 6,
                     ),
-                    buildKeyValueInfo('Age', '72 years old'),
+                    buildKeyValueInfo('Age', '$age years old'),
                     buildKeyValueInfo('Safe Zone', safeZone),
                   ],
                 ),
@@ -214,6 +218,7 @@ class RegistrationPage extends StatelessWidget {
                     return buildDementia(
                       demntiaInfo,
                       partnerInfo,
+                      dementiaController.isSafe.value,
                       dementiaController.isShowCall,
                       () {
                         dementiaController.clickCall(partnerInfo.phone);
@@ -344,11 +349,168 @@ class _QRViewExampleState extends State<QRViewExample> {
     setState(() {
       this.controller = controller;
     });
-    controller.scannedDataStream.listen((scanData) {
-      setState(() {
-        result = scanData;
-      });
-    });
+    controller.scannedDataStream.listen(
+      (scanData) {
+        setState(
+          () {
+            result = scanData;
+            String? code = result?.code;
+
+            controller.stopCamera();
+
+            if (code != null) {
+              _requestPostRegisterDementia(
+                code,
+                (onResult) {
+                  if (onResult) {
+                    resultDialog(
+                      Icons.check_box,
+                      'Scan Successful!',
+                      'The old man has been registered on the registration list.',
+                      'Go to Home',
+                      () {
+                        Navigator.pop(context);
+                        Get.back();
+                      },
+                    );
+                  } else {
+                    resultDialog(
+                      Icons.error,
+                      'Scan Failure!',
+                      'Invalid qr code or network error.',
+                      'Try again',
+                      () {
+                        Navigator.pop(context);
+                        controller.resumeCamera();
+                      },
+                    );
+                  }
+                },
+              );
+            } else {
+              resultDialog(
+                Icons.error,
+                'Scan Failure!',
+                'Invalid qr code.',
+                'Try again',
+                () {
+                  Navigator.pop(context);
+                  controller.resumeCamera();
+                },
+              );
+            }
+          },
+        );
+      },
+    );
+  }
+
+  void resultDialog(
+    IconData icon,
+    String title,
+    String content,
+    String buttonText,
+    GestureTapCallback onClick,
+  ) {
+    Get.dialog(
+      Expanded(
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 32),
+            child: Scaffold(
+              backgroundColor: Colors.transparent,
+              body: Center(
+                child: Wrap(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(32),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(16, 42, 16, 32),
+                        child: Column(
+                          children: [
+                            Container(
+                              width: 112,
+                              height: 112,
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  colors: const [
+                                    Color(0xCC10403B),
+                                    Color(0xFF10403B)
+                                  ],
+                                ),
+                                shape: BoxShape.circle,
+                              ),
+                              child: Center(
+                                child: Icon(
+                                  icon,
+                                  size: 40,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: 24),
+                            Text(
+                              title,
+                              style: TextStyle(
+                                color: Color(0xFF212121),
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(height: 18),
+                            Text(
+                              content,
+                              style: TextStyle(
+                                color: Color(0xFF212121),
+                                fontSize: 16,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                            SizedBox(
+                              height: 56,
+                            ),
+                            Material(
+                              child: InkWell(
+                                onTap: onClick,
+                                borderRadius: BorderRadius.circular(100),
+                                child: Ink(
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color: Color(0xFF10403B),
+                                    borderRadius: BorderRadius.circular(100),
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsets.all(16),
+                                    child: Text(
+                                      buttonText,
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+      barrierDismissible: false,
+    );
   }
 
   void _onPermissionSet(BuildContext context, QRViewController ctrl, bool p) {
@@ -358,6 +520,20 @@ class _QRViewExampleState extends State<QRViewExample> {
         const SnackBar(content: Text('no Permission')),
       );
     }
+  }
+
+  void _requestPostRegisterDementia(String code, void Function(bool) onResult) {
+    GetConnect().post(
+      'http://34.22.70.120:8080/api/v1/ppConnection',
+      {
+        "protectorUId": FirebaseAuth.instance.currentUser?.uid ?? "-",
+        "protegeUId": code
+      },
+    ).then(
+      (value) {
+        onResult(value.body['code'] == 'PP000');
+      },
+    );
   }
 
   @override
