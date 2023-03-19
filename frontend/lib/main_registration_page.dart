@@ -20,6 +20,7 @@ class RegistrationPage extends StatelessWidget {
         Get.put(RegistrationController());
 
     final DementiaController dementiaController = Get.put(DementiaController());
+
     registrationController.hideDetail();
 
     return Scaffold(
@@ -217,6 +218,7 @@ class RegistrationPage extends StatelessWidget {
                     return buildDementia(
                       demntiaInfo,
                       partnerInfo,
+                      dementiaController.isSafe.value,
                       dementiaController.isShowCall,
                       () {
                         dementiaController.clickCall(partnerInfo.phone);

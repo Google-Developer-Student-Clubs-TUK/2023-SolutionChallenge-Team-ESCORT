@@ -31,6 +31,8 @@ class MainDementia extends StatelessWidget {
       'safezone': userinfoController.safezone.toString(),
     };
 
+    dementiaController.disconnectAndNewConnection(FirebaseAuth.instance.currentUser?.uid ?? "-");
+
     dementiaController.loadDementia();
     dementiaController.loadPartner();
 
@@ -82,6 +84,7 @@ class MainDementia extends StatelessWidget {
               return buildDementia(
                 dementiaInfo,
                 partnerInfo,
+                dementiaController.isSafe.value,
                 dementiaController.isShowCall,
                 () {
                   dementiaController.clickCall(partnerInfo.phone);
