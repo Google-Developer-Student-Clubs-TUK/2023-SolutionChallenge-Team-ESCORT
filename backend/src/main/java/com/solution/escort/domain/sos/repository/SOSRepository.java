@@ -5,4 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface SOSRepository extends JpaRepository<SOS, Integer> {
     SOS findByProtegeId(int id);
+
+    boolean existsByProtegeId(int id);
+
 }
