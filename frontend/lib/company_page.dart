@@ -5,11 +5,12 @@ import 'package:flutter_constraintlayout/flutter_constraintlayout.dart';
 import 'package:get/get.dart';
 
 class CompanyPage extends StatelessWidget {
-  const CompanyPage({Key? key}) : super(key: key);
+  CompanyPage({Key? key}) : super(key: key);
+
+  final CompanyController companyController = Get.put(CompanyController());
 
   @override
   Widget build(BuildContext context) {
-    final CompanyController companyController = Get.put(CompanyController());
     companyController.hideDetail();
 
     return Scaffold(
@@ -17,7 +18,7 @@ class CompanyPage extends StatelessWidget {
         child: Obx(() {
           if (!companyController.isShowDetail.value) {
             return companyList(
-              companyController,
+              companyController.companyList,
               (companyId) {
                 companyController.showDetail(companyId);
               },
@@ -31,9 +32,10 @@ class CompanyPage extends StatelessWidget {
   }
 
   Widget companyList(
-    CompanyController companyController,
+    List<CompanyInfo> companyList,
     void Function(String companyId) onClickItem,
   ) {
+    print("companyList: ${companyList.length}");
     return Column(
       children: [
         buildHeader("Company", icon: Icons.assistant_photo),
@@ -47,12 +49,11 @@ class CompanyPage extends StatelessWidget {
                   height: 12,
                 ),
                 Expanded(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        companyItem(onClickItem),
-                      ],
-                    ),
+                  child: ListView.builder(
+                    itemBuilder: (context, index) {
+                      return companyItem(companyList[index], onClickItem);
+                    },
+                    itemCount: companyList.length,
                   ),
                 )
               ],
@@ -63,7 +64,10 @@ class CompanyPage extends StatelessWidget {
     );
   }
 
-  Widget companyItem(void Function(String companyId) onClickItem) {
+  Widget companyItem(
+    CompanyInfo companyInfo,
+    void Function(String companyId) onClickItem,
+  ) {
     return InkWell(
       onTap: () {
         onClickItem('1');
@@ -82,13 +86,15 @@ class CompanyPage extends StatelessWidget {
               Flexible(
                 flex: 4,
                 child: AspectRatio(
-                  aspectRatio: 1,
+                  aspectRatio: 1.1,
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
                       image: DecorationImage(
                         image: NetworkImage(
-                            'https://haeyum.dev/pangmoo/profile.jpeg'),
+                          companyInfo.images[0]
+                        ),
+                        fit: BoxFit.fill,
                       ),
                     ),
                   ),
@@ -101,12 +107,12 @@ class CompanyPage extends StatelessWidget {
                 flex: 6,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     SizedBox(
                       height: 8,
                     ),
                     Text(
-                      'WOW',
+                      companyInfo.title,
                       style: TextStyle(
                           color: Color(0xFF3B3B3B),
                           fontSize: 16,
@@ -116,7 +122,7 @@ class CompanyPage extends StatelessWidget {
                       height: 14,
                     ),
                     Text(
-                      'Sun Bright Light Residence 2972 Westheimer Rd. Illinois 85486 ',
+                      companyInfo.description,
                       style: TextStyle(
                         color: Color(0xFF3B3B3B),
                         fontSize: 12,
