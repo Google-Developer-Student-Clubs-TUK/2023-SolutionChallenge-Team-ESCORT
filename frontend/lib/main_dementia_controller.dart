@@ -5,7 +5,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 class DementiaController extends GetxController {
   RxBool isShowCall = false.obs;
-  Rx<DementiaInfo?> dmentiaInfo = Rx<DementiaInfo?>(null);
+  Rx<DementiaInfo?> dementiainfo = Rx<DementiaInfo?>(null);
   Rx<PartnerInfo?> partnerInfo = Rx<PartnerInfo?>(null);
 
   void clickCall(String phone) {
@@ -17,6 +17,21 @@ class DementiaController extends GetxController {
   }
 
   // dementia
+  void loadDementia() async {
+    var response = await GetConnect()
+        .get('http://34.22.70.120:8080/api/v1/protege/${FirebaseAuth.instance.currentUser?.uid ?? "-"}')
+        .then((value) => value.body['result']);
+
+    dementiainfo.value = DementiaInfo(
+      image: response['imageUrl'],
+      name: response['name'],
+      phone: response['phone'],
+      characteristics: response['characteristic'],
+      safeZone: response['safeZones'][0],
+      bloodType: response['bloodType'],
+    );
+  }
+
   void loadPartner() {
     GetConnect()
         .get(
@@ -44,7 +59,7 @@ class DementiaController extends GetxController {
         .get('http://34.22.70.120:8080/api/v1/protege/$uid')
         .then((value) => value.body['result']);
 
-    dmentiaInfo.value = DementiaInfo(
+    dementiainfo.value = DementiaInfo(
       image: response['imageUrl'],
       name: response['name'],
       phone: response['phone'],

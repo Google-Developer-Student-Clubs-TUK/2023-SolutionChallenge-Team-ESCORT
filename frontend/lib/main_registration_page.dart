@@ -189,7 +189,7 @@ class RegistrationPage extends StatelessWidget {
             Expanded(
               child: Obx(
                 () {
-                  var demntiaInfo = dementiaController.dmentiaInfo.value;
+                  var demntiaInfo = dementiaController.dementiainfo.value;
                   var partnerInfo = dementiaController.partnerInfo.value;
                   if (demntiaInfo != null && partnerInfo != null) {
                     return buildDementia(

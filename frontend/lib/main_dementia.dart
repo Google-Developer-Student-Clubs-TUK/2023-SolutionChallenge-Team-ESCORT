@@ -31,17 +31,8 @@ class MainDementia extends StatelessWidget {
       'safezone': userinfoController.safezone.toString(),
     };
 
+    dementiaController.loadDementia();
     dementiaController.loadPartner();
-
-    DementiaInfo dementiaInfo = DementiaInfo(
-      image:
-          'https://tistory1.daumcdn.net/tistory/2743554/attach/cb196de69425482b93b43ad7fc207bf6',
-      name: data['name'],
-      phone: data['phoneNumber'],
-      characteristics: data['characteristics'],
-      safeZone: data['safezone'],
-      bloodType: data['blood'],
-    );
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -84,9 +75,10 @@ class MainDementia extends StatelessWidget {
         ),
         body: Obx(
           () {
+            DementiaInfo? dementiaInfo = dementiaController.dementiainfo.value;
             PartnerInfo? partnerInfo = dementiaController.partnerInfo.value;
 
-            if (partnerInfo != null) {
+            if (dementiaInfo != null && partnerInfo != null) {
               return buildDementia(
                 dementiaInfo,
                 partnerInfo,
@@ -105,19 +97,20 @@ class MainDementia extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 60.0),
             child: FloatingActionButton(
               onPressed: () {
-                Get.to(MainDementiaQr(),
-                    arguments: [FirebaseAuth.instance.currentUser?.uid ?? "-"]);
+                Get.to(
+                  MainDementiaQr(),
+                  arguments: [
+                    dementiaController.dementiainfo.value?.name ?? "-",
+                    FirebaseAuth.instance.currentUser?.uid ?? "-",
+                  ],
+                );
                 // Add your onPressed code here!
               },
               backgroundColor: Colors.transparent,
               elevation: 0,
-              child: SizedBox(
-                width: 52,
-                height: 52,
-                child: Image.asset(
-                  "assets/floatbutton.png",
-                  fit: BoxFit.cover,
-                ),
+              child: Image.asset(
+                "assets/floatbutton.png",
+                fit: BoxFit.cover,
               ),
             ),
           ),
