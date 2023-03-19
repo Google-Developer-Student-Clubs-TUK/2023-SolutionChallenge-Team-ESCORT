@@ -8,19 +8,16 @@ class DementiaInfo {
       phone,
       characteristics,
       safeZone,
-      regidence,
-      bloodType,
-      favoritePlace;
+      bloodType;
 
-  DementiaInfo(
-      {required this.image,
-      required this.name,
-      required this.phone,
-      required this.characteristics,
-      required this.safeZone,
-      required this.regidence,
-      required this.bloodType,
-      required this.favoritePlace});
+  DementiaInfo({
+    required this.image,
+    required this.name,
+    required this.phone,
+    required this.characteristics,
+    required this.safeZone,
+    required this.bloodType,
+  });
 }
 
 class PartnerInfo {
@@ -34,7 +31,7 @@ class PartnerInfo {
   });
 }
 
-SizedBox buildDementia(DementiaInfo dementiaInfo, PartnerInfo partnerInfo,
+Widget buildDementia(DementiaInfo dementiaInfo, PartnerInfo partnerInfo,
     RxBool isShowCall, GestureTapCallback onClickCall) {
   return SizedBox(
     width: double.infinity,
@@ -121,16 +118,8 @@ SizedBox buildDementia(DementiaInfo dementiaInfo, PartnerInfo partnerInfo,
                     dementiaInfo.safeZone,
                   ),
                   _buildInformation(
-                    'Regidence',
-                    dementiaInfo.regidence,
-                  ),
-                  _buildInformation(
                     'Blood Type',
                     dementiaInfo.bloodType,
-                  ),
-                  _buildInformation(
-                    'Favorite Place',
-                    dementiaInfo.favoritePlace,
                   ),
                 ],
               ),

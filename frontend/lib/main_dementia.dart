@@ -4,9 +4,9 @@ import 'package:escort/dementia.dart';
 import 'package:escort/main_dementia_controller.dart';
 import 'package:escort/main_dementia_qr.dart';
 import 'package:escort/userinfo_controller.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 
 class MainDementia extends StatelessWidget {
   final UserInfoController userinfoController = Get.put(UserInfoController());
@@ -42,9 +42,7 @@ class MainDementia extends StatelessWidget {
       phone: data['phoneNumber'],
       characteristics: data['characteristics'],
       safeZone: data['safezone'],
-      regidence: data['regidence'],
       bloodType: data['blood'],
-      favoritePlace: data['place'],
     );
 
     PartnerInfo partnerInfo = PartnerInfo(
@@ -99,7 +97,7 @@ class MainDementia extends StatelessWidget {
           partnerInfo,
           dementiaController.isShowCall,
           () {
-            dementiaController.clickCall();
+            dementiaController.clickCall(partnerInfo.phone);
           },
         ),
         floatingActionButton: SizedBox(
@@ -107,7 +105,7 @@ class MainDementia extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 60.0),
             child: FloatingActionButton(
               onPressed: () {
-                Get.to(MainDementiaQr(), arguments: [dementiaInfo.name]);
+                Get.to(MainDementiaQr(), arguments: [FirebaseAuth.instance.currentUser?.uid ?? "-"]);
                 // Add your onPressed code here!
               },
               backgroundColor: Colors.transparent,

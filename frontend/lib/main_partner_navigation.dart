@@ -1,6 +1,6 @@
 import 'package:escort/main_account.dart';
 import 'package:escort/main_home.dart';
-import 'package:escort/main_registration.dart';
+import 'package:escort/main_registration_page.dart';
 import 'package:flutter/material.dart';
 
 class MainPartner extends StatefulWidget {
@@ -35,7 +35,7 @@ class _MainPartnerState extends State<MainPartner> {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         home: Scaffold(
-          appBar: AppBar(
+          appBar: _selectedIndex != 0 ? null : AppBar(
             title: Row(
               children: [
                 SizedBox(

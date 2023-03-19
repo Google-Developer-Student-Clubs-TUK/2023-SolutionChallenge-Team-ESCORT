@@ -125,6 +125,7 @@ class SignIn extends StatelessWidget {
     String password = '';
 
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           iconTheme: IconThemeData(
             color: Colors.black,
@@ -142,86 +143,91 @@ class SignIn extends StatelessWidget {
             },
           ),
         ),
-        body: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(right: 260, top: 20, bottom: 25),
-              child: Text("Sign In",
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(right: 110),
-              child: Text("Please enter Your ID and Password"),
-            ),
-            Container(
-              height: 60,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(right: 325, bottom: 20),
-              child: Text(
-                "ID",
-                style: TextStyle(fontWeight: FontWeight.bold),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(right: 260, top: 20, bottom: 25),
+                child: Text("Sign In",
+                    style:
+                        TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
               ),
-            ),
-            SizedBox(
-              width: 350,
-              child: TextFormField(
-                style: TextStyle(color: Colors.black),
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.black12,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                    borderSide: BorderSide(
-                      width: 0,
-                      style: BorderStyle.none,
-                    ),
-                  ),
-                ),
-                onChanged: (value) => {id = value},
+              Padding(
+                padding: const EdgeInsets.only(right: 110),
+                child: Text("Please enter Your ID and Password"),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(right: 275, bottom: 20, top: 30),
-              child: Text(
-                "Password",
-                style: TextStyle(fontWeight: FontWeight.bold),
+              Container(
+                height: 60,
               ),
-            ),
-            SizedBox(
-              width: 350,
-              child: TextFormField(
-                style: TextStyle(color: Colors.black),
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.black12,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                    borderSide: BorderSide(
-                      width: 0,
-                      style: BorderStyle.none,
-                    ),
-                  ),
-                ),
-                onChanged: (value) => {password = value},
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(
-                left: 170.0,
-              ),
-              child: TextButton(
-                onPressed: () => {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => ResetPassword()))
-                },
+              Padding(
+                padding: const EdgeInsets.only(right: 325, bottom: 20),
                 child: Text(
-                  "Forgot password? Click here",
-                  style: TextStyle(fontSize: 12, color: Colors.blue),
+                  "ID",
+                  style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
-            )
-          ],
+              SizedBox(
+                width: 350,
+                child: TextFormField(
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Colors.black12,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                      borderSide: BorderSide(
+                        width: 0,
+                        style: BorderStyle.none,
+                      ),
+                    ),
+                  ),
+                  onChanged: (value) => {id = value},
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 275, bottom: 20, top: 30),
+                child: Text(
+                  "Password",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ),
+              SizedBox(
+                width: 350,
+                child: TextFormField(
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Colors.black12,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                      borderSide: BorderSide(
+                        width: 0,
+                        style: BorderStyle.none,
+                      ),
+                    ),
+                  ),
+                  onChanged: (value) => {password = value},
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: 170.0,
+                ),
+                child: TextButton(
+                  onPressed: () => {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ResetPassword()))
+                  },
+                  child: Text(
+                    "Forgot password? Click here",
+                    style: TextStyle(fontSize: 12, color: Colors.blue),
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
         bottomNavigationBar: Padding(
           padding: const EdgeInsets.all(20.0),
