@@ -11,6 +11,8 @@ import java.util.List;
 public interface ProtectorRepository extends JpaRepository<Protector, Integer> {
     boolean existsByEmail(String email);
 
+    boolean existsByFbId(String uId);
+
     @Query(value = "select deviceToken from Protector")
     List<String> selectAllDevicetoken();
 

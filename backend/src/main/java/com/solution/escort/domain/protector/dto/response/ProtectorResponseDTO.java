@@ -20,5 +20,6 @@ public class ProtectorResponseDTO {
     private String deviceToken;
     private String imageUrl;
     private String uId;
+    private String birth;
 
 }

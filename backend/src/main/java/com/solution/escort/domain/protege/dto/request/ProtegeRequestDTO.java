@@ -26,6 +26,7 @@ public class ProtegeRequestDTO {
     private int scope;
     private MultipartFile profileImage;
     private String countryCode;
+    private String birth;
 
     private String uId;
 
@@ -43,6 +44,7 @@ public class ProtegeRequestDTO {
                 .scope(protegeRequestDTO.getScope())
                 .countryCode(protegeRequestDTO.getCountryCode())
                 .fbId(protegeRequestDTO.getUId())
+                .birth(protegeRequestDTO.getBirth())
                 .build();
     }
 }

@@ -2,6 +2,7 @@ package com.solution.escort.domain.protege.controller;
 
 import com.solution.escort.domain.protege.dto.request.ProtegeClothRequestDTO;
 import com.solution.escort.domain.protege.dto.request.ProtegeRequestDTO;
+import com.solution.escort.domain.protege.dto.request.ProtegeTokenRequestDTO;
 import com.solution.escort.domain.protege.dto.response.ProtegeResponseDTO;
 import com.solution.escort.domain.protege.repository.ProtegeRepository;
 import com.solution.escort.domain.protege.service.ProtegeService;
@@ -64,6 +65,15 @@ public class ProtegeController {
         int id = protegeRepository.findByFbId(uId).getId();
         protegeService.protegeCloth(dto, id);
         ResponseFormat<ProtegeClothRequestDTO> responseFormat = new ResponseFormat<>(ResponseStatus.PUT_PROTEGE_CLOTHING_SUCCESS);
+        return ResponseEntity.status(HttpStatus.OK).body(responseFormat);
+    }
+
+    // 노인 로그인 시 디바이스 토큰 수정해주는 API
+    @PutMapping("/deviceToken/{uId}")
+    public ResponseEntity<ResponseFormat<ProtegeTokenRequestDTO>> tokenUpdate(ProtegeTokenRequestDTO dto, @PathVariable String uId) throws Exception {
+        int id = protegeRepository.findByFbId(uId).getId();
+        protegeService.updateToken(dto, id);
+        ResponseFormat<ProtegeTokenRequestDTO> responseFormat = new ResponseFormat<>(ResponseStatus.PUT_PROTECTOR_TOKEN_SUCCESS);
         return ResponseEntity.status(HttpStatus.OK).body(responseFormat);
     }
 

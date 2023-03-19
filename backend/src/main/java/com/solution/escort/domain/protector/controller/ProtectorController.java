@@ -1,9 +1,11 @@
 package com.solution.escort.domain.protector.controller;
 
 import com.solution.escort.domain.protector.dto.request.ProtectorRequestDTO;
+import com.solution.escort.domain.protector.dto.request.ProtectorTokenRequestDTO;
 import com.solution.escort.domain.protector.dto.response.ProtectorResponseDTO;
 import com.solution.escort.domain.protector.repository.ProtectorRepository;
 import com.solution.escort.domain.protector.service.ProtectorService;
+import com.solution.escort.domain.protege.dto.request.ProtegeTokenRequestDTO;
 import com.solution.escort.domain.protege.repository.ProtegeRepository;
 import com.solution.escort.global.GCP.GCPService;
 import com.solution.escort.global.ResponseFormat;
@@ -49,6 +51,15 @@ public class ProtectorController {
 
         ProtectorResponseDTO protector = protectorService.getProtectorById(id);
         ResponseFormat<ProtectorResponseDTO> responseFormat = new ResponseFormat<>(ResponseStatus.GET_PROTECTOR_SUCCESS, protector);
+        return ResponseEntity.status(HttpStatus.OK).body(responseFormat);
+    }
+
+    // 보호자 로그인 시 디바이스 토큰 수정해주는 API
+    @PutMapping("/deviceToken/{uId}")
+    public ResponseEntity<ResponseFormat<ProtectorTokenRequestDTO>> tokenUpdate(ProtectorTokenRequestDTO dto, @PathVariable String uId) throws Exception {
+        int id = protectorRepository.findByFbId(uId).getId();
+        protectorService.updateToken(dto, id);
+        ResponseFormat<ProtectorTokenRequestDTO> responseFormat = new ResponseFormat<>(ResponseStatus.PUT_PROTECTOR_TOKEN_SUCCESS);
         return ResponseEntity.status(HttpStatus.OK).body(responseFormat);
     }
 }

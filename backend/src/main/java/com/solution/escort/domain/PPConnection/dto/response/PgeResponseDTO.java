@@ -27,4 +27,5 @@ public class PgeResponseDTO {
     private String countryCode;
     private String clothing;
     private String uId;
+    private int age;
 }

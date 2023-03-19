@@ -1,5 +1,6 @@
 package com.solution.escort.domain.protege.dto.response;
 
+import com.solution.escort.domain.protector.entity.Protector;
 import com.solution.escort.domain.protege.entity.Protege;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
@@ -28,5 +29,7 @@ public class ProtegeResponseDTO {
     private int scope;
     private String imageUrl;
     private String uId;
+    private String birth;
+    private int age;
 
 }

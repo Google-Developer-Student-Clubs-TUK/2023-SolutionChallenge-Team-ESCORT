@@ -7,7 +7,6 @@ import com.solution.escort.domain.sos.dto.request.SOSRequestDTO;
 import com.solution.escort.domain.sos.dto.response.SOSResponseDTO;
 import com.solution.escort.domain.sos.service.SOSservice;
 import com.solution.escort.global.FCM.FirebaseCloudMessageService;
-import com.solution.escort.domain.sos.dto.request.FCMRequestDTO;
 import com.solution.escort.global.ResponseFormat;
 import com.solution.escort.global.ResponseStatus;
 import lombok.extern.slf4j.Slf4j;
