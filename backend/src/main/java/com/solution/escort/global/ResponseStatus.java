@@ -11,11 +11,13 @@ public enum ResponseStatus {
     GET_PROTEGE_SUCCESS("PE01", "노인 정보 가져오기 성공"),
     PUT_PROTEGE_SUCCESS("PE02", "노인 정보 수정하기 성공"),
     PUT_PROTEGE_CLOTHING_SUCCESS("PE03", "노인 옷차림 추가 성공"),
+    PUT_PROTEGE_TOKEN_SUCCESS("PE04", "노인 디바이스 토큰 업데이트 성공"),
 
     // Protector(보호자) 응답 status
     POST_PROTECTOR_SUCCESS("PR000", "보호자 회원 생성 성공"),
     GET_PROTECTOR_SUCCESS("PR001", "보호자 정보 가져오기 성공"),
     PUT_PROTECTOR_SUCCESS("PR002", "보호자 정보 수정하기 성공"),
+    PUT_PROTECTOR_TOKEN_SUCCESS("PR003", "보호자 디바이스 토큰 업데이트 성공"),
 
 
     // SOS 신고 응답 status

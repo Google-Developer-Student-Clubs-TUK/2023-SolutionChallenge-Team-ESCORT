@@ -6,6 +6,7 @@ import com.solution.escort.domain.protector.entity.Protector;
 import com.solution.escort.domain.protector.repository.ProtectorRepository;
 import com.solution.escort.domain.protege.dto.request.ProtegeClothRequestDTO;
 import com.solution.escort.domain.protege.dto.request.ProtegeRequestDTO;
+import com.solution.escort.domain.protege.dto.request.ProtegeTokenRequestDTO;
 import com.solution.escort.domain.protege.dto.response.ProtegeResponseDTO;
 import com.solution.escort.domain.protege.entity.Protege;
 import com.solution.escort.domain.protege.entity.SafeZone;
@@ -93,6 +94,17 @@ public class ProtegeServiceImpl implements ProtegeService {
 
         updateProtege.ifPresent(selectProtege -> {
             selectProtege.setClothing(protegeClothRequestDTO.getClothing());
+
+            protegeRepository.save(selectProtege);
+        });
+    }
+
+    @Override
+    public void updateToken(ProtegeTokenRequestDTO protegeTokenRequestDTO, Integer id) throws Exception {
+        Optional<Protege> updateProtegeToken = protegeRepository.findById(id);
+
+        updateProtegeToken.ifPresent(selectProtege -> {
+            selectProtege.setDeviceToken(protegeTokenRequestDTO.getDeviceToken());
 
             protegeRepository.save(selectProtege);
         });

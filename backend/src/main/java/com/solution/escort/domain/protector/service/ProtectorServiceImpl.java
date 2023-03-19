@@ -1,6 +1,7 @@
 package com.solution.escort.domain.protector.service;
 
 import com.solution.escort.domain.protector.dto.request.ProtectorRequestDTO;
+import com.solution.escort.domain.protector.dto.request.ProtectorTokenRequestDTO;
 import com.solution.escort.domain.protector.dto.response.ProtectorResponseDTO;
 import com.solution.escort.domain.protector.entity.Protector;
 import com.solution.escort.domain.protector.repository.ProtectorRepository;
@@ -11,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityExistsException;
+import javax.swing.text.html.Option;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -43,6 +46,16 @@ public class ProtectorServiceImpl implements ProtectorService {
     public ProtectorResponseDTO getProtectorById(Integer id) throws Exception {
         Protector protector = protectorRepository.findById(id).get();
         return protector.toProtectorResponseDTO(protector);
+    }
+
+    @Override
+    public void updateToken(ProtectorTokenRequestDTO protectorTokenRequestDTO, Integer id) throws Exception {
+        Optional<Protector> updateProtectorToken = protectorRepository.findById(id);
+
+        updateProtectorToken.ifPresent(selectProtector ->{
+            selectProtector.setDeviceToken(protectorTokenRequestDTO.getDeviceToken());
+            protectorRepository.save(selectProtector);
+        });
     }
 
 }
