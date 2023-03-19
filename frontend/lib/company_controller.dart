@@ -21,8 +21,6 @@ class CompanyController extends GetxController {
           },
         );
 
-        print(tempCompanyList);
-
         companyList.value = tempCompanyList;
       },
     );
@@ -30,10 +28,10 @@ class CompanyController extends GetxController {
 
   RxList<CompanyInfo> companyList = RxList<CompanyInfo>();
   var isShowDetail = false.obs;
-  var companyId = ''.obs;
+  Rx<CompanyInfo?> companyInfo = Rx(null);
 
-  void showDetail(String companyId) {
-    this.companyId.value = companyId;
+  void showDetail(CompanyInfo companyInfo) {
+    this.companyInfo.value = companyInfo;
     isShowDetail.value = true;
   }
 

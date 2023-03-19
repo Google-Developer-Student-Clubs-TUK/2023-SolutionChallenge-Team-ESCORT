@@ -15,27 +15,37 @@ class CompanyPage extends StatelessWidget {
 
     return Scaffold(
       body: SafeArea(
-        child: Obx(() {
-          if (!companyController.isShowDetail.value) {
-            return companyList(
-              companyController.companyList,
-              (companyId) {
-                companyController.showDetail(companyId);
-              },
-            );
-          } else {
-            return companyDetail(companyController.hideDetail);
-          }
-        }),
+        child: Obx(
+          () {
+            if (!companyController.isShowDetail.value) {
+              return companyList(
+                companyController.companyList,
+                (companyId) {
+                  companyController.showDetail(companyId);
+                },
+              );
+            } else {
+              var companyInfo = companyController.companyInfo.value;
+
+              if (companyInfo != null) {
+                return companyDetail(
+                  companyInfo,
+                  companyController.hideDetail,
+                );
+              } else {
+                return Text('Loading');
+              }
+            }
+          },
+        ),
       ),
     );
   }
 
   Widget companyList(
     List<CompanyInfo> companyList,
-    void Function(String companyId) onClickItem,
+    void Function(CompanyInfo companyInfo) onClickItem,
   ) {
-    print("companyList: ${companyList.length}");
     return Column(
       children: [
         buildHeader("Company", icon: Icons.assistant_photo),
@@ -66,11 +76,11 @@ class CompanyPage extends StatelessWidget {
 
   Widget companyItem(
     CompanyInfo companyInfo,
-    void Function(String companyId) onClickItem,
+    void Function(CompanyInfo companyInfo) onClickItem,
   ) {
     return InkWell(
       onTap: () {
-        onClickItem('1');
+        onClickItem(companyInfo);
       },
       borderRadius: BorderRadius.circular(14),
       child: Ink(
@@ -91,9 +101,7 @@ class CompanyPage extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
                       image: DecorationImage(
-                        image: NetworkImage(
-                          companyInfo.images[0]
-                        ),
+                        image: NetworkImage(companyInfo.images[0]),
                         fit: BoxFit.fill,
                       ),
                     ),
@@ -138,15 +146,10 @@ class CompanyPage extends StatelessWidget {
     );
   }
 
-  Widget companyDetail(void Function() onClickBack) {
+  Widget companyDetail(CompanyInfo companyInfo, void Function() onClickBack) {
     final bannerId = ConstraintId('banner');
     final companyInfoId = ConstraintId('companyInfo');
     final listViewId = ConstraintId('listView');
-
-    const image1 =
-        'https://storage.googleapis.com/solution_escort/cafe1.jpeg0337f78d-2bb8-468a-a9bc-aa9f55fbb985';
-    const image2 =
-        'https://storage.googleapis.com/solution_escort/cafe3.jpeg2d1a5b96-0238-424e-acf0-290678d2eb7e';
 
     return Column(
       children: [
@@ -180,10 +183,11 @@ class CompanyPage extends StatelessWidget {
             ],
             children: [
               Image.network(
-                image1,
+                companyInfo.images[0],
                 fit: BoxFit.fitWidth,
               ).applyConstraintId(id: bannerId),
-              detailCompanyInfoItem().applyConstraintId(id: companyInfoId),
+              detailCompanyInfoItem(companyInfo)
+                  .applyConstraintId(id: companyInfoId),
               SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(24, 26, 24, 0),
@@ -210,7 +214,7 @@ class CompanyPage extends StatelessWidget {
                       SizedBox(
                         height: 16,
                       ),
-                      Image.network(image1),
+                      Image.network(companyInfo.images[2]),
                       SizedBox(
                         height: 16,
                       ),
@@ -225,7 +229,7 @@ class CompanyPage extends StatelessWidget {
     );
   }
 
-  Widget detailCompanyInfoItem() {
+  Widget detailCompanyInfoItem(CompanyInfo companyInfo) {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -244,8 +248,8 @@ class CompanyPage extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
                     image: DecorationImage(
-                      image: NetworkImage(
-                          'https://haeyum.dev/pangmoo/profile.jpeg'),
+                      image: NetworkImage(companyInfo.images[1]),
+                      fit: BoxFit.fill,
                     ),
                   ),
                 ),
@@ -258,12 +262,12 @@ class CompanyPage extends StatelessWidget {
               flex: 6,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
+                children: [
                   SizedBox(
                     height: 8,
                   ),
                   Text(
-                    'WOW',
+                    companyInfo.title,
                     style: TextStyle(
                         color: Color(0xFF3B3B3B),
                         fontSize: 16,
@@ -273,7 +277,7 @@ class CompanyPage extends StatelessWidget {
                     height: 14,
                   ),
                   Text(
-                    'Sun Bright Light Residence 2972 Westheimer Rd. Illinois 85486 ',
+                    companyInfo.description,
                     style: TextStyle(
                       color: Color(0xFF3B3B3B),
                       fontSize: 12,
