@@ -31,9 +31,7 @@ class MainDementia extends StatelessWidget {
       'safezone': userinfoController.safezone.toString(),
     };
 
-    String json = jsonEncode(data);
-    var _qrCodeData = json;
-    print(_qrCodeData);
+    dementiaController.loadPartner();
 
     DementiaInfo dementiaInfo = DementiaInfo(
       image:
@@ -43,13 +41,6 @@ class MainDementia extends StatelessWidget {
       characteristics: data['characteristics'],
       safeZone: data['safezone'],
       bloodType: data['blood'],
-    );
-
-    PartnerInfo partnerInfo = PartnerInfo(
-      image:
-          'https://tistory1.daumcdn.net/tistory/2743554/attach/cb196de69425482b93b43ad7fc207bf6',
-      name: 'GwangMoo You',
-      phone: '+82-10-6348-1143',
     );
 
     return MaterialApp(
@@ -91,12 +82,22 @@ class MainDementia extends StatelessWidget {
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.vertical(bottom: Radius.circular(10))),
         ),
-        body: buildDementia(
-          dementiaInfo,
-          partnerInfo,
-          dementiaController.isShowCall,
+        body: Obx(
           () {
-            dementiaController.clickCall(partnerInfo.phone);
+            PartnerInfo? partnerInfo = dementiaController.partnerInfo.value;
+
+            if (partnerInfo != null) {
+              return buildDementia(
+                dementiaInfo,
+                partnerInfo,
+                dementiaController.isShowCall,
+                () {
+                  dementiaController.clickCall(partnerInfo.phone);
+                },
+              );
+            } else {
+              return Text('Loading...');
+            }
           },
         ),
         floatingActionButton: SizedBox(
@@ -104,7 +105,8 @@ class MainDementia extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 60.0),
             child: FloatingActionButton(
               onPressed: () {
-                Get.to(MainDementiaQr(), arguments: [FirebaseAuth.instance.currentUser?.uid ?? "-"]);
+                Get.to(MainDementiaQr(),
+                    arguments: [FirebaseAuth.instance.currentUser?.uid ?? "-"]);
                 // Add your onPressed code here!
               },
               backgroundColor: Colors.transparent,

@@ -63,8 +63,9 @@ class RegistrationPage extends StatelessWidget {
                                   .value[index]['safeZones'][0],
                               () {
                                 registrationController.showDetail(
-                                    registrationController
-                                        .registrationList.value[index]['uid']);
+                                  registrationController
+                                      .registrationList.value[index]['uid'],
+                                );
                               },
                             ),
                             SizedBox(

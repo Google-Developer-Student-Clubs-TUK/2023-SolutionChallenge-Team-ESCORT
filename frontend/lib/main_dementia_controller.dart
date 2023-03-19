@@ -16,6 +16,27 @@ class DementiaController extends GetxController {
     }
   }
 
+  // dementia
+  void loadPartner() {
+    GetConnect()
+        .get(
+            'http://34.22.70.120:8080/api/v1/ppConnection/protege/${FirebaseAuth.instance.currentUser?.uid ?? "-"}')
+        .asStream()
+        .map(
+      (event) {
+        return event.body['result'][0];
+      },
+    ).listen(
+      (event) {
+        partnerInfo.value = PartnerInfo(
+            image: event['imageUrl'],
+            name: event['name'],
+            phone: event['phone']);
+      },
+    );
+  }
+
+  // partner
   void loadDetail(String uid) async {
     isShowCall.value = false;
 
