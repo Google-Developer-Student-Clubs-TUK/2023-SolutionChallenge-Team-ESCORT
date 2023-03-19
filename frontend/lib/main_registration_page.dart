@@ -1,7 +1,9 @@
 import 'dart:developer';
+import 'dart:ui';
 
 import 'package:escort/main_dementia_controller.dart';
 import 'package:escort/registration_controller.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
@@ -347,6 +349,116 @@ class _QRViewExampleState extends State<QRViewExample> {
     controller.scannedDataStream.listen((scanData) {
       setState(() {
         result = scanData;
+
+        String? code = result?.code;
+
+        controller.stopCamera();
+
+        print("PangMoo - code: $code");
+
+        if (code != null) {
+          Get.dialog(
+            Expanded(
+                child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 32),
+                child: Scaffold(
+                  backgroundColor: Colors.transparent,
+                  body: Center(
+                    child: Wrap(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(32),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(16, 42, 16, 32),
+                            child: Column(
+                              children: [
+                                Container(
+                                  width: 112,
+                                  height: 112,
+                                  decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      colors: const [
+                                        Color(0xCC10403B),
+                                        Color(0xFF10403B)
+                                      ],
+                                    ),
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: Center(
+                                    child: Icon(
+                                      Icons.check_box,
+                                      size: 40,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(height: 24),
+                                Text(
+                                  'Scan Successful!',
+                                  style: TextStyle(
+                                    color: Color(0xFF212121),
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                SizedBox(height: 18),
+                                Text(
+                                  'The old man has been registered on the registration list.',
+                                  style: TextStyle(
+                                    color: Color(0xFF212121),
+                                    fontSize: 16,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                                SizedBox(
+                                  height: 56,
+                                ),
+                                Material(
+                                  child: InkWell(
+                                    onTap: () {
+                                      print("WOW");
+                                    },
+                                    borderRadius: BorderRadius.circular(100),
+                                    child: Ink(
+                                      width: double.infinity,
+                                      decoration: BoxDecoration(
+                                        color: Color(0xFF10403B),
+                                        borderRadius:
+                                            BorderRadius.circular(100),
+                                      ),
+                                      child: Padding(
+                                        padding: EdgeInsets.all(16),
+                                        child: Text(
+                                          'Go to Home',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            )),
+            barrierDismissible: false,
+          );
+        }
       });
     });
   }
