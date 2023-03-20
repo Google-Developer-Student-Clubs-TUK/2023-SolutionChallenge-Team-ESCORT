@@ -57,6 +57,15 @@ class SignUp5 extends StatefulWidget {
   State<SignUp5> createState() => _SignUpState5();
 }
 
+class SignUp6 extends StatefulWidget {
+  const SignUp6({
+    super.key,
+  });
+
+  @override
+  State<SignUp6> createState() => _SignUpState6();
+}
+
 class _SignUpState extends State<SignUp> {
   Dementia _dementia = Dementia.yes;
   final AuthController authController = Get.put(AuthController());
@@ -902,6 +911,66 @@ class _SignUpState5 extends State<SignUp5> {
                   authController.safezone.toString(),
                   authController.imagePath.toString(),
                 ),
+                showDialog<void>(
+                  //다이얼로그 위젯 소환
+                  context: context,
+                  barrierDismissible: false, // 다이얼로그 이외의 바탕 눌러도 안꺼지도록 설정
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      content: SingleChildScrollView(
+                        child: ListBody(
+                          //List Body를 기준으로 Text 설정
+                          children: <Widget>[
+                            Center(
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    height: 40,
+                                  ),
+                                  Image.asset("assets/signupmark.png"),
+                                  SizedBox(
+                                    height: 60,
+                                  ),
+                                  Text('Sign Up Successful!',
+                                      style: TextStyle(
+                                          fontSize: 22,
+                                          fontWeight: FontWeight.bold)),
+                                  SizedBox(
+                                    height: 40,
+                                  ),
+                                  Text('Your account has been created'),
+                                  Text('Let\'s begin!'),
+                                  SizedBox(
+                                    height: 60,
+                                  ),
+                                  SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.6,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.05,
+                                    child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        primary: Color(0xCC10403B),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(30.0),
+                                        ),
+                                      ),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: Text('Go to Home'),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                )
               },
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
@@ -914,5 +983,16 @@ class _SignUpState5 extends State<SignUp5> {
             ),
           ),
         ));
+  }
+}
+
+class _SignUpState6 extends State<SignUp6> {
+  final AuthController authController = Get.put(AuthController());
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(child: Text("helloworld")),
+    );
   }
 }
