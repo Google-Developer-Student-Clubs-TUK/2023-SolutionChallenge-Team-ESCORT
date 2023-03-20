@@ -192,7 +192,6 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
                                                       .height *
                                                   0.002,
                                               color: Colors.grey,
-                                              margin: EdgeInsets.all(20.0),
                                             ),
                                             Container(
                                               decoration: BoxDecoration(
@@ -208,15 +207,15 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
                                               margin: EdgeInsets.all(16.0),
                                               child: Row(children: [
                                                 Container(
-                                                  padding: EdgeInsets.all(50),
+                                                  padding: EdgeInsets.all(20),
                                                   width: MediaQuery.of(context)
                                                           .size
                                                           .width *
-                                                      0.3,
+                                                      0.4,
                                                   height: MediaQuery.of(context)
                                                           .size
                                                           .height *
-                                                      0.4,
+                                                      0.18,
                                                   child: Container(
                                                     child: Image.network(
                                                       element['imageUrl'],
@@ -228,52 +227,57 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
                                                   width: MediaQuery.of(context)
                                                           .size
                                                           .width *
-                                                      0.6,
+                                                      0.4,
                                                   child: Column(children: [
-                                                    Container(
-                                                      width:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width *
-                                                              0.6,
-                                                      child: Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Text(
-                                                              element['name'],
-                                                              style: TextStyle(
-                                                                  fontSize: 25),
-                                                            ),
-                                                            Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                          .only(
-                                                                      top:
-                                                                          40.0),
-                                                              child: Image.asset(
-                                                                  "assets/safemarker.png"),
-                                                            )
-                                                          ]),
-                                                    ),
                                                     Padding(
                                                       padding:
                                                           const EdgeInsets.only(
-                                                              top: 20.0),
+                                                              top: 40.0),
                                                       child: Container(
                                                         width: MediaQuery.of(
                                                                     context)
                                                                 .size
                                                                 .width *
                                                             0.6,
+                                                        child: Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Text(
+                                                                element['name'],
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        20),
+                                                              ),
+                                                              Image.asset(
+                                                                "assets/safemarker2.png",
+                                                                width: 20,
+                                                                height: 20,
+                                                              )
+                                                            ]),
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              top: 10.0),
+                                                      child: Container(
+                                                        width: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width *
+                                                            0.5,
                                                         child: Text(
                                                           element['safeZones']
                                                               [0],
                                                           style: TextStyle(
-                                                              fontSize: 20),
+                                                              fontSize: 15),
                                                           textAlign:
                                                               TextAlign.left,
+                                                          maxLines: 2,
+                                                          overflow: TextOverflow
+                                                              .visible,
                                                         ),
                                                       ),
                                                     ),
@@ -300,7 +304,7 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
                                             MediaQuery.of(context).size.width,
                                         height:
                                             MediaQuery.of(context).size.height *
-                                                0.3,
+                                                0.35,
                                         child: Column(
                                           children: [
                                             Container(
@@ -333,7 +337,7 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
                                                   width: MediaQuery.of(context)
                                                           .size
                                                           .width *
-                                                      0.2,
+                                                      0.35,
                                                   height: MediaQuery.of(context)
                                                           .size
                                                           .height *
@@ -349,52 +353,57 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
                                                   width: MediaQuery.of(context)
                                                           .size
                                                           .width *
-                                                      0.6,
+                                                      0.5,
                                                   child: Column(children: [
-                                                    Container(
-                                                      width:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width *
-                                                              0.6,
-                                                      child: Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Text(
-                                                              element['name'],
-                                                              style: TextStyle(
-                                                                  fontSize: 25),
-                                                            ),
-                                                            Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                          .only(
-                                                                      top:
-                                                                          40.0),
-                                                              child: Image.asset(
-                                                                  "assets/rounddangermarker.png"),
-                                                            )
-                                                          ]),
-                                                    ),
                                                     Padding(
                                                       padding:
                                                           const EdgeInsets.only(
-                                                              top: 0.0),
+                                                              top: 22.0),
                                                       child: Container(
                                                         width: MediaQuery.of(
                                                                     context)
                                                                 .size
                                                                 .width *
                                                             0.6,
+                                                        child: Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Text(
+                                                                element['name'],
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        20),
+                                                              ),
+                                                              Image.asset(
+                                                                "assets/rounddangermarker2.png",
+                                                                width: 20,
+                                                                height: 20,
+                                                              )
+                                                            ]),
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              top: 10.0),
+                                                      child: Container(
+                                                        width: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width *
+                                                            0.65,
                                                         child: Text(
                                                           element['safeZones']
                                                               [0],
                                                           style: TextStyle(
-                                                              fontSize: 20),
+                                                              fontSize: 15),
                                                           textAlign:
                                                               TextAlign.left,
+                                                          maxLines: 2,
+                                                          overflow: TextOverflow
+                                                              .visible,
                                                         ),
                                                       ),
                                                     ),
@@ -422,8 +431,8 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
                                                             width: MediaQuery.of(
                                                                         context)
                                                                     .size
-                                                                    .height *
-                                                                0.05,
+                                                                    .width *
+                                                                0.3,
                                                             height: MediaQuery.of(
                                                                         context)
                                                                     .size
@@ -454,8 +463,8 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
                                                             width: MediaQuery.of(
                                                                         context)
                                                                     .size
-                                                                    .height *
-                                                                0.57,
+                                                                    .width *
+                                                                0.3,
                                                             height: MediaQuery.of(
                                                                         context)
                                                                     .size
