@@ -1,5 +1,7 @@
+import 'package:escort/company_page.dart';
+import 'package:escort/main_account.dart';
 import 'package:escort/main_home.dart';
-import 'package:escort/main_registration.dart';
+import 'package:escort/main_registration_page.dart';
 import 'package:flutter/material.dart';
 
 class MainPartner extends StatefulWidget {
@@ -18,8 +20,8 @@ class _MainPartnerState extends State<MainPartner> {
   final List<Widget> _widgetOptions = <Widget>[
     MapSample(),
     RegistrationPage(),
-    RegistrationPage(),
-    RegistrationPage()
+    CompanyPage(),
+    AccountPage()
   ];
 
   void _onItemTapped(int index) {

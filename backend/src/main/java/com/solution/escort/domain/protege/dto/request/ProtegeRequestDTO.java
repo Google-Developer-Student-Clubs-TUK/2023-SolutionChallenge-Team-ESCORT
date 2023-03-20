@@ -1,21 +1,50 @@
 package com.solution.escort.domain.protege.dto.request;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.ToString;
+import com.solution.escort.domain.protege.entity.Protege;
+import com.solution.escort.domain.protege.entity.SafeZone;
+import lombok.*;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.persistence.Column;
+import java.util.List;
 
 @AllArgsConstructor
 @Builder
 @Getter
-@ToString
+@Setter
+@Slf4j
+@NoArgsConstructor
 public class ProtegeRequestDTO {
     private String email;
     private String password;
     private String name;
-    private String profileImageUrl;
     private String characteristic;
     private String bloodType;
     private String phone;
-    private String address;
+    private String deviceToken;
+    private int scope;
+    private MultipartFile profileImage;
+    private String countryCode;
+    private String birth;
+
+    private String uId;
+
+    private List<SafeZone> safeZoneAddress;
+
+    public Protege toProtegeEntity(ProtegeRequestDTO protegeRequestDTO) {
+        return Protege.builder()
+                .email(protegeRequestDTO.getEmail())
+                .password(protegeRequestDTO.getPassword())
+                .name(protegeRequestDTO.getName())
+                .characteristic(protegeRequestDTO.getCharacteristic())
+                .bloodType(protegeRequestDTO.getBloodType())
+                .phone(protegeRequestDTO.getPhone())
+                .deviceToken(protegeRequestDTO.getDeviceToken())
+                .scope(protegeRequestDTO.getScope())
+                .countryCode(protegeRequestDTO.getCountryCode())
+                .fbId(protegeRequestDTO.getUId())
+                .birth(protegeRequestDTO.getBirth())
+                .build();
+    }
 }

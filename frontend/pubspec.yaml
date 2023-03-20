@@ -47,17 +47,20 @@ dependencies:
   firebase_auth: ^4.2.2
   firebase_core: ^2.7.1
   cloud_firestore: ^4.4.3
-  flutter_qr_code: ^0.0.2+2
   qr_flutter: ^4.0.0
-  qrscan: ^0.3.3
   firebase_database: ^10.0.15
   qr_code_scanner: ^1.0.1
+
   geolocator: ^9.0.2
   geocoding: ^2.1.0
   firebase_messaging: ^14.2.6
   flutter_local_notifications: ^8.2.0
   location: ^4.4.0
   lottie: ^2.3.0
+
+  url_launcher: ^6.0.12
+  rxdart: ^0.27.7
+  flutter_constraintlayout: ^1.6.3-stable
 
 dev_dependencies:
   flutter_test:

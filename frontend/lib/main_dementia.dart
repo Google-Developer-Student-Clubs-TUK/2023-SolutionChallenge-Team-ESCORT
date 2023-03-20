@@ -1,6 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:escort/dementia.dart';
+import 'package:escort/main_dementia_controller.dart';
+import 'package:escort/main_dementia_qr.dart';
 import 'package:escort/userinfo_controller.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -106,6 +109,7 @@ class MainDementia extends StatefulWidget {
 
 class _MainDementiaState extends State<MainDementia> {
   final UserInfoController userinfoController = Get.put(UserInfoController());
+  final DementiaController dementiaController = Get.put(DementiaController());
 
   // This widget is the root of your application.
   @override
@@ -124,11 +128,11 @@ class _MainDementiaState extends State<MainDementia> {
       'safezone': userinfoController.safezone.toString(),
     };
 
-    String json = jsonEncode(data);
-    var _qrCodeData = json;
-    print(_qrCodeData);
+    dementiaController.disconnectAndNewConnection(
+        FirebaseAuth.instance.currentUser?.uid ?? "-");
 
-    // QR 코드로 표시 할 데이터
+    dementiaController.loadDementia();
+    dementiaController.loadPartner();
 
     locationfunc(userinfoController.email.toString(),
         userinfoController.safezone.toString());
@@ -172,236 +176,45 @@ class _MainDementiaState extends State<MainDementia> {
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.vertical(bottom: Radius.circular(10))),
         ),
-        body: Padding(
-          padding: const EdgeInsets.only(
-              top: 12, left: 12.0, right: 12.0, bottom: 5),
-          child: Column(
-            children: [
-              Container(
-                height: 310,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(20),
-                  ),
-                  color: Color.fromRGBO(32, 92, 73, 89),
-                ),
-                child: Column(
-                  children: const [
-                    SizedBox(
-                      child: Padding(
-                        padding: EdgeInsets.all(25.0),
-                        child: SizedBox(
-                          width: 375,
-                          height: 190,
-                          child: CircleAvatar(
-                            backgroundColor: Colors.white,
-                            radius: 50, // Image radius
-                            backgroundImage: NetworkImage('imageUrl'),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Text(
-                      "Jenny Kim",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 22,
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 8.0),
-                      child: Text(
-                        "010 2170 9514",
-                        style: TextStyle(color: Colors.white, fontSize: 12),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                height: 130,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(2.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(20),
-                            ),
-                            color: Colors.black12),
-                        width: 350,
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 20.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    top: 8.0, right: 160, bottom: 30),
-                                child: Text(
-                                  'Characteristics',
-                                  style: TextStyle(
-                                      fontSize: 19,
-                                      color: Color.fromRGBO(16, 64, 59, 100),
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                              Text(
-                                "● A mole under the nose",
-                                style: TextStyle(
-                                  color: Color.fromRGBO(16, 64, 59, 100),
-                                ),
-                              ),
-                              Text(
-                                "● Big ears and smalls lips",
-                                style: TextStyle(
-                                  color: Color.fromRGBO(16, 64, 59, 100),
-                                ),
-                              ),
-                              Text(
-                                "● Reacting to the name 'Frank",
-                                style: TextStyle(
-                                  color: Color.fromRGBO(16, 64, 59, 100),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(2.0),
-                      child: Container(
-                        width: 370,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(20),
-                            ),
-                            color: Colors.black12),
-                        child: const Center(
-                            child: Text(
-                          'Item 2',
-                          style: TextStyle(fontSize: 18, color: Colors.white),
-                        )),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(2.0),
-                      child: Container(
-                        width: 370,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(20),
-                          ),
-                          color: Colors.black12,
-                        ),
-                        child: const Center(
-                            child: Text(
-                          'Item 3',
-                          style: TextStyle(fontSize: 18, color: Colors.white),
-                        )),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(2.0),
-                      child: Container(
-                        width: 370,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(20),
-                            ),
-                            color: Colors.black12),
-                        child: const Center(
-                            child: Text(
-                          'Item 4',
-                          style: TextStyle(fontSize: 18, color: Colors.white),
-                        )),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 2.0),
-                child: Container(
-                  height: 100,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(20),
-                      ),
-                      color: Colors.black12),
-                  child: Column(
-                    children: const [
-                      SizedBox(
-                        child: SizedBox(
-                          width: 375,
-                          height: 100,
-                          child: Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: CircleAvatar(
-                              backgroundColor: Colors.white,
-                              radius: 50, // Image radius
-                              backgroundImage: NetworkImage('imageUrl'),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(6),
-                    ),
-                    color: Colors.black12),
-                width: 350,
-                height: 32,
-                child: Text("asdasdasd",
-                    style: TextStyle(
-                      color: Color.fromRGBO(16, 64, 59, 100),
-                    )),
-              ),
-            ],
-          ),
+        body: Obx(
+          () {
+            DementiaInfo? dementiaInfo = dementiaController.dementiainfo.value;
+            PartnerInfo? partnerInfo = dementiaController.partnerInfo.value;
+
+            if (dementiaInfo != null && partnerInfo != null) {
+              return buildDementia(
+                dementiaInfo,
+                partnerInfo,
+                dementiaController.isSafe.value,
+                dementiaController.isShowCall,
+                () {
+                  dementiaController.clickCall(partnerInfo.phone);
+                },
+              );
+            } else {
+              return Text('Loading...');
+            }
+          },
         ),
         floatingActionButton: SizedBox(
           child: Padding(
             padding: const EdgeInsets.only(bottom: 60.0),
             child: FloatingActionButton(
               onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                    content: Container(
-                      width: 250,
-                      height: 250,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          QrImage(
-                            data: _qrCodeData,
-                            version: QrVersions.auto,
-                            size: 200.0,
-                          ),
-                          SizedBox(height: 10),
-                        ],
-                      ),
-                    ),
-                  ),
+                Get.to(
+                  MainDementiaQr(),
+                  arguments: [
+                    dementiaController.dementiainfo.value?.name ?? "-",
+                    FirebaseAuth.instance.currentUser?.uid ?? "-",
+                  ],
                 );
                 // Add your onPressed code here!
               },
               backgroundColor: Colors.transparent,
               elevation: 0,
-              child: SizedBox(
-                child: Image.asset(
-                  "assets/floatbutton.png",
-                  fit: BoxFit.cover,
-                ),
+              child: Image.asset(
+                "assets/floatbutton.png",
+                fit: BoxFit.cover,
               ),
             ),
           ),
