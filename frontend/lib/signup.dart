@@ -1,6 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:io';
 
+import 'package:escort/main.dart';
+import 'package:escort/onboarding_page.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
@@ -55,15 +57,6 @@ class SignUp5 extends StatefulWidget {
 
   @override
   State<SignUp5> createState() => _SignUpState5();
-}
-
-class SignUp6 extends StatefulWidget {
-  const SignUp6({
-    super.key,
-  });
-
-  @override
-  State<SignUp6> createState() => _SignUpState6();
 }
 
 class _SignUpState extends State<SignUp> {
@@ -957,7 +950,11 @@ class _SignUpState5 extends State<SignUp5> {
                                         ),
                                       ),
                                       onPressed: () {
-                                        Navigator.of(context).pop();
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => MyApp(),
+                                            ));
                                       },
                                       child: Text('Go to Home'),
                                     ),
@@ -983,16 +980,5 @@ class _SignUpState5 extends State<SignUp5> {
             ),
           ),
         ));
-  }
-}
-
-class _SignUpState6 extends State<SignUp6> {
-  final AuthController authController = Get.put(AuthController());
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(child: Text("helloworld")),
-    );
   }
 }
