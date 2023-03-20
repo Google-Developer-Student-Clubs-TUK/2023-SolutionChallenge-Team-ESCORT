@@ -92,52 +92,56 @@ class _SignUpState extends State<SignUp> {
             },
           ),
         ),
-        body: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(right: 20, top: 20, bottom: 25),
-              child: Text("Do you have Dementia?",
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(right: 20),
-              child: Text("This information is necessary to use our service."),
-            ),
-            Container(
-              height: 60,
-            ),
-            RadioListTile(
-                activeColor: Color.fromRGBO(16, 64, 59, 10),
-                title: Text("Yes, But I'm good"),
-                value: Dementia.yes,
-                groupValue: _dementia,
-                onChanged: (value) {
-                  setState(() {
-                    authController.setDementia(value.toString());
-                    print(authController.dementia);
+        body: ListView(children: [
+          Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(right: 20, top: 20, bottom: 25),
+                child: Text("Do you have Dementia?",
+                    style:
+                        TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 20),
+                child:
+                    Text("This information is necessary to use our service."),
+              ),
+              Container(
+                height: 60,
+              ),
+              RadioListTile(
+                  activeColor: Color.fromRGBO(16, 64, 59, 10),
+                  title: Text("Yes, But I'm good"),
+                  value: Dementia.yes,
+                  groupValue: _dementia,
+                  onChanged: (value) {
+                    setState(() {
+                      authController.setDementia(value.toString());
+                      print(authController.dementia);
 
-                    _dementia = value!;
-                  });
-                }),
-            Padding(
-              padding: const EdgeInsets.only(left: 25.0, right: 25.0),
-              child:
-                  Container(height: 1.0, width: 500.0, color: Colors.black12),
-            ),
-            RadioListTile(
-                activeColor: Color.fromRGBO(16, 64, 59, 10),
-                title: Text("No, I'm good"),
-                value: Dementia.no,
-                groupValue: _dementia,
-                onChanged: (value) {
-                  setState(() {
-                    authController.setDementia(value.toString());
-                    print(authController.dementia);
-                    _dementia = value!;
-                  });
-                })
-          ],
-        ),
+                      _dementia = value!;
+                    });
+                  }),
+              Padding(
+                padding: const EdgeInsets.only(left: 25.0, right: 25.0),
+                child:
+                    Container(height: 1.0, width: 500.0, color: Colors.black12),
+              ),
+              RadioListTile(
+                  activeColor: Color.fromRGBO(16, 64, 59, 10),
+                  title: Text("No, I'm good"),
+                  value: Dementia.no,
+                  groupValue: _dementia,
+                  onChanged: (value) {
+                    setState(() {
+                      authController.setDementia(value.toString());
+                      print(authController.dementia);
+                      _dementia = value!;
+                    });
+                  })
+            ],
+          ),
+        ]),
         bottomNavigationBar: Padding(
           padding: const EdgeInsets.all(20.0),
           child: SizedBox(
@@ -196,113 +200,116 @@ class _SignUpState2 extends State<SignUp2> {
             },
           ),
         ),
-        body: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(right: 175, top: 20, bottom: 25),
-              child: Text("Who are you?",
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(right: 75),
-              child: Text("Tell us about yourself. You can change it"),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(right: 200),
-              child: Text("later on the MyPage."),
-            ),
-            Container(
-              height: 25,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(right: 300, bottom: 20),
-              child: Text(
-                "Name",
-                style: TextStyle(fontWeight: FontWeight.bold),
+        body: ListView(children: [
+          Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(right: 175, top: 20, bottom: 25),
+                child: Text("Who are you?",
+                    style:
+                        TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
               ),
-            ),
-            SizedBox(
-              width: 350,
-              child: TextFormField(
-                style: TextStyle(color: Colors.black),
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.black12,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                    borderSide: BorderSide(
-                      width: 0,
-                      style: BorderStyle.none,
+              Padding(
+                padding: const EdgeInsets.only(right: 75),
+                child: Text("Tell us about yourself. You can change it"),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 200),
+                child: Text("later on the MyPage."),
+              ),
+              Container(
+                height: 25,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 300, bottom: 20),
+                child: Text(
+                  "Name",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ),
+              SizedBox(
+                width: 350,
+                child: TextFormField(
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Colors.black12,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                      borderSide: BorderSide(
+                        width: 0,
+                        style: BorderStyle.none,
+                      ),
                     ),
                   ),
+                  onChanged: (text) {
+                    setState(() {
+                      authController.setName(text);
+                    });
+                  },
                 ),
-                onChanged: (text) {
-                  setState(() {
-                    authController.setName(text);
-                  });
-                },
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(right: 255, bottom: 20, top: 20),
-              child: Text(
-                "Date of birth",
-                style: TextStyle(fontWeight: FontWeight.bold),
+              Padding(
+                padding: const EdgeInsets.only(right: 255, bottom: 20, top: 20),
+                child: Text(
+                  "Date of birth",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
               ),
-            ),
-            SizedBox(
-              width: 350,
-              child: TextFormField(
-                style: TextStyle(color: Colors.black),
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.black12,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                    borderSide: BorderSide(
-                      width: 0,
-                      style: BorderStyle.none,
+              SizedBox(
+                width: 350,
+                child: TextFormField(
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Colors.black12,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                      borderSide: BorderSide(
+                        width: 0,
+                        style: BorderStyle.none,
+                      ),
                     ),
                   ),
+                  onChanged: (text) {
+                    setState(() {
+                      authController.setBirth(text);
+                    });
+                  },
                 ),
-                onChanged: (text) {
-                  setState(() {
-                    authController.setBirth(text);
-                  });
-                },
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(right: 240, bottom: 20, top: 20),
-              child: Text(
-                "Phone Number",
-                style: TextStyle(fontWeight: FontWeight.bold),
+              Padding(
+                padding: const EdgeInsets.only(right: 240, bottom: 20, top: 20),
+                child: Text(
+                  "Phone Number",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
               ),
-            ),
-            SizedBox(
-              width: 350,
-              child: TextFormField(
-                style: TextStyle(color: Colors.black),
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.black12,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                    borderSide: BorderSide(
-                      width: 0,
-                      style: BorderStyle.none,
+              SizedBox(
+                width: 350,
+                child: TextFormField(
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Colors.black12,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                      borderSide: BorderSide(
+                        width: 0,
+                        style: BorderStyle.none,
+                      ),
                     ),
                   ),
+                  onChanged: (text) {
+                    setState(() {
+                      authController.setPhoneNumber(text);
+                    });
+                  },
                 ),
-                onChanged: (text) {
-                  setState(() {
-                    authController.setPhoneNumber(text);
-                  });
-                },
               ),
-            ),
-          ],
-        ),
+            ],
+          ),
+        ]),
         bottomNavigationBar: Padding(
           padding: const EdgeInsets.all(20.0),
           child: SizedBox(
@@ -358,104 +365,107 @@ class _SignUpState3 extends State<SignUp3> {
             },
           ),
         ),
-        body: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(right: 80, top: 20, bottom: 25),
-              child: Text("Create Your Account",
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(right: 75),
-              child: Text("Enter your E-mail address and password"),
-            ),
-            Container(
-              height: 25,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(right: 240, bottom: 20),
-              child: Text(
-                "E-mail Address",
-                style: TextStyle(fontWeight: FontWeight.bold),
+        body: ListView(children: [
+          Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(right: 80, top: 20, bottom: 25),
+                child: Text("Create Your Account",
+                    style:
+                        TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
               ),
-            ),
-            SizedBox(
-              width: 350,
-              child: TextFormField(
-                style: TextStyle(color: Colors.black),
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.black12,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                    borderSide: BorderSide(
-                      width: 0,
-                      style: BorderStyle.none,
+              Padding(
+                padding: const EdgeInsets.only(right: 75),
+                child: Text("Enter your E-mail address and password"),
+              ),
+              Container(
+                height: 25,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 240, bottom: 20),
+                child: Text(
+                  "E-mail Address",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ),
+              SizedBox(
+                width: 350,
+                child: TextFormField(
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Colors.black12,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                      borderSide: BorderSide(
+                        width: 0,
+                        style: BorderStyle.none,
+                      ),
+                    ),
+                  ),
+                  onChanged: (text) {
+                    setState(() {
+                      authController.setEmail(text);
+                    });
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 270, bottom: 20, top: 20),
+                child: Text(
+                  "Password",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ),
+              SizedBox(
+                width: 350,
+                child: TextFormField(
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Colors.black12,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                      borderSide: BorderSide(
+                        width: 0,
+                        style: BorderStyle.none,
+                      ),
+                    ),
+                  ),
+                  onChanged: (text) {
+                    setState(() {
+                      authController.setPassword(text);
+                    });
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 210, bottom: 20, top: 20),
+                child: Text(
+                  "Confirm Password",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ),
+              SizedBox(
+                width: 350,
+                child: TextFormField(
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Colors.black12,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                      borderSide: BorderSide(
+                        width: 0,
+                        style: BorderStyle.none,
+                      ),
                     ),
                   ),
                 ),
-                onChanged: (text) {
-                  setState(() {
-                    authController.setEmail(text);
-                  });
-                },
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(right: 270, bottom: 20, top: 20),
-              child: Text(
-                "Password",
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ),
-            SizedBox(
-              width: 350,
-              child: TextFormField(
-                style: TextStyle(color: Colors.black),
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.black12,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                    borderSide: BorderSide(
-                      width: 0,
-                      style: BorderStyle.none,
-                    ),
-                  ),
-                ),
-                onChanged: (text) {
-                  setState(() {
-                    authController.setPassword(text);
-                  });
-                },
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(right: 210, bottom: 20, top: 20),
-              child: Text(
-                "Confirm Password",
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ),
-            SizedBox(
-              width: 350,
-              child: TextFormField(
-                style: TextStyle(color: Colors.black),
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.black12,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                    borderSide: BorderSide(
-                      width: 0,
-                      style: BorderStyle.none,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
+            ],
+          ),
+        ]),
         bottomNavigationBar: Padding(
           padding: const EdgeInsets.all(20.0),
           child: SizedBox(
@@ -516,138 +526,142 @@ class _SignUpState4 extends State<SignUp4> {
         ),
         body: SingleChildScrollView(
           scrollDirection: Axis.vertical,
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(
-                    right: 100, top: 20, bottom: 25, left: 15),
-                child: Text("Give Us More Detail About You!",
-                    style:
-                        TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(right: 80),
-                child: Text("The information is necessary to use our"),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(right: 290),
-                child: Text("service."),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(right: 270, top: 15),
-                child: Text(
-                  "Your Image",
-                  style: TextStyle(fontWeight: FontWeight.bold),
+          child: ListView(children: [
+            Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(
+                      right: 100, top: 20, bottom: 25, left: 15),
+                  child: Text("Give Us More Detail About You!",
+                      style:
+                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
                 ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              if (_pickedFile == null)
-                Container(
-                    constraints: BoxConstraints(
-                      minHeight: imageSize,
-                      minWidth: imageSize,
-                    ),
-                    child: GestureDetector(
-                        onTap: () {
-                          _showBottomSheet();
-                        },
-                        child: Stack(
-                          children: [
-                            Image.asset(
-                              "assets/profileimage.png",
-                              width: imageSize,
-                              height: imageSize,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 70, top: 70),
-                              child: Image.asset(
-                                "assets/imageplus.png",
-                                width: 30,
-                                height: 30,
+                Padding(
+                  padding: const EdgeInsets.only(right: 80),
+                  child: Text("The information is necessary to use our"),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 290),
+                  child: Text("service."),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 270, top: 15),
+                  child: Text(
+                    "Your Image",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                if (_pickedFile == null)
+                  Container(
+                      constraints: BoxConstraints(
+                        minHeight: imageSize,
+                        minWidth: imageSize,
+                      ),
+                      child: GestureDetector(
+                          onTap: () {
+                            _showBottomSheet();
+                          },
+                          child: Stack(
+                            children: [
+                              Image.asset(
+                                "assets/profileimage.png",
+                                width: imageSize,
+                                height: imageSize,
                               ),
-                            )
-                          ],
-                        )))
-              else
-                Center(
-                  child: Container(
-                    width: imageSize,
-                    height: imageSize,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      image: DecorationImage(
-                          image: FileImage(_pickedFile), fit: BoxFit.cover),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 70, top: 65),
-                      child: Image.asset(
-                        "assets/imageplus.png",
-                        width: 20,
-                        height: 20,
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 70, top: 70),
+                                child: Image.asset(
+                                  "assets/imageplus.png",
+                                  width: 30,
+                                  height: 30,
+                                ),
+                              )
+                            ],
+                          )))
+                else
+                  Center(
+                    child: Container(
+                      width: imageSize,
+                      height: imageSize,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                            image: FileImage(_pickedFile), fit: BoxFit.cover),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 70, top: 65),
+                        child: Image.asset(
+                          "assets/imageplus.png",
+                          width: 20,
+                          height: 20,
+                        ),
                       ),
                     ),
                   ),
+                Container(
+                  height: 25,
                 ),
-              Container(
-                height: 25,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(right: 235, bottom: 20),
-                child: Text(
-                  "Characteristics",
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                Padding(
+                  padding: const EdgeInsets.only(right: 235, bottom: 20),
+                  child: Text(
+                    "Characteristics",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
                 ),
-              ),
-              SizedBox(
-                width: 350,
-                height: 45,
-                child: TextFormField(
-                  style: TextStyle(color: Colors.black),
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.black12,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide: BorderSide(
-                        width: 0,
-                        style: BorderStyle.none,
+                SizedBox(
+                  width: 350,
+                  height: 45,
+                  child: TextFormField(
+                    style: TextStyle(color: Colors.black),
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.black12,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: BorderSide(
+                          width: 0,
+                          style: BorderStyle.none,
+                        ),
                       ),
                     ),
+                    onChanged: (value) =>
+                        {authController.setCharacteristics(value)},
                   ),
-                  onChanged: (value) =>
-                      {authController.setCharacteristics(value)},
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(right: 265, bottom: 20, top: 20),
-                child: Text(
-                  "Blood Type",
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                Padding(
+                  padding:
+                      const EdgeInsets.only(right: 265, bottom: 20, top: 20),
+                  child: Text(
+                    "Blood Type",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
                 ),
-              ),
-              SizedBox(
-                width: 350,
-                height: 45,
-                child: TextFormField(
-                  style: TextStyle(color: Colors.black),
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.black12,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide: BorderSide(
-                        width: 0,
-                        style: BorderStyle.none,
+                SizedBox(
+                  width: 350,
+                  height: 45,
+                  child: TextFormField(
+                    style: TextStyle(color: Colors.black),
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.black12,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: BorderSide(
+                          width: 0,
+                          style: BorderStyle.none,
+                        ),
                       ),
                     ),
+                    onChanged: (value) => {authController.setBlood(value)},
                   ),
-                  onChanged: (value) => {authController.setBlood(value)},
                 ),
-              ),
-            ],
-          ),
+              ],
+            ),
+          ]),
         ),
         bottomNavigationBar: Padding(
           padding: const EdgeInsets.all(20.0),
