@@ -4,10 +4,12 @@ import 'package:escort/main_partner_navigation.dart';
 import 'package:escort/reset_password.dart';
 import 'package:escort/userinfo_controller.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:http/http.dart' as http;
 
 class UserInfo {
   final String imagePath;
@@ -56,6 +58,18 @@ class UserInfo {
   }
 }
 
+updateDeviceToken(deviceToken, uid) async {
+  var headers = {'Content-Type': 'application/x-www-form-urlencoded'};
+  var request = http.Request('PUT',
+      Uri.parse('http://34.22.70.120:8080/api/v1/protege/deviceToken/$uid'));
+  request.bodyFields = {'deviceToken': deviceToken};
+  request.headers.addAll(headers);
+
+  http.StreamedResponse response = await request.send();
+
+  print(await response.stream.bytesToString());
+}
+
 class SignIn extends StatelessWidget {
   final UserInfoController userinfocontroller = Get.put(UserInfoController());
 
@@ -66,6 +80,18 @@ class SignIn extends StatelessWidget {
     print(password);
 
     try {
+      await FirebaseMessaging.instance.requestPermission();
+      FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+// use the returned token to send messages to users from your custom server
+      String? token = await messaging.getToken(
+        vapidKey:
+            "BP1gjwgxChmDU-HeUCXx_UNaamYPQgJhouArF_VDwkw_6z3z4BmzoyIwlZSKOLX9IRofiTn3UQPj4mJnOFsbTpA",
+      );
+
+      print("token ! ! !");
+      print(token);
+
       UserCredential userCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: id, password: password)
           //아이디와 비밀번호로 로그인 시도
@@ -90,6 +116,8 @@ class SignIn extends StatelessWidget {
           userinfocontroller.setRegidence(data['regidence']);
           userinfocontroller.setPlace(data['place']);
           userinfocontroller.setSafezone(data['safezone']);
+
+          await updateDeviceToken(token, user.uid);
 
           print(data['dementia']);
           if (data['dementia'] == "Dementia.yes") {
