@@ -181,14 +181,16 @@ class _MainDementiaState extends State<MainDementia> {
             DementiaInfo? dementiaInfo = dementiaController.dementiainfo.value;
             PartnerInfo? partnerInfo = dementiaController.partnerInfo.value;
 
-            if (dementiaInfo != null && partnerInfo != null) {
+            if (dementiaInfo != null) {
               return buildDementia(
                 dementiaInfo,
                 partnerInfo,
                 dementiaController.isSafe.value,
                 dementiaController.isShowCall,
                 () {
-                  dementiaController.clickCall(partnerInfo.phone);
+                  if (partnerInfo != null) {
+                    dementiaController.clickCall(partnerInfo.phone);
+                  }
                 },
               );
             } else {
