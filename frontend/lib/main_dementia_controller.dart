@@ -65,14 +65,18 @@ class DementiaController extends GetxController {
         .asStream()
         .map(
       (event) {
-        return event.body['result'][0];
+        if((event.body['result'] as List<dynamic>).isNotEmpty) {
+          return event.body['result'][0];
+        }
       },
     ).listen(
       (event) {
-        partnerInfo.value = PartnerInfo(
+        if (event != null) {
+          partnerInfo.value = PartnerInfo(
             image: event['imageUrl'],
             name: event['name'],
             phone: event['phone']);
+        }
       },
     );
   }
