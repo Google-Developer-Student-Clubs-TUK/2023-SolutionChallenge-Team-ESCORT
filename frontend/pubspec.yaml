@@ -54,7 +54,6 @@ dependencies:
   geolocator: ^9.0.2
   geocoding: ^2.1.0
   firebase_messaging: ^14.2.6
-  flutter_local_notifications: ^8.2.0
   location: ^4.4.0
   lottie: ^2.3.0
 
