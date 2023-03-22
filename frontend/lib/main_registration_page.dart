@@ -97,7 +97,7 @@ class RegistrationPage extends StatelessWidget {
           padding: const EdgeInsets.only(bottom: 60.0),
           child: FloatingActionButton(
             onPressed: () {
-              Get.to(const QRViewExample());
+              Get.to(QRViewExample(registerController: registrationController,));
             },
             backgroundColor: Colors.transparent,
             elevation: 0,
@@ -239,13 +239,19 @@ class RegistrationPage extends StatelessWidget {
 }
 
 class QRViewExample extends StatefulWidget {
-  const QRViewExample({Key? key}) : super(key: key);
+  // const QRViewExample({Key? key}) : super(key: key);
+
+  RegistrationController registerController;
+  QRViewExample({required this.registerController});
 
   @override
-  State<StatefulWidget> createState() => _QRViewExampleState();
+  State<StatefulWidget> createState() => _QRViewExampleState(registerController: registerController);
 }
 
 class _QRViewExampleState extends State<QRViewExample> {
+  RegistrationController registerController;
+  _QRViewExampleState({required this.registerController});
+
   Barcode? result;
   QRViewController? controller;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
@@ -372,6 +378,7 @@ class _QRViewExampleState extends State<QRViewExample> {
                       () {
                         Navigator.pop(context);
                         Get.back();
+                        registerController.loadData();
                       },
                     );
                   } else {

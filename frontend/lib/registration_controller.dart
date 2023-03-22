@@ -15,10 +15,10 @@ class RegistrationController extends GetxController {
   Rx<DementiaInfo?> dmentiaInfo = Rx<DementiaInfo?>(null);
 
   RegistrationController() {
-    _loadData();
+    loadData();
   }
 
-  void _loadData() {
+  void loadData() {
     GetConnect()
         .get(
             'http://34.22.70.120:8080/api/v1/ppConnection/protector/${FirebaseAuth.instance.currentUser!.uid}')
