@@ -1,5 +1,6 @@
 package com.solution.escort.domain.protector.service;
 
+import com.solution.escort.domain.PPConnection.dto.request.UserTokenRequestDTO;
 import com.solution.escort.domain.protector.dto.request.ProtectorRequestDTO;
 import com.solution.escort.domain.protector.dto.request.ProtectorTokenRequestDTO;
 import com.solution.escort.domain.protector.dto.response.ProtectorResponseDTO;
@@ -8,6 +9,7 @@ import com.solution.escort.domain.protector.repository.ProtectorRepository;
 import com.solution.escort.domain.protege.dto.response.ProtegeResponseDTO;
 import com.solution.escort.domain.protege.repository.ProtegeRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -49,11 +51,11 @@ public class ProtectorServiceImpl implements ProtectorService {
     }
 
     @Override
-    public void updateToken(ProtectorTokenRequestDTO protectorTokenRequestDTO, Integer id) throws Exception {
+    public void updateToken(UserTokenRequestDTO userTokenRequestDTO, Integer id) throws Exception {
         Optional<Protector> updateProtectorToken = protectorRepository.findById(id);
 
         updateProtectorToken.ifPresent(selectProtector ->{
-            selectProtector.setDeviceToken(protectorTokenRequestDTO.getDeviceToken());
+            selectProtector.setDeviceToken(userTokenRequestDTO.getDeviceToken());
             protectorRepository.save(selectProtector);
         });
     }

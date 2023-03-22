@@ -27,6 +27,7 @@ public enum ResponseStatus {
 
     // Protector(보호자) Protege(노인) 응답 status
     POST_PPCONNECTION_SUCCESS("PP000", "보호자 노인 등록 성공"),
+    PUT_PPCONNECTION_TOKEN_SUCCESS("PP001", "유저 디바이스 토큰 업데이트 성공"),
 
     //동행기업 응답 status
     POST_COMPANY_SUCCESS("COM000", "동행기업 생성 성공"),
