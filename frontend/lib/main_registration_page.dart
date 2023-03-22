@@ -67,7 +67,8 @@ class RegistrationPage extends StatelessWidget {
                               registrationController
                                   .registrationList.value[index]['name'],
                               registrationController
-                                  .registrationList.value[index]['age'].toString(),
+                                  .registrationList.value[index]['age']
+                                  .toString(),
                               registrationController.registrationList
                                   .value[index]['safeZones'][0],
                               () {
@@ -523,13 +524,13 @@ class _QRViewExampleState extends State<QRViewExample> {
   }
 
   void _requestPostRegisterDementia(String code, void Function(bool) onResult) {
-    GetConnect().post(
-      'http://34.22.70.120:8080/api/v1/ppConnection',
-      {
-        "protectorUId": FirebaseAuth.instance.currentUser?.uid ?? "-",
-        "protegeUId": code
-      },
-    ).then(
+    GetConnect()
+        .post(
+            'http://34.22.70.120:8080/api/v1/ppConnection',
+            'protectorUId=${FirebaseAuth.instance.currentUser?.uid ?? "-"}&protegeUId=$code',
+            contentType: 'application/x-www-form-urlencoded',
+            headers: {"Accept": "application/json"})
+        .then(
       (value) {
         onResult(value.body['code'] == 'PP000');
       },

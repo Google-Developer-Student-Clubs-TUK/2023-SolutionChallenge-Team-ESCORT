@@ -15,7 +15,7 @@ class AuthController extends GetxController {
   var regidence = ''.obs;
   var place = ''.obs;
   var safezone = ''.obs;
-  final imagePath = ''.obs;
+  var imagePath = ''.obs;
 
   void setDementia(String value) => dementia.value = value;
   void setName(String value) => name.value = value;
@@ -29,23 +29,15 @@ class AuthController extends GetxController {
   void setPlace(String value) => place.value = value;
   void setSafezone(String value) => safezone.value = value;
 
-  void checkvalues() => {
-        print(name),
-        print(birth),
-        print(phoneNumber),
-        print(email),
-        print(password),
-        print(dementia),
-        print(characteristics),
-        print(blood),
-        print(regidence),
-        print(place),
-        print(safezone),
-        print(imagePath),
-      };
-
   Future<void> saveImage(File imageFile) async {
-    final directory = await getExternalStorageDirectory();
+    var directory;
+    if (Platform.isAndroid) {
+      directory = await getExternalStorageDirectory();
+      final path = directory.path;
+    } else if (Platform.isIOS) {
+      directory = await getApplicationDocumentsDirectory();
+      final path = directory.path;
+    }
     final fileName = DateTime.now().millisecondsSinceEpoch.toString();
     final path = '${directory!.path}/$fileName.png';
     await imageFile.copy(path);
@@ -53,7 +45,15 @@ class AuthController extends GetxController {
   }
 
   Future<File> getImageFile() async {
-    final directory = await getExternalStorageDirectory();
+    var directory;
+    if (Platform.isAndroid) {
+      directory = await getExternalStorageDirectory();
+      final path = directory.path;
+    } else if (Platform.isIOS) {
+      directory = await getApplicationDocumentsDirectory();
+      final path = directory.path;
+    }
+
     final fileName = imagePath.value.split('/').last;
     final path = '${directory!.path}/$fileName';
     return File(path);

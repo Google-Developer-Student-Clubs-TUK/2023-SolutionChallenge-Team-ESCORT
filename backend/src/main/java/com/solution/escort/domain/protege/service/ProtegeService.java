@@ -1,5 +1,6 @@
 package com.solution.escort.domain.protege.service;
 
+import com.solution.escort.domain.PPConnection.dto.request.UserTokenRequestDTO;
 import com.solution.escort.domain.protege.dto.request.ProtegeClothRequestDTO;
 import com.solution.escort.domain.protege.dto.request.ProtegeRequestDTO;
 import com.solution.escort.domain.protege.dto.request.ProtegeTokenRequestDTO;
@@ -18,5 +19,5 @@ public interface ProtegeService {
     public void protegeCloth(ProtegeClothRequestDTO protegeClothRequestDTO, Integer id) throws Exception;
 
     // 노인 로그인 시 노인의 디바이스 토큰 수정해주는 API
-    public void updateToken(ProtegeTokenRequestDTO protegeTokenRequestDTO, Integer id) throws Exception;
+    public void updateToken(UserTokenRequestDTO userTokenRequestDTO, Integer id) throws Exception;
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 
 class DementiaInfo {
   String image, name, phone, characteristics, safeZone, bloodType;
@@ -27,12 +26,14 @@ class PartnerInfo {
 
 Widget buildDementia(
   DementiaInfo dementiaInfo,
-  PartnerInfo partnerInfo,
+  PartnerInfo? partnerInfo,
   bool isSafe,
   RxBool isShowCall,
   GestureTapCallback onClickCall,
 ) {
   List<Color> safeStatusGradientColors;
+
+  Widget partnerWidget = Container();
 
   if (isSafe) {
     safeStatusGradientColors = const [
@@ -46,6 +47,99 @@ Widget buildDementia(
       Color(0xE698223E),
       Color(0xCC98223E),
     ];
+  }
+
+  if (partnerInfo != null) {
+    partnerWidget = SizedBox(
+      width: double.infinity,
+      child: InkWell(
+        customBorder: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+        onTap: onClickCall,
+        child: Ink(
+          decoration: BoxDecoration(
+            color: Color(0xFFE8E9EB),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 10, bottom: 10),
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: FractionallySizedBox(
+                        widthFactor: 0.385,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image: NetworkImage(partnerInfo.image),
+                                fit: BoxFit.fill),
+                            shape: BoxShape.circle,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Column(
+                      children: [
+                        SizedBox(
+                          height: 8,
+                        ),
+                        Text(
+                          partnerInfo.name,
+                          style: TextStyle(
+                              color: Color(0xFF10403B),
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+              Obx(
+                    () {
+                  return AnimatedOpacity(
+                    opacity: isShowCall.value ? 1.0 : 0.0,
+                    duration: const Duration(milliseconds: 200),
+                    child: Container(
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: Color(0xCC10403B),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.call_outlined,
+                            size: 80,
+                            color: Colors.white,
+                          ),
+                          SizedBox(
+                            height: 26,
+                          ),
+                          Text(
+                            partnerInfo.phone,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   return SizedBox(
@@ -141,96 +235,7 @@ Widget buildDementia(
           ),
           Expanded(
             flex: 26,
-            child: SizedBox(
-              width: double.infinity,
-              child: InkWell(
-                customBorder: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                onTap: onClickCall,
-                child: Ink(
-                  decoration: BoxDecoration(
-                    color: Color(0xFFE8E9EB),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 10, bottom: 10),
-                        child: Column(
-                          children: [
-                            Expanded(
-                              child: FractionallySizedBox(
-                                widthFactor: 0.385,
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                        image: NetworkImage(partnerInfo.image),
-                                        fit: BoxFit.fill),
-                                    shape: BoxShape.circle,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Column(
-                              children: [
-                                SizedBox(
-                                  height: 8,
-                                ),
-                                Text(
-                                  partnerInfo.name,
-                                  style: TextStyle(
-                                      color: Color(0xFF10403B),
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
-                      Obx(
-                        () {
-                          return AnimatedOpacity(
-                            opacity: isShowCall.value ? 1.0 : 0.0,
-                            duration: const Duration(milliseconds: 200),
-                            child: Container(
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                color: Color(0xCC10403B),
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.call_outlined,
-                                    size: 80,
-                                    color: Colors.white,
-                                  ),
-                                  SizedBox(
-                                    height: 26,
-                                  ),
-                                  Text(
-                                    partnerInfo.phone,
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
+            child: partnerWidget,
           ),
         ],
       ),

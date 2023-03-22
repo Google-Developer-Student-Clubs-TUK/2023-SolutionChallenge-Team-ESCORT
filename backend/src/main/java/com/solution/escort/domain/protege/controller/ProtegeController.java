@@ -68,13 +68,4 @@ public class ProtegeController {
         return ResponseEntity.status(HttpStatus.OK).body(responseFormat);
     }
 
-    // 노인 로그인 시 디바이스 토큰 수정해주는 API
-    @PutMapping("/deviceToken/{uId}")
-    public ResponseEntity<ResponseFormat<ProtegeTokenRequestDTO>> tokenUpdate(ProtegeTokenRequestDTO dto, @PathVariable String uId) throws Exception {
-        int id = protegeRepository.findByFbId(uId).getId();
-        protegeService.updateToken(dto, id);
-        ResponseFormat<ProtegeTokenRequestDTO> responseFormat = new ResponseFormat<>(ResponseStatus.PUT_PROTECTOR_TOKEN_SUCCESS);
-        return ResponseEntity.status(HttpStatus.OK).body(responseFormat);
-    }
-
 }
