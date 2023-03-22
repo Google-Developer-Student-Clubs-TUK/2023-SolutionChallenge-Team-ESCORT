@@ -60,8 +60,10 @@ class UserInfo {
 
 updateDeviceToken(deviceToken, uid) async {
   var headers = {'Content-Type': 'application/x-www-form-urlencoded'};
-  var request = http.Request('PUT',
-      Uri.parse('http://34.22.70.120:8080/api/v1/protege/deviceToken/$uid'));
+  var request = http.Request(
+      'PUT',
+      Uri.parse(
+          'http://34.22.70.120:8080/api/v1/ppConnection/deviceToken/$uid'));
   request.bodyFields = {'deviceToken': deviceToken};
   request.headers.addAll(headers);
 
@@ -222,6 +224,7 @@ class SignIn extends StatelessWidget {
               SizedBox(
                 width: 350,
                 child: TextFormField(
+                  obscureText: true,
                   style: TextStyle(color: Colors.black),
                   decoration: InputDecoration(
                     filled: true,

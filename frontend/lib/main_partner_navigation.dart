@@ -37,9 +37,8 @@ class _MainPartnerState extends State<MainPartner> {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         home: Scaffold(
-          appBar: _selectedIndex == 1
-              ? null
-              : AppBar(
+          appBar: _selectedIndex == 0
+              ? AppBar(
                   title: Row(
                     children: [
                       SizedBox(
@@ -76,7 +75,8 @@ class _MainPartnerState extends State<MainPartner> {
                   shape: RoundedRectangleBorder(
                       borderRadius:
                           BorderRadius.vertical(bottom: Radius.circular(10))),
-                ),
+                )
+              : null,
           body: SafeArea(
             child: _widgetOptions[_selectedIndex],
           ),
