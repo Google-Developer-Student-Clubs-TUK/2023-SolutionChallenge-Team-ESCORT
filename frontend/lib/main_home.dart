@@ -120,6 +120,10 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
   List<Map<String, dynamic>> _markers = [{}];
   List<Marker> markers = [];
   Map<String, dynamic> protegeList = {};
+  var currentLocation = LatLng(0, 0); // 현재 위치
+
+  List<LatLng> dangerProteges = [];
+
   var cloth;
 
   var safeLight = false;
@@ -172,6 +176,10 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
                 setState(() {
                   if (isSafe == false) {
                     safeLight = true;
+
+                    if (latitude != Null && longitude != Null) {
+                      dangerProteges.add(LatLng(latitude, longitude));
+                    }
                   }
                 });
 
@@ -687,6 +695,25 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
     print(currLocation);
   }
 
+  void getDangerLocation(currentLocation) async {
+    LocationPermission permission = await Geolocator.requestPermission();
+
+    currLocation = currentLocation;
+    setState(() {
+      currLocation;
+    });
+
+    GoogleMapController controller = await _controller.future;
+    controller.animateCamera(
+      CameraUpdate.newCameraPosition(
+        CameraPosition(
+          target: LatLng(currLocation.latitude, currLocation.longitude),
+          zoom: 15,
+        ),
+      ),
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -737,7 +764,17 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
               FloatingActionButton(
                 backgroundColor: Colors.white,
                 foregroundColor: Colors.black,
-                onPressed: () {},
+                onPressed: () {
+                  print(dangerProteges);
+                  setState(() {
+                    // 현재 위치가 마지막 위치이면 처음 위치로 돌아감
+                    currentLocation = (currentLocation == dangerProteges.last)
+                        ? dangerProteges.first
+                        : dangerProteges[
+                            dangerProteges.indexOf(currentLocation) + 1];
+                    getDangerLocation(currentLocation); // 위치 업데이트
+                  });
+                },
                 child: Image.asset("assets/warning.png"),
               ),
             ],
