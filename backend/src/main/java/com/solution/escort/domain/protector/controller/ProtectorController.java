@@ -54,12 +54,4 @@ public class ProtectorController {
         return ResponseEntity.status(HttpStatus.OK).body(responseFormat);
     }
 
-    // 보호자 로그인 시 디바이스 토큰 수정해주는 API
-    @PutMapping("/deviceToken/{uId}")
-    public ResponseEntity<ResponseFormat<ProtectorTokenRequestDTO>> tokenUpdate(ProtectorTokenRequestDTO dto, @PathVariable String uId) throws Exception {
-        int id = protectorRepository.findByFbId(uId).getId();
-        protectorService.updateToken(dto, id);
-        ResponseFormat<ProtectorTokenRequestDTO> responseFormat = new ResponseFormat<>(ResponseStatus.PUT_PROTECTOR_TOKEN_SUCCESS);
-        return ResponseEntity.status(HttpStatus.OK).body(responseFormat);
-    }
 }

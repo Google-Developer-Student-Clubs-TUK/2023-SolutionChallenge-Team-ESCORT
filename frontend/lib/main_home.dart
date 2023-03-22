@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:location/location.dart';
@@ -76,6 +77,22 @@ void dementiaSos(dementiauid) async {
   }
 }
 
+void dementiaCloth(dementiauid, cloth) async {
+  var headers = {'Content-Type': 'application/x-www-form-urlencoded'};
+  var request = http.Request(
+      'PUT', Uri.parse('http://34.22.70.120:8080/api/v1/protege/$dementiauid'));
+  request.bodyFields = {'clothing': cloth};
+  request.headers.addAll(headers);
+
+  http.StreamedResponse response = await request.send();
+
+  if (response.statusCode == 200) {
+    print(await response.stream.bytesToString());
+  } else {
+    print(response.reasonPhrase);
+  }
+}
+
 void cancleSos(dementauid) async {
   var request = http.Request('DELETE',
       Uri.parse('http://34.22.70.120:8080/api/v1/protege/$dementauid'));
@@ -103,6 +120,11 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
   List<Map<String, dynamic>> _markers = [{}];
   List<Marker> markers = [];
   Map<String, dynamic> protegeList = {};
+  var currentLocation = LatLng(0, 0); // 현재 위치
+
+  List<LatLng> dangerProteges = [];
+
+  var cloth;
 
   var safeLight = false;
   var currLocation;
@@ -154,6 +176,10 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
                 setState(() {
                   if (isSafe == false) {
                     safeLight = true;
+
+                    if (latitude != Null && longitude != Null) {
+                      dangerProteges.add(LatLng(latitude, longitude));
+                    }
                   }
                 });
 
@@ -438,8 +464,10 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
                                                                     .size
                                                                     .height *
                                                                 0.05,
-                                                            child: Image.asset(
-                                                                "assets/xvector.png"))),
+                                                            child: Center(
+                                                              child: Text(
+                                                                  "Not Danger"),
+                                                            ))),
                                                     Padding(
                                                       padding:
                                                           const EdgeInsets.only(
@@ -455,9 +483,164 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
                                                                     10),
                                                           ),
                                                           onPressed: () => {
-                                                                dementiaSos(
-                                                                    element[
-                                                                        'uid'])
+                                                                Navigator.pop(
+                                                                    context),
+                                                                showModalBottomSheet(
+                                                                  isScrollControlled:
+                                                                      true,
+                                                                  barrierColor:
+                                                                      Colors
+                                                                          .white
+                                                                          .withOpacity(
+                                                                              0),
+                                                                  context:
+                                                                      context,
+                                                                  shape:
+                                                                      const RoundedRectangleBorder(
+                                                                    borderRadius:
+                                                                        BorderRadius
+                                                                            .vertical(
+                                                                      top: Radius
+                                                                          .circular(
+                                                                              35.0),
+                                                                    ),
+                                                                  ),
+                                                                  builder:
+                                                                      (BuildContext
+                                                                          context) {
+                                                                    return Padding(
+                                                                      padding: EdgeInsets.only(
+                                                                          bottom: MediaQuery.of(context)
+                                                                              .viewInsets
+                                                                              .bottom),
+                                                                      child: Container(
+                                                                          width: MediaQuery.of(context).size.width,
+                                                                          height: MediaQuery.of(context).size.height * 0.35,
+                                                                          child: Column(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.start, children: [
+                                                                            Center(
+                                                                              child: Container(
+                                                                                width: MediaQuery.of(context).size.width * 0.05,
+                                                                                height: MediaQuery.of(context).size.height * 0.002,
+                                                                                color: Colors.grey,
+                                                                                margin: EdgeInsets.all(20.0),
+                                                                              ),
+                                                                            ),
+                                                                            Text(
+                                                                              "Description",
+                                                                              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                                                                            ),
+                                                                            SizedBox(
+                                                                              height: 5,
+                                                                            ),
+                                                                            Text("If you know what he's wearing today, please write it"),
+                                                                            SizedBox(
+                                                                              height: 20,
+                                                                            ),
+                                                                            Center(
+                                                                              child: Container(
+                                                                                width: MediaQuery.of(context).size.width * 0.9,
+                                                                                height: MediaQuery.of(context).size.height * 0.06,
+                                                                                child: TextFormField(
+                                                                                  style: TextStyle(color: Colors.black),
+                                                                                  decoration: InputDecoration(
+                                                                                    filled: true,
+                                                                                    fillColor: Colors.black12,
+                                                                                    border: OutlineInputBorder(
+                                                                                      borderRadius: BorderRadius.circular(10.0),
+                                                                                      borderSide: BorderSide(
+                                                                                        width: 0,
+                                                                                        style: BorderStyle.none,
+                                                                                      ),
+                                                                                    ),
+                                                                                  ),
+                                                                                  onChanged: (value) => {
+                                                                                    setState(() {
+                                                                                      cloth = value;
+                                                                                    })
+                                                                                  },
+                                                                                ),
+                                                                              ),
+                                                                            ),
+                                                                            SizedBox(
+                                                                              height: 20,
+                                                                            ),
+                                                                            Center(
+                                                                              child: Container(
+                                                                                width: MediaQuery.of(context).size.width * 0.9,
+                                                                                height: MediaQuery.of(context).size.height * 0.06,
+                                                                                child: ElevatedButton(
+                                                                                    onPressed: () => {
+                                                                                          dementiaSos(element['uid']),
+                                                                                          dementiaCloth(element['uid'], cloth),
+                                                                                          Navigator.pop(context),
+                                                                                          showDialog<void>(
+                                                                                            //다이얼로그 위젯 소환
+                                                                                            context: context,
+                                                                                            barrierDismissible: false, // 다이얼로그 이외의 바탕 눌러도 안꺼지도록 설정
+                                                                                            builder: (BuildContext context) {
+                                                                                              return AlertDialog(
+                                                                                                content: SingleChildScrollView(
+                                                                                                  child: ListBody(
+                                                                                                    //List Body를 기준으로 Text 설정
+                                                                                                    children: <Widget>[
+                                                                                                      Center(
+                                                                                                        child: Column(
+                                                                                                          children: [
+                                                                                                            SizedBox(
+                                                                                                              height: 40,
+                                                                                                            ),
+                                                                                                            Image.asset("assets/signupmark.png"),
+                                                                                                            SizedBox(
+                                                                                                              height: 60,
+                                                                                                            ),
+                                                                                                            Text('Successful in calling', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+                                                                                                            Center(
+                                                                                                              child: Text('for Help', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+                                                                                                            ),
+                                                                                                            SizedBox(
+                                                                                                              height: 40,
+                                                                                                            ),
+                                                                                                            Center(child: Text('Escorteres can now locate the')),
+                                                                                                            Center(child: Text('patient')),
+                                                                                                            SizedBox(
+                                                                                                              height: 60,
+                                                                                                            ),
+                                                                                                            SizedBox(
+                                                                                                              width: MediaQuery.of(context).size.width * 0.6,
+                                                                                                              height: MediaQuery.of(context).size.height * 0.05,
+                                                                                                              child: ElevatedButton(
+                                                                                                                style: ElevatedButton.styleFrom(
+                                                                                                                  primary: Color(0xCC10403B),
+                                                                                                                  shape: RoundedRectangleBorder(
+                                                                                                                    borderRadius: BorderRadius.circular(30.0),
+                                                                                                                  ),
+                                                                                                                ),
+                                                                                                                onPressed: () {
+                                                                                                                  Navigator.pop(context);
+                                                                                                                },
+                                                                                                                child: Text('close'),
+                                                                                                              ),
+                                                                                                            ),
+                                                                                                          ],
+                                                                                                        ),
+                                                                                                      ),
+                                                                                                    ],
+                                                                                                  ),
+                                                                                                ),
+                                                                                              );
+                                                                                            },
+                                                                                          )
+                                                                                        },
+                                                                                    child: Text("Continue"),
+                                                                                    style: ElevatedButton.styleFrom(
+                                                                                      primary: Color.fromRGBO(16, 64, 59, 10),
+                                                                                    )),
+                                                                              ),
+                                                                            ),
+                                                                          ])),
+                                                                    );
+                                                                  },
+                                                                ),
                                                               },
                                                           child: Container(
                                                             width: MediaQuery.of(
@@ -512,6 +695,25 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
     print(currLocation);
   }
 
+  void getDangerLocation(currentLocation) async {
+    LocationPermission permission = await Geolocator.requestPermission();
+
+    currLocation = currentLocation;
+    setState(() {
+      currLocation;
+    });
+
+    GoogleMapController controller = await _controller.future;
+    controller.animateCamera(
+      CameraUpdate.newCameraPosition(
+        CameraPosition(
+          target: LatLng(currLocation.latitude, currLocation.longitude),
+          zoom: 15,
+        ),
+      ),
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -562,7 +764,17 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
               FloatingActionButton(
                 backgroundColor: Colors.white,
                 foregroundColor: Colors.black,
-                onPressed: () {},
+                onPressed: () {
+                  print(dangerProteges);
+                  setState(() {
+                    // 현재 위치가 마지막 위치이면 처음 위치로 돌아감
+                    currentLocation = (currentLocation == dangerProteges.last)
+                        ? dangerProteges.first
+                        : dangerProteges[
+                            dangerProteges.indexOf(currentLocation) + 1];
+                    getDangerLocation(currentLocation); // 위치 업데이트
+                  });
+                },
                 child: Image.asset("assets/warning.png"),
               ),
             ],
