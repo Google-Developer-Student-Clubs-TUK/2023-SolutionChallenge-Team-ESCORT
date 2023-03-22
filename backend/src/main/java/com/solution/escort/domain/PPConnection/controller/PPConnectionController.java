@@ -1,13 +1,16 @@
 package com.solution.escort.domain.PPConnection.controller;
 
 import com.solution.escort.domain.PPConnection.dto.request.PPConnectionRequestDTO;
+import com.solution.escort.domain.PPConnection.dto.request.UserTokenRequestDTO;
 import com.solution.escort.domain.PPConnection.dto.response.PgeResponseDTO;
 import com.solution.escort.domain.PPConnection.dto.response.PtorResponseDTO;
 import com.solution.escort.domain.PPConnection.service.PPConnectionService;
 import com.solution.escort.domain.protector.entity.Protector;
 import com.solution.escort.domain.protector.repository.ProtectorRepository;
+import com.solution.escort.domain.protector.service.ProtectorService;
 import com.solution.escort.domain.protege.entity.Protege;
 import com.solution.escort.domain.protege.repository.ProtegeRepository;
+import com.solution.escort.domain.protege.service.ProtegeService;
 import com.solution.escort.global.ResponseFormat;
 import com.solution.escort.global.ResponseStatus;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +28,12 @@ import java.util.Optional;
 public class PPConnectionController {
     @Autowired
     private PPConnectionService ppConnectionService;
+
+    @Autowired
+    private ProtectorService protectorService;
+
+    @Autowired
+    private ProtegeService protegeService;
 
     @Autowired
     private ProtegeRepository protegeRepository;
@@ -64,6 +73,23 @@ public class PPConnectionController {
 
         List<PtorResponseDTO> ptorResponseDTO = ppConnectionService.getProtectorByProtegeId(protegeId);
         ResponseFormat<List<PtorResponseDTO>> responseFormat = new ResponseFormat<>(ResponseStatus.GET_PROTECTOR_SUCCESS, ptorResponseDTO);
+        return ResponseEntity.status(HttpStatus.OK).body(responseFormat);
+    }
+
+    // 보호자, 노인 디바이스 토큰 공통으로 수정하는 API
+    @PutMapping("/deviceToken/{uId}")
+    public ResponseEntity<ResponseFormat<UserTokenRequestDTO>> tokenUpdate(UserTokenRequestDTO dto, @PathVariable String uId) throws Exception {
+       if(protectorRepository.findByFbId(uId) != null) {
+            int protectorId = protectorRepository.findByFbId(uId).getId();
+            log.info(String.valueOf(protectorId));
+            protectorService.updateToken(dto, protectorId);
+        }else if(protegeRepository.findByFbId(uId) != null) {
+            int protegeId = protegeRepository.findByFbId(uId).getId();
+            log.info(String.valueOf(protegeId));
+            protegeService.updateToken(dto, protegeId);
+        }
+        ResponseFormat<UserTokenRequestDTO> responseFormat = new ResponseFormat<>(ResponseStatus.PUT_PPCONNECTION_TOKEN_SUCCESS);
+
         return ResponseEntity.status(HttpStatus.OK).body(responseFormat);
     }
 

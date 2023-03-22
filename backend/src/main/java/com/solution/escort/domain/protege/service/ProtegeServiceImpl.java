@@ -1,5 +1,6 @@
 package com.solution.escort.domain.protege.service;
 
+import com.solution.escort.domain.PPConnection.dto.request.UserTokenRequestDTO;
 import com.solution.escort.domain.PPConnection.dto.response.PtorResponseDTO;
 import com.solution.escort.domain.PPConnection.repository.PPconnectionRepository;
 import com.solution.escort.domain.protector.entity.Protector;
@@ -100,11 +101,11 @@ public class ProtegeServiceImpl implements ProtegeService {
     }
 
     @Override
-    public void updateToken(ProtegeTokenRequestDTO protegeTokenRequestDTO, Integer id) throws Exception {
+    public void updateToken(UserTokenRequestDTO userTokenRequestDTO, Integer id) throws Exception {
         Optional<Protege> updateProtegeToken = protegeRepository.findById(id);
 
         updateProtegeToken.ifPresent(selectProtege -> {
-            selectProtege.setDeviceToken(protegeTokenRequestDTO.getDeviceToken());
+            selectProtege.setDeviceToken(userTokenRequestDTO.getDeviceToken());
 
             protegeRepository.save(selectProtege);
         });
