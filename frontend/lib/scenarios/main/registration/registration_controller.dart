@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'dementia.dart';
+import '../../dementia/dementia.dart';
 
 class RegistrationController extends GetxController {
   var screenState = RegistrationScreenState.list().obs;

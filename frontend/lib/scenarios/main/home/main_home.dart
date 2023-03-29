@@ -8,8 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
-import 'package:escort/firebase_realtimedb.dart';
 import 'package:lottie/lottie.dart' as lottie;
+
+import '../../firebase/firebase_realtimedb.dart';
 
 class User {
   String? id;

@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:escort/dementia.dart';
-import 'package:escort/main_home.dart';
+import 'package:escort/scenarios/dementia/dementia.dart';
+import 'package:escort/scenarios/main/home/main_home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';

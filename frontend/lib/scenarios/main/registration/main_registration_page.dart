@@ -1,15 +1,15 @@
 import 'dart:developer';
 import 'dart:ui';
 
-import 'package:escort/main_dementia_controller.dart';
-import 'package:escort/registration_controller.dart';
+import 'package:escort/scenarios/main/registration/registration_controller.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
-import 'component/header_component.dart';
-import 'dementia.dart';
+import '../../../component/header_component.dart';
+import '../../dementia/dementia.dart';
+import '../../dementia/main_dementia_controller.dart';
 
 class RegistrationPage extends StatelessWidget {
   const RegistrationPage({Key? key}) : super(key: key);

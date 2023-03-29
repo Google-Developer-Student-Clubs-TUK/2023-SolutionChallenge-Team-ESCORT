@@ -1,18 +1,16 @@
 import 'dart:async';
-import 'dart:convert';
 
-import 'package:escort/dementia.dart';
-import 'package:escort/main_dementia_controller.dart';
-import 'package:escort/main_dementia_qr.dart';
-import 'package:escort/userinfo_controller.dart';
+import 'package:escort/scenarios/dementia/dementia.dart';
+import 'package:escort/scenarios/dementia/main_dementia_controller.dart';
+import 'package:escort/scenarios/dementia/main_dementia_qr.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:qr_flutter/qr_flutter.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
-import 'firebase_realtimedb.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:get/get.dart';
+
+import '../../supports/userinfo_controller.dart';
+import '../firebase/firebase_realtimedb.dart';
 
 Future<Position> _determinePosition() async {
   bool serviceEnabled;

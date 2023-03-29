@@ -1,8 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:io';
 
-import 'package:escort/main.dart';
-import 'package:escort/onboarding_page.dart';
+import 'package:escort/scenarios/main/main.dart';
+import 'package:escort/scenarios/main/home/onboarding_page.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
@@ -10,8 +10,8 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 
-import 'auth_controller.dart';
-import 'firebase_auth.dart';
+import '../auth_controller.dart';
+import '../../firebase/firebase_auth.dart';
 
 enum Dementia { yes, no }
 

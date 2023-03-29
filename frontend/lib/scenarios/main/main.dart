@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-import 'package:escort/onboarding_page.dart';
-import 'package:escort/signup.dart';
+import 'package:escort/scenarios/main/home/onboarding_page.dart';
+import 'package:escort/scenarios/intro/sign_out/signup.dart';
 
-import 'SignIn.dart';
+import '../../SignIn.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
+
+import '../firebase/firebase_options.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();

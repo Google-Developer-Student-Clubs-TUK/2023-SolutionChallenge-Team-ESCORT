@@ -1,8 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:escort/main_dementia.dart';
-import 'package:escort/main_partner_navigation.dart';
-import 'package:escort/reset_password.dart';
-import 'package:escort/userinfo_controller.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
@@ -10,6 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:http/http.dart' as http;
+
+import '../../../supports/userinfo_controller.dart';
+import '../../dementia/main_dementia.dart';
+import '../../dementia/main_partner_navigation.dart';
+import '../reset/reset_password.dart';
 
 class UserInfo {
   final String imagePath;
@@ -264,7 +265,7 @@ class SignIn extends StatelessWidget {
           child: SizedBox(
             height: 50,
             child: ElevatedButton(
-              onPressed: () => {firebaseLogin(id, password, context)},
+              onPressed: () => {firebaseLogin('p3@naver.com', 'test12', context)},
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(50.0),

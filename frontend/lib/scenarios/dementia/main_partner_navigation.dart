@@ -1,8 +1,9 @@
-import 'package:escort/company_page.dart';
-import 'package:escort/main_account.dart';
-import 'package:escort/main_home.dart';
-import 'package:escort/main_registration_page.dart';
+import 'package:escort/scenarios/main/account/main_account.dart';
+import 'package:escort/scenarios/main/home/main_home.dart';
 import 'package:flutter/material.dart';
+
+import '../main/company/company_page.dart';
+import '../main/registration/main_registration.dart';
 
 class MainPartner extends StatefulWidget {
   const MainPartner({super.key});

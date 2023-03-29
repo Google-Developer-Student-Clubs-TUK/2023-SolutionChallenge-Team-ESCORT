@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
-import 'dementia.dart';
+import '../../dementia/dementia.dart';
 
 class AccountController extends GetxController {
   AccountController() {

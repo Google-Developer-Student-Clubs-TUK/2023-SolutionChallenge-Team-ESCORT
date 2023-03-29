@@ -1,4 +1,4 @@
-import 'package:escort/company_controller.dart';
+import 'package:escort/scenarios/main/company/company_controller.dart';
 import 'package:escort/component/header_component.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_constraintlayout/flutter_constraintlayout.dart';

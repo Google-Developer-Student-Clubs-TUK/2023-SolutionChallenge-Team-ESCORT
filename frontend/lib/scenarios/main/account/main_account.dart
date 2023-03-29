@@ -1,6 +1,6 @@
-import 'package:escort/account_controller.dart';
+import 'package:escort/scenarios/main/account/account_controller.dart';
 import 'package:escort/component/header_component.dart';
-import 'package:escort/dementia.dart';
+import 'package:escort/scenarios/dementia/dementia.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
