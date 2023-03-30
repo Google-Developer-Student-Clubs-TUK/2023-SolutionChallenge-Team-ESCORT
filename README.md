@@ -133,7 +133,7 @@ Escort is an app that allows people who have family members with dementia or who
             </a>
         </td>
         <td align="center">
-            <a href="https://github.com/hyeonjin9819">
+            <a href="https://github.com/cantguboo">
                 <img src="http://img.shields.io/badge/cantguboo-green?style=social&logo=github"/>
             </a>
         </td>
