@@ -133,9 +133,9 @@ Escort is an app that allows people who have family members with dementia or who
             </a>
         </td>
         <td align="center">
-            <text>
-                None
-            </text>
+            <a href="https://github.com/hyeonjin9819">
+                <img src="http://img.shields.io/badge/cantguboo-green?style=social&logo=github"/>
+            </a>
         </td>
      </tr>
     </tbody>
