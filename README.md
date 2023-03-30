@@ -71,7 +71,6 @@ Escort is an app that allows people who have family members with dementia or who
 
 
 <br/>
-<br/>
 
 # 🏃‍♂️.  How to Use
 
