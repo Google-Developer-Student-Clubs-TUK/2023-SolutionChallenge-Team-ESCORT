@@ -132,11 +132,10 @@ Escort is an app that allows people who have family members with dementia or who
                 <img src="http://img.shields.io/badge/hyeonjin9819-green?style=social&logo=github"/>
             </a>
         </td>
-        <td>
-            <p>
-                none
-            </p>
-
+        <td align="center">
+            <text>
+                None
+            </text>
         </td>
      </tr>
     </tbody>
