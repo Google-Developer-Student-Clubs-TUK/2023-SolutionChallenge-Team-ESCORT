@@ -79,6 +79,7 @@ class SignIn extends StatelessWidget {
   SignIn({super.key});
 
   Future<void> firebaseLogin(id, password, BuildContext context) async {
+    print("logintest");
     print(id);
     print(password);
 
@@ -105,6 +106,8 @@ class SignIn extends StatelessWidget {
               .collection('users')
               .doc(user.uid)
               .get();
+
+          print(documentSnapshot.data());
 
           final data = documentSnapshot.data() as Map<String, dynamic>;
 
@@ -265,7 +268,7 @@ class SignIn extends StatelessWidget {
           child: SizedBox(
             height: 50,
             child: ElevatedButton(
-              onPressed: () => {firebaseLogin('p3@naver.com', 'test12', context)},
+              onPressed: () => {firebaseLogin(id, password, context)},
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(50.0),

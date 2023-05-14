@@ -29,6 +29,9 @@ Future<void> firebaseAuth(
     );
 
     print(credential.user);
+    print("sigup logic test");
+    print(dementia);
+
     // Firebase Messaging 초기화
     await FirebaseMessaging.instance.requestPermission();
     final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
@@ -38,6 +41,11 @@ Future<void> firebaseAuth(
     print(token);
 
     if (dementia == 'Dementia.yes') {
+      DatabaseReference _databaseReference = FirebaseDatabase(
+              databaseURL:
+                  'https://escort-8572e-default-rtdb.asia-southeast1.firebasedatabase.app')
+          .ref("users/" + credential.user!.uid);
+      await _databaseReference.set({'isSafe': true});
       http.MultipartRequest request = new http.MultipartRequest(
           'POST', Uri.parse("http://34.22.70.120:8080/api/v1/protege"));
       request.fields['email'] = emailAddress;
@@ -59,12 +67,6 @@ Future<void> firebaseAuth(
       print(dementia);
 
       print(await response.stream.bytesToString());
-
-      DatabaseReference _databaseReference = FirebaseDatabase(
-              databaseURL:
-                  'https://escort-8572e-default-rtdb.asia-southeast1.firebasedatabase.app')
-          .ref("users/" + credential.user!.uid);
-      await _databaseReference.set({'isSafe': true});
     } else {
       http.MultipartRequest request = new http.MultipartRequest(
           'POST', Uri.parse("http://34.22.70.120:8080/api/v1/protector"));
@@ -85,6 +87,8 @@ Future<void> firebaseAuth(
       print(dementia);
       print(await response.stream.bytesToString());
     }
+
+    print(credential.user?.uid);
 
     await FirebaseFirestore.instance
         .collection('users')
