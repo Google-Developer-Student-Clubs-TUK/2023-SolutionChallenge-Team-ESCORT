@@ -61,6 +61,15 @@ class SignUp5 extends StatefulWidget {
   State<SignUp5> createState() => _SignUpState5();
 }
 
+class SignUp6 extends StatefulWidget {
+  const SignUp6({
+    super.key,
+  });
+
+  @override
+  State<SignUp6> createState() => _SignUpState6();
+}
+
 class _SignUpState extends State<SignUp> {
   Dementia _dementia = Dementia.yes;
   final AuthController authController = Get.put(AuthController());
@@ -762,6 +771,141 @@ class _SignUpState4 extends State<SignUp4> {
 }
 
 class _SignUpState5 extends State<SignUp5> {
+  final AuthController authController = Get.put(AuthController());
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: SizedBox(
+            width: 220,
+            height: 15,
+            child: FAProgressBar(
+              currentValue: 90,
+              progressColor: Color.fromRGBO(16, 64, 59, 10),
+              backgroundColor: Color.fromRGBO(16, 64, 59, 180),
+            ),
+          ),
+          iconTheme: IconThemeData(
+            color: Colors.black,
+          ),
+          backgroundColor: Colors.transparent,
+          bottomOpacity: 0.0,
+          elevation: 0.0,
+          leading: GestureDetector(
+            child: Icon(
+              Icons.arrow_back,
+              color: Colors.black,
+            ),
+            onTap: () {
+              Navigator.pop(context);
+            },
+          ),
+        ),
+        body: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(
+                    right: 100, top: 20, bottom: 25, left: 15),
+                child: Text("Give Us More Detail About You!",
+                    style:
+                        TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 80),
+                child: Text("The information is necessary to use our"),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 290),
+                child: Text("service."),
+              ),
+              Container(
+                height: 25,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 270, bottom: 20),
+                child: Text(
+                  "Regidence",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ),
+              SizedBox(
+                width: 350,
+                height: 45,
+                child: TextFormField(
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Colors.black12,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                      borderSide: BorderSide(
+                        width: 0,
+                        style: BorderStyle.none,
+                      ),
+                    ),
+                  ),
+                  onChanged: (value) => {authController.setRegidence(value)},
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 210, bottom: 20, top: 20),
+                child: Text(
+                  "Your Favorite Place",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ),
+              SizedBox(
+                width: 350,
+                height: 45,
+                child: TextFormField(
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Colors.black12,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                      borderSide: BorderSide(
+                        width: 0,
+                        style: BorderStyle.none,
+                      ),
+                    ),
+                  ),
+                  onChanged: (value) => {authController.setPlace(value)},
+                ),
+              ),
+            ],
+          ),
+        ),
+        bottomNavigationBar: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: SizedBox(
+            height: 50,
+            child: ElevatedButton(
+              onPressed: () => {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SignUp6(),
+                    ))
+              },
+              style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(50.0),
+                ),
+                backgroundColor: Color.fromRGBO(16, 64, 59, 10),
+                fixedSize: const Size(250.0, 40.0),
+              ),
+              child: Text("Continue"),
+            ),
+          ),
+        ));
+  }
+}
+
+class _SignUpState6 extends State<SignUp6> {
   final AuthController authController = Get.put(AuthController());
 
   @override
