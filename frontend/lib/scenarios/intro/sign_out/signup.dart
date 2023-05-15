@@ -1,17 +1,17 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:io';
 
-import 'package:escort/scenarios/main/main.dart';
-import 'package:escort/scenarios/main/home/onboarding_page.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:escort/scenarios/main/main.dart';
 
-import '../auth_controller.dart';
 import '../../firebase/firebase_auth.dart';
+import '../auth_controller.dart';
 
 enum Dementia { yes, no }
 
@@ -907,6 +907,58 @@ class _SignUpState5 extends State<SignUp5> {
 
 class _SignUpState6 extends State<SignUp6> {
   final AuthController authController = Get.put(AuthController());
+  GoogleMapController? mapController;
+  double _radius = 50; // 초기 반경을 50미터로 설정합니다.
+  LatLng _center = const LatLng(45.521563,
+      -122.677433); // This will be overridden by the user's current location.
+
+// 여기에 사용자의 현재 위치를 설정합니다.
+
+  @override
+  void initState() {
+    super.initState();
+    _determinePosition();
+  }
+
+  Future<void> _determinePosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      return Future.error('Location services are disabled.');
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Location permissions are denied');
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+
+    Position position = await Geolocator.getCurrentPosition();
+    setState(() {
+      _center = LatLng(position.latitude, position.longitude);
+    });
+  }
+
+  void _onMapCreated(GoogleMapController controller) {
+    mapController = controller;
+    mapController!.animateCamera(
+      CameraUpdate.newCameraPosition(
+        CameraPosition(
+          target: _center,
+          zoom: 11.0,
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -943,73 +995,17 @@ class _SignUpState6 extends State<SignUp6> {
             children: [
               Padding(
                 padding: const EdgeInsets.only(
-                    right: 100, top: 20, bottom: 25, left: 15),
-                child: Text("Give Us More Detail About You!",
+                    right: 50, top: 20, bottom: 15, left: 15),
+                child: Text("Set up your safe zone",
                     style:
-                        TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
+                        TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
               ),
               Padding(
-                padding: const EdgeInsets.only(right: 80),
-                child: Text("The information is necessary to use our"),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(right: 290),
-                child: Text("service."),
+                padding: const EdgeInsets.only(right: 90),
+                child: Text("Search the address or move the map"),
               ),
               Container(
                 height: 25,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(right: 270, bottom: 20),
-                child: Text(
-                  "Regidence",
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ),
-              SizedBox(
-                width: 350,
-                height: 45,
-                child: TextFormField(
-                  style: TextStyle(color: Colors.black),
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.black12,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide: BorderSide(
-                        width: 0,
-                        style: BorderStyle.none,
-                      ),
-                    ),
-                  ),
-                  onChanged: (value) => {authController.setRegidence(value)},
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(right: 210, bottom: 20, top: 20),
-                child: Text(
-                  "Your Favorite Place",
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ),
-              SizedBox(
-                width: 350,
-                height: 45,
-                child: TextFormField(
-                  style: TextStyle(color: Colors.black),
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.black12,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide: BorderSide(
-                        width: 0,
-                        style: BorderStyle.none,
-                      ),
-                    ),
-                  ),
-                  onChanged: (value) => {authController.setPlace(value)},
-                ),
               ),
               Padding(
                 padding: const EdgeInsets.only(right: 270, bottom: 20, top: 20),
@@ -1020,21 +1016,46 @@ class _SignUpState6 extends State<SignUp6> {
               ),
               SizedBox(
                 width: 350,
-                height: 45,
-                child: TextFormField(
-                  style: TextStyle(color: Colors.black),
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.black12,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide: BorderSide(
-                        width: 0,
-                        style: BorderStyle.none,
+                height: 350,
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: GoogleMap(
+                        onMapCreated: _onMapCreated,
+                        initialCameraPosition: CameraPosition(
+                          target: _center,
+                          zoom: 11.0,
+                        ),
+                        myLocationButtonEnabled: true,
+                        myLocationEnabled: true,
+                        circles: Set<Circle>.of(
+                          [
+                            Circle(
+                              circleId: CircleId("safeZone"),
+                              center: _center,
+                              radius:
+                                  _radius, // 이 값을 사용자가 슬라이더에서 선택한 값으로 변경하십시오.
+                              fillColor: Colors.green.withOpacity(0.5),
+                              strokeWidth: 2,
+                              strokeColor: Colors.green,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  onChanged: (value) => {authController.setSafezone(value)},
+                    Slider(
+                      value: _radius,
+                      min: 50,
+                      max: 150,
+                      divisions: 100,
+                      label: _radius.round().toString(),
+                      onChanged: (double value) {
+                        setState(() {
+                          _radius = value;
+                        });
+                      },
+                    ),
+                  ],
                 ),
               ),
             ],
@@ -1137,6 +1158,17 @@ class _SignUpState6 extends State<SignUp6> {
           ),
         ));
   }
+}
+
+Circle _createSafeZoneCircle() {
+  final double radius = 100; // 초기 safezone 반경 설정 (미터 단위)
+  return Circle(
+    circleId: CircleId('safezone'),
+    center: LatLng(37.7749, -122.4194), // initialCameraPosition target과 동일
+    radius: radius,
+    fillColor: Color.fromRGBO(0, 255, 0, 0.3), // 투명한 녹색 색상
+    strokeWidth: 0,
+  );
 }
 
 
