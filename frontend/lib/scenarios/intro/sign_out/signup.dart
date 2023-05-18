@@ -108,21 +108,21 @@ class _SignUpState extends State<SignUp> {
             children: [
               Padding(
                 padding: const EdgeInsets.only(right: 20, top: 20, bottom: 25),
-                child: Text("Do you have Dementia?",
+                child: Text("Do you have Dementia?".tr,
                     style:
                         TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
               ),
               Padding(
                 padding: const EdgeInsets.only(right: 20),
                 child:
-                    Text("This information is necessary to use our service."),
+                    Text("This information is necessary to use our service.".tr),
               ),
               Container(
                 height: 60,
               ),
               RadioListTile(
                   activeColor: Color.fromRGBO(16, 64, 59, 10),
-                  title: Text("Yes"),
+                  title: Text("Yes".tr),
                   value: Dementia.yes,
                   groupValue: _dementia,
                   onChanged: (value) {
@@ -140,7 +140,7 @@ class _SignUpState extends State<SignUp> {
               ),
               RadioListTile(
                   activeColor: Color.fromRGBO(16, 64, 59, 10),
-                  title: Text("No"),
+                  title: Text("No".tr),
                   value: Dementia.no,
                   groupValue: _dementia,
                   onChanged: (value) {
@@ -172,7 +172,7 @@ class _SignUpState extends State<SignUp> {
                 backgroundColor: Color.fromRGBO(16, 64, 59, 10),
                 fixedSize: const Size(250.0, 40.0),
               ),
-              child: Text("Continue"),
+              child: Text("Continue".tr),
             ),
           ),
         ));
@@ -216,17 +216,17 @@ class _SignUpState2 extends State<SignUp2> {
             children: [
               Padding(
                 padding: const EdgeInsets.only(right: 175, top: 20, bottom: 25),
-                child: Text("Who are you?",
+                child: Text("Who are you?".tr,
                     style:
                         TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
               ),
               Padding(
                 padding: const EdgeInsets.only(right: 75),
-                child: Text("Tell us about yourself. You can change it"),
+                child: Text("Tell us about yourself. You can change it".tr),
               ),
               Padding(
                 padding: const EdgeInsets.only(right: 200),
-                child: Text("later on the MyPage."),
+                child: Text("later on the MyPage.".tr),
               ),
               Container(
                 height: 25,
@@ -234,7 +234,7 @@ class _SignUpState2 extends State<SignUp2> {
               Padding(
                 padding: const EdgeInsets.only(right: 300, bottom: 20),
                 child: Text(
-                  "Name",
+                  "Name".tr,
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
@@ -263,7 +263,7 @@ class _SignUpState2 extends State<SignUp2> {
               Padding(
                 padding: const EdgeInsets.only(right: 255, bottom: 20, top: 20),
                 child: Text(
-                  "Date of birth",
+                  "Date of birth".tr,
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
@@ -292,7 +292,7 @@ class _SignUpState2 extends State<SignUp2> {
               Padding(
                 padding: const EdgeInsets.only(right: 240, bottom: 20, top: 20),
                 child: Text(
-                  "Phone Number",
+                  "Phone Number".tr,
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
@@ -337,7 +337,7 @@ class _SignUpState2 extends State<SignUp2> {
                 backgroundColor: Color.fromRGBO(16, 64, 59, 10),
                 fixedSize: const Size(250.0, 40.0),
               ),
-              child: Text("Continue"),
+              child: Text("Continue".tr),
             ),
           ),
         ));
@@ -381,13 +381,13 @@ class _SignUpState3 extends State<SignUp3> {
             children: [
               Padding(
                 padding: const EdgeInsets.only(right: 80, top: 20, bottom: 25),
-                child: Text("Create Your Account",
+                child: Text("Create Your Account".tr,
                     style:
                         TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
               ),
               Padding(
                 padding: const EdgeInsets.only(right: 75),
-                child: Text("Enter your E-mail address and password"),
+                child: Text("Enter your E-mail address and password".tr),
               ),
               Container(
                 height: 25,
@@ -395,7 +395,7 @@ class _SignUpState3 extends State<SignUp3> {
               Padding(
                 padding: const EdgeInsets.only(right: 240, bottom: 20),
                 child: Text(
-                  "E-mail Address",
+                  "E-mail Address".tr,
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
@@ -424,7 +424,7 @@ class _SignUpState3 extends State<SignUp3> {
               Padding(
                 padding: const EdgeInsets.only(right: 270, bottom: 20, top: 20),
                 child: Text(
-                  "Password",
+                  "Password".tr,
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
@@ -453,7 +453,7 @@ class _SignUpState3 extends State<SignUp3> {
               Padding(
                 padding: const EdgeInsets.only(right: 210, bottom: 20, top: 20),
                 child: Text(
-                  "Confirm Password",
+                  "Confirm Password".tr,
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
@@ -493,7 +493,7 @@ class _SignUpState3 extends State<SignUp3> {
                 backgroundColor: Color.fromRGBO(16, 64, 59, 10),
                 fixedSize: const Size(250.0, 40.0),
               ),
-              child: Text("Continue"),
+              child: Text("Continue".tr),
             ),
           ),
         ));
@@ -542,22 +542,22 @@ class _SignUpState4 extends State<SignUp4> {
               Padding(
                 padding: const EdgeInsets.only(
                     right: 100, top: 20, bottom: 25, left: 15),
-                child: Text("Give Us More Detail About You!",
+                child: Text("Give Us More Detail About You!".tr,
                     style:
                         TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
               ),
               Padding(
                 padding: const EdgeInsets.only(right: 80),
-                child: Text("The information is necessary to use our"),
+                child: Text("The information is necessary to use our".tr),
               ),
               Padding(
                 padding: const EdgeInsets.only(right: 290),
-                child: Text("service."),
+                child: Text("service.".tr),
               ),
               Padding(
                 padding: const EdgeInsets.only(right: 270, top: 15),
                 child: Text(
-                  "Your Image",
+                  "Your Image".tr,
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
@@ -617,7 +617,7 @@ class _SignUpState4 extends State<SignUp4> {
               Padding(
                 padding: const EdgeInsets.only(right: 235, bottom: 20),
                 child: Text(
-                  "Characteristics",
+                  "Characteristics".tr,
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
@@ -644,7 +644,7 @@ class _SignUpState4 extends State<SignUp4> {
               Padding(
                 padding: const EdgeInsets.only(right: 265, bottom: 20, top: 20),
                 child: Text(
-                  "Blood Type",
+                  "Blood Type".tr,
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
@@ -686,7 +686,7 @@ class _SignUpState4 extends State<SignUp4> {
                 backgroundColor: Color.fromRGBO(16, 64, 59, 10),
                 fixedSize: const Size(250.0, 40.0),
               ),
-              child: Text("Continue"),
+              child: Text("Continue".tr),
             ),
           ),
         ));
@@ -709,7 +709,7 @@ class _SignUpState4 extends State<SignUp4> {
             ),
             ElevatedButton(
               onPressed: () => _getCameraImage(),
-              child: const Text('카메라촬영'),
+              child: Text('Camera Shoot'.tr),
             ),
             const SizedBox(
               height: 10,
@@ -722,7 +722,7 @@ class _SignUpState4 extends State<SignUp4> {
             ),
             ElevatedButton(
               onPressed: () => _getPhotoLibraryImage(),
-              child: const Text('앨범'),
+              child: Text('앨범'.tr),
             ),
             const SizedBox(
               height: 20,
@@ -809,17 +809,17 @@ class _SignUpState5 extends State<SignUp5> {
               Padding(
                 padding: const EdgeInsets.only(
                     right: 100, top: 20, bottom: 25, left: 15),
-                child: Text("Give Us More Detail About You!",
+                child: Text("Give Us More Detail About You!".tr,
                     style:
                         TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
               ),
               Padding(
                 padding: const EdgeInsets.only(right: 80),
-                child: Text("The information is necessary to use our"),
+                child: Text("The information is necessary to use our".tr),
               ),
               Padding(
                 padding: const EdgeInsets.only(right: 290),
-                child: Text("service."),
+                child: Text("service.".tr),
               ),
               Container(
                 height: 25,
@@ -827,7 +827,7 @@ class _SignUpState5 extends State<SignUp5> {
               Padding(
                 padding: const EdgeInsets.only(right: 270, bottom: 20),
                 child: Text(
-                  "Regidence",
+                  "Regidence".tr,
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
@@ -853,7 +853,7 @@ class _SignUpState5 extends State<SignUp5> {
               Padding(
                 padding: const EdgeInsets.only(right: 210, bottom: 20, top: 20),
                 child: Text(
-                  "Your Favorite Place",
+                  "Your Favorite Place".tr,
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
@@ -898,7 +898,7 @@ class _SignUpState5 extends State<SignUp5> {
                 backgroundColor: Color.fromRGBO(16, 64, 59, 10),
                 fixedSize: const Size(250.0, 40.0),
               ),
-              child: Text("Continue"),
+              child: Text("Continue".tr),
             ),
           ),
         ));
@@ -996,13 +996,13 @@ class _SignUpState6 extends State<SignUp6> {
               Padding(
                 padding: const EdgeInsets.only(
                     right: 50, top: 20, bottom: 15, left: 15),
-                child: Text("Set up your safe zone",
+                child: Text("Set up your safe zone".tr,
                     style:
                         TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
               ),
               Padding(
                 padding: const EdgeInsets.only(right: 90),
-                child: Text("Search the address or move the map"),
+                child: Text("Search the address or move the map".tr),
               ),
               Container(
                 height: 25,
@@ -1010,7 +1010,7 @@ class _SignUpState6 extends State<SignUp6> {
               Padding(
                 padding: const EdgeInsets.only(right: 270, bottom: 20, top: 20),
                 child: Text(
-                  "Safe Zone",
+                  "Safe Zone".tr,
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
@@ -1101,15 +1101,15 @@ class _SignUpState6 extends State<SignUp6> {
                                   SizedBox(
                                     height: 60,
                                   ),
-                                  Text('Sign Up Successful!',
+                                  Text('Sign Up Successful!'.tr,
                                       style: TextStyle(
                                           fontSize: 22,
                                           fontWeight: FontWeight.bold)),
                                   SizedBox(
                                     height: 40,
                                   ),
-                                  Text('Your account has been created'),
-                                  Text('Let\'s begin!'),
+                                  Text('Your account has been created'.tr),
+                                  Text('Let\'s begin!'.tr),
                                   SizedBox(
                                     height: 60,
                                   ),
@@ -1133,7 +1133,7 @@ class _SignUpState6 extends State<SignUp6> {
                                               builder: (context) => MyApp(),
                                             ));
                                       },
-                                      child: Text('Go to Home'),
+                                      child: Text('Go to Home'.tr),
                                     ),
                                   ),
                                 ],
@@ -1153,7 +1153,7 @@ class _SignUpState6 extends State<SignUp6> {
                 backgroundColor: Color.fromRGBO(16, 64, 59, 10),
                 fixedSize: const Size(250.0, 40.0),
               ),
-              child: Text("Continue"),
+              child: Text("Continue".tr),
             ),
           ),
         ));

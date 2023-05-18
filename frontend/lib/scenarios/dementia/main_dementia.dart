@@ -192,7 +192,7 @@ class _MainDementiaState extends State<MainDementia> {
                 },
               );
             } else {
-              return Text('Loading...');
+              return Text('Loading...'.tr);
             }
           },
         ),

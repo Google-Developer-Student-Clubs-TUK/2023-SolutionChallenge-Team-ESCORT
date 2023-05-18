@@ -19,7 +19,7 @@ class AccountPage extends StatelessWidget {
           if (partnerInfo != null) {
             return Column(
               children: [
-                buildHeader("Account", icon: Icons.person),
+                buildHeader("Account".tr, icon: Icons.person),
                 Padding(
                   padding: EdgeInsets.only(top: 28),
                 ),
@@ -65,7 +65,7 @@ class AccountPage extends StatelessWidget {
                     children: [
                       buildNavigateButton(
                         Icons.person,
-                        "Personal Information",
+                        "Personal Information".tr,
                         () {},
                       ),
                       Padding(
@@ -73,7 +73,7 @@ class AccountPage extends StatelessWidget {
                       ),
                       buildNavigateButton(
                         Icons.attach_email,
-                        "Account Settings",
+                        "Account Settings".tr,
                         () {},
                       ),
                       Padding(
@@ -83,7 +83,7 @@ class AccountPage extends StatelessWidget {
                       TextButton(
                         onPressed: () {},
                         child: Text(
-                          'Participate as an Company',
+                          'Participate as an Company'.tr,
                           style: TextStyle(
                               color: Color(0xFF10403B),
                               fontSize: 16,

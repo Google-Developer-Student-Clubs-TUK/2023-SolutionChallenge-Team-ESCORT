@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class RegistrationPage extends StatelessWidget {
@@ -74,18 +75,18 @@ class _QRViewExampleState extends State<QRViewExample> {
                   ),
                 ),
                 Text(
-                  "Scan QR Code",
+                  "Scan QR Code".tr,
                   style: TextStyle(fontSize: 25, color: Colors.white),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 15),
                   child: Text(
-                    "Please scan the old man's QR code.",
+                    "Please scan the old man's QR code.".tr,
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
                 Text(
-                  "Register the elderly to the registration list.",
+                  "Register the elderly to the registration list.".tr,
                   style: TextStyle(color: Colors.white),
                 ),
               ],
@@ -140,7 +141,7 @@ class _QRViewExampleState extends State<QRViewExample> {
     log('${DateTime.now().toIso8601String()}_onPermissionSet $p');
     if (!p) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('no Permission')),
+        SnackBar(content: Text('no Permission'.tr)),
       );
     }
   }

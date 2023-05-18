@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:lottie/lottie.dart' as lottie;
@@ -464,7 +465,7 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
                                                                 0.05,
                                                             child: Center(
                                                               child: Text(
-                                                                  "Not Danger"),
+                                                                  "Not Danger".tr),
                                                             ))),
                                                     Padding(
                                                       padding:
@@ -524,13 +525,13 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
                                                                               ),
                                                                             ),
                                                                             Text(
-                                                                              "Description",
+                                                                              "Description".tr,
                                                                               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                                                                             ),
                                                                             SizedBox(
                                                                               height: 5,
                                                                             ),
-                                                                            Text("If you know what he's wearing today, please write it"),
+                                                                            Text("If you know what he's wearing today, please write it".tr),
                                                                             SizedBox(
                                                                               height: 20,
                                                                             ),
@@ -591,15 +592,15 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
                                                                                                             SizedBox(
                                                                                                               height: 60,
                                                                                                             ),
-                                                                                                            Text('Successful in calling', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+                                                                                                            Text('Successful in calling'.tr, style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
                                                                                                             Center(
                                                                                                               child: Text('for Help', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
                                                                                                             ),
                                                                                                             SizedBox(
                                                                                                               height: 40,
                                                                                                             ),
-                                                                                                            Center(child: Text('Escorteres can now locate the')),
-                                                                                                            Center(child: Text('patient')),
+                                                                                                            Center(child: Text('Escorteres can now locate the'.tr)),
+                                                                                                            Center(child: Text('patient'.tr)),
                                                                                                             SizedBox(
                                                                                                               height: 60,
                                                                                                             ),
@@ -616,7 +617,7 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
                                                                                                                 onPressed: () {
                                                                                                                   Navigator.pop(context);
                                                                                                                 },
-                                                                                                                child: Text('close'),
+                                                                                                                child: Text('close'.tr),
                                                                                                               ),
                                                                                                             ),
                                                                                                           ],
@@ -629,10 +630,10 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
                                                                                             },
                                                                                           )
                                                                                         },
-                                                                                    child: Text("Continue"),
                                                                                     style: ElevatedButton.styleFrom(
                                                                                       primary: Color.fromRGBO(16, 64, 59, 10),
-                                                                                    )),
+                                                                                    ),
+                                                                                    child: Text("Continue".tr)),
                                                                               ),
                                                                             ),
                                                                           ])),
@@ -653,7 +654,7 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
                                                                 0.05,
                                                             child: Center(
                                                                 child: Text(
-                                                                    "Ask For Help")),
+                                                                    "Ask For Help".tr)),
                                                           )),
                                                     )
                                                   ]),
@@ -814,7 +815,7 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
                 Image.asset("assets/maincircleicon.png",
                     width: MediaQuery.of(context).size.width / 5),
                 SizedBox(width: MediaQuery.of(context).size.width / 90),
-                Text("Clairo"),
+                Text("Clairo".tr),
                 SizedBox(width: MediaQuery.of(context).size.width * 0.43),
                 Image.asset("assets/sort.png",
                     width: MediaQuery.of(context).size.width * 0.1),

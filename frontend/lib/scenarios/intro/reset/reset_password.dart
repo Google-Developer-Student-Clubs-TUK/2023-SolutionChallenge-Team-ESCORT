@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:get/get.dart";
 
 class ResetPassword extends StatelessWidget {
   const ResetPassword({super.key});
@@ -47,7 +48,7 @@ class ResetPassword extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(right: 280, bottom: 20),
               child: Text(
-                "Password",
+                "Password".tr,
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
             ),
@@ -107,7 +108,7 @@ class ResetPassword extends StatelessWidget {
                 backgroundColor: Color.fromRGBO(16, 64, 59, 10),
                 fixedSize: const Size(250.0, 40.0),
               ),
-              child: Text("Continue"),
+              child: Text("Continue".tr),
             ),
           ),
         ));
