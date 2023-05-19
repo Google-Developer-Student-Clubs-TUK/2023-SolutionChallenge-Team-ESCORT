@@ -4,17 +4,18 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:geocoding/geocoding.dart';
-
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:google_places_for_flutter/google_places_for_flutter.dart';
 import 'package:image_picker/image_picker.dart';
+
 import 'package:escort/scenarios/main/main.dart';
 
 import '../../firebase/firebase_auth.dart';
 import '../auth_controller.dart';
-import 'package:google_places_for_flutter/google_places_for_flutter.dart';
 
 enum Dementia { yes, no }
 
@@ -908,7 +909,7 @@ class _SignUpState5 extends State<SignUp5> {
   }
 }
 
-const kGoogleApiKey = 'AIzaSyC6sroCbmrtERc66GpA4Q6wQ_IwKCzLt5k';
+String? kGoogleApiKey = dotenv.env['API_KEY'];
 
 class _SignUpState6 extends State<SignUp6> {
   final AuthController authController = Get.put(AuthController());
@@ -1083,8 +1084,14 @@ class _SignUpState6 extends State<SignUp6> {
                             ),
                           ],
                         ),
-                        onCameraMove: (CameraPosition position) {
-                          final marker = Marker(
+                        onCameraMove: (CameraPosition position) async {
+                          BitmapDescriptor markerIcon =
+                              await BitmapDescriptor.fromAssetImage(
+                            ImageConfiguration(size: Size(48, 48)),
+                            '/assets/setsafezone.png.png',
+                          );
+                          final marker = await Marker(
+                            icon: markerIcon,
                             markerId: MarkerId(position.target.toString()),
                             position: position.target,
                             infoWindow: InfoWindow(
@@ -1096,6 +1103,7 @@ class _SignUpState6 extends State<SignUp6> {
                             _marker = Marker(
                               markerId: MarkerId(position.target.toString()),
                               position: position.target,
+                              icon: markerIcon,
                               infoWindow: InfoWindow(
                                 title: 'Camera position',
                                 snippet: position.target.toString(),
@@ -1106,29 +1114,38 @@ class _SignUpState6 extends State<SignUp6> {
                         markers: _marker != null ? {_marker!}.toSet() : {},
                       ),
                     ),
-                    SliderTheme(
-                      data: SliderTheme.of(context).copyWith(
-                        thumbShape: RoundSliderThumbShape(
-                            enabledThumbRadius:
-                                5.0), // Adjust this value to change the thumb size
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(Icons.zoom_out), // Zoom out icon
+                        Expanded(
+                          child: SliderTheme(
+                            data: SliderTheme.of(context).copyWith(
+                              thumbShape: RoundSliderThumbShape(
+                                  enabledThumbRadius:
+                                      5.0), // Adjust this value to change the thumb size
 
-                        trackHeight: 2.0,
-                      ),
-                      child: Slider(
-                        thumbColor: Color.fromRGBO(16, 64, 59, 10),
-                        activeColor: Color.fromRGBO(16, 64, 59, 10),
-                        inactiveColor: Color.fromRGBO(238, 240, 240, 1),
-                        value: _radius,
-                        min: 0,
-                        max: 150,
-                        divisions: 100,
-                        label: _radius.round().toString(),
-                        onChanged: (double value) {
-                          setState(() {
-                            _radius = value;
-                          });
-                        },
-                      ),
+                              trackHeight: 2.0,
+                            ),
+                            child: Slider(
+                              thumbColor: Color.fromRGBO(16, 64, 59, 10),
+                              activeColor: Color.fromRGBO(16, 64, 59, 10),
+                              inactiveColor: Color.fromRGBO(238, 240, 240, 1),
+                              value: _radius,
+                              min: 0,
+                              max: 150,
+                              divisions: 100,
+                              label: _radius.round().toString(),
+                              onChanged: (double value) {
+                                setState(() {
+                                  _radius = value;
+                                });
+                              },
+                            ),
+                          ),
+                        ),
+                        Icon(Icons.zoom_in), // Zoom in icon
+                      ],
                     ),
                   ],
                 ),
