@@ -64,7 +64,7 @@ updateDeviceToken(deviceToken, uid) async {
   var request = http.Request(
       'PUT',
       Uri.parse(
-          'http://34.22.70.120:8080/api/v1/ppConnection/deviceToken/$uid'));
+          'http://34.22.87.100:8080/api/v1/ppConnection/deviceToken/$uid'));
   request.bodyFields = {'deviceToken': deviceToken};
   request.headers.addAll(headers);
 

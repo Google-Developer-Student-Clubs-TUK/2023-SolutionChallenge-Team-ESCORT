@@ -4,6 +4,8 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
+import 'package:geocoding/geocoding.dart';
+
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -12,6 +14,7 @@ import 'package:escort/scenarios/main/main.dart';
 
 import '../../firebase/firebase_auth.dart';
 import '../auth_controller.dart';
+import 'package:google_places_for_flutter/google_places_for_flutter.dart';
 
 enum Dementia { yes, no }
 
@@ -905,6 +908,8 @@ class _SignUpState5 extends State<SignUp5> {
   }
 }
 
+const kGoogleApiKey = 'AIzaSyC6sroCbmrtERc66GpA4Q6wQ_IwKCzLt5k';
+
 class _SignUpState6 extends State<SignUp6> {
   final AuthController authController = Get.put(AuthController());
   GoogleMapController? mapController;
@@ -954,11 +959,38 @@ class _SignUpState6 extends State<SignUp6> {
       CameraUpdate.newCameraPosition(
         CameraPosition(
           target: _center,
-          zoom: 11.0,
+          zoom: 17.0,
         ),
       ),
     );
   }
+
+  void _moveCameraToLatLng(LatLng target) {
+    mapController!.animateCamera(
+      CameraUpdate.newCameraPosition(
+        CameraPosition(
+          target: target,
+          zoom: 17.0,
+        ),
+      ),
+    );
+  }
+
+  Future<List<Location>> getLocationFromAddress(String? address) async {
+    List<Location> locations = await locationFromAddress(address!);
+    print("location complete");
+    return locations;
+  }
+
+  void _moveCamera(double latitude, double longitude) {
+    mapController
+        ?.animateCamera(CameraUpdate.newLatLng(LatLng(latitude, longitude)));
+    setState(() {
+      _center = LatLng(latitude, longitude);
+    });
+  }
+
+  Marker? _marker;
 
   @override
   Widget build(BuildContext context) {
@@ -1001,30 +1033,40 @@ class _SignUpState6 extends State<SignUp6> {
                         TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
               ),
               Padding(
-                padding: const EdgeInsets.only(right: 90),
+                padding: const EdgeInsets.only(right: 90, top: 20),
                 child: Text("Search the address or move the map"),
               ),
               Container(
                 height: 25,
               ),
-              Padding(
-                padding: const EdgeInsets.only(right: 270, bottom: 20, top: 20),
-                child: Text(
-                  "Safe Zone",
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ),
               SizedBox(
-                width: 350,
-                height: 350,
+                width: 330,
+                height: 460,
                 child: Column(
                   children: [
+                    Container(
+                      width: 330,
+                      child: SearchGooglePlacesWidget(
+                        placeType: PlaceType
+                            .address, // PlaceType.cities, PlaceType.geocode, PlaceType.region etc
+                        placeholder: 'Search',
+                        apiKey: kGoogleApiKey,
+                        onSearch: (Place place) {},
+                        onSelected: (Place place) async {
+                          print('address ${place.description}');
+                          var currLocation =
+                              await getLocationFromAddress(place.description);
+                          _moveCamera(currLocation[0].latitude,
+                              currLocation[0].longitude);
+                        },
+                      ),
+                    ),
                     Expanded(
                       child: GoogleMap(
                         onMapCreated: _onMapCreated,
                         initialCameraPosition: CameraPosition(
                           target: _center,
-                          zoom: 11.0,
+                          zoom: 17.0,
                         ),
                         myLocationButtonEnabled: true,
                         myLocationEnabled: true,
@@ -1041,19 +1083,52 @@ class _SignUpState6 extends State<SignUp6> {
                             ),
                           ],
                         ),
+                        onCameraMove: (CameraPosition position) {
+                          final marker = Marker(
+                            markerId: MarkerId(position.target.toString()),
+                            position: position.target,
+                            infoWindow: InfoWindow(
+                              title: 'Camera position',
+                              snippet: position.target.toString(),
+                            ),
+                          );
+                          setState(() {
+                            _marker = Marker(
+                              markerId: MarkerId(position.target.toString()),
+                              position: position.target,
+                              infoWindow: InfoWindow(
+                                title: 'Camera position',
+                                snippet: position.target.toString(),
+                              ),
+                            );
+                          });
+                        },
+                        markers: _marker != null ? {_marker!}.toSet() : {},
                       ),
                     ),
-                    Slider(
-                      value: _radius,
-                      min: 50,
-                      max: 150,
-                      divisions: 100,
-                      label: _radius.round().toString(),
-                      onChanged: (double value) {
-                        setState(() {
-                          _radius = value;
-                        });
-                      },
+                    SliderTheme(
+                      data: SliderTheme.of(context).copyWith(
+                        thumbShape: RoundSliderThumbShape(
+                            enabledThumbRadius:
+                                5.0), // Adjust this value to change the thumb size
+
+                        trackHeight: 2.0,
+                      ),
+                      child: Slider(
+                        thumbColor: Color.fromRGBO(16, 64, 59, 10),
+                        activeColor: Color.fromRGBO(16, 64, 59, 10),
+                        inactiveColor: Color.fromRGBO(238, 240, 240, 1),
+                        value: _radius,
+                        min: 0,
+                        max: 150,
+                        divisions: 100,
+                        label: _radius.round().toString(),
+                        onChanged: (double value) {
+                          setState(() {
+                            _radius = value;
+                          });
+                        },
+                      ),
                     ),
                   ],
                 ),
@@ -1160,16 +1235,7 @@ class _SignUpState6 extends State<SignUp6> {
   }
 }
 
-Circle _createSafeZoneCircle() {
-  final double radius = 100; // 초기 safezone 반경 설정 (미터 단위)
-  return Circle(
-    circleId: CircleId('safezone'),
-    center: LatLng(37.7749, -122.4194), // initialCameraPosition target과 동일
-    radius: radius,
-    fillColor: Color.fromRGBO(0, 255, 0, 0.3), // 투명한 녹색 색상
-    strokeWidth: 0,
-  );
-}
+
 
 
 /*
