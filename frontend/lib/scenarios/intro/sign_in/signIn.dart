@@ -73,10 +73,15 @@ updateDeviceToken(deviceToken, uid) async {
   print(await response.stream.bytesToString());
 }
 
-class SignIn extends StatelessWidget {
-  final UserInfoController userinfocontroller = Get.put(UserInfoController());
-
+class SignIn extends StatefulWidget {
   SignIn({super.key});
+
+  @override
+  State<SignIn> createState() => _SignInState();
+}
+
+class _SignInState extends State<SignIn> {
+  final UserInfoController userinfocontroller = Get.put(UserInfoController());
 
   Future<void> firebaseLogin(id, password, BuildContext context) async {
     print("logintest");
@@ -153,6 +158,10 @@ class SignIn extends StatelessWidget {
     }
   }
 
+  bool _obscureText = true;
+
+  String password = '';
+
   @override
   Widget build(BuildContext context) {
     String id = '';
@@ -228,9 +237,22 @@ class SignIn extends StatelessWidget {
               SizedBox(
                 width: 350,
                 child: TextFormField(
-                  obscureText: true,
+                  obscureText: _obscureText,
                   style: TextStyle(color: Colors.black),
                   decoration: InputDecoration(
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        // Based on passwordVisible state choose the icon
+                        _obscureText ? Icons.visibility_off : Icons.visibility,
+                        color: Color.fromRGBO(16, 64, 59, 10),
+                      ),
+                      onPressed: () {
+                        // Update the state i.e. toogle the state of passwordVisible variable
+                        setState(() {
+                          _obscureText = !_obscureText;
+                        });
+                      },
+                    ),
                     filled: true,
                     fillColor: Colors.black12,
                     border: OutlineInputBorder(
