@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 
 class CompanyController extends GetxController {
   CompanyController() {
-    GetConnect().get('http://34.22.70.120:8080/api/v1/company').then(
+    GetConnect().get('http://34.22.87.100:8080/api/v1/company').then(
       (value) {
         var response = value.body['result'];
         List<CompanyInfo> tempCompanyList = [];

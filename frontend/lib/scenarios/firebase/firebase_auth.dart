@@ -47,7 +47,7 @@ Future<void> firebaseAuth(
           .ref("users/" + credential.user!.uid);
       await _databaseReference.set({'isSafe': true});
       http.MultipartRequest request = new http.MultipartRequest(
-          'POST', Uri.parse("http://34.22.70.120:8080/api/v1/protege"));
+          'POST', Uri.parse("http://34.22.87.100:8080/api/v1/protege"));
       request.fields['email'] = emailAddress;
       request.fields['password'] = password;
       request.fields['name'] = name;
@@ -69,7 +69,7 @@ Future<void> firebaseAuth(
       print(await response.stream.bytesToString());
     } else {
       http.MultipartRequest request = new http.MultipartRequest(
-          'POST', Uri.parse("http://34.22.70.120:8080/api/v1/protector"));
+          'POST', Uri.parse("http://34.22.87.100:8080/api/v1/protector"));
       request.fields['email'] = emailAddress;
       request.fields['password'] = password;
       request.fields['name'] = name;
