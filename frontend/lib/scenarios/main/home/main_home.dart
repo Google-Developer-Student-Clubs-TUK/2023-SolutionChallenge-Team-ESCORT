@@ -63,7 +63,7 @@ class DementiaLocationTracker {
 void dementiaSos(dementiauid) async {
   var headers = {'Content-Type': 'application/x-www-form-urlencoded'};
   var request =
-      http.Request('POST', Uri.parse('http://34.22.70.120:8080/api/v1/sos'));
+      http.Request('POST', Uri.parse('http://34.22.87.100:8080/api/v1/sos'));
   request.bodyFields = {'protegeUId': dementiauid};
   request.headers.addAll(headers);
 
@@ -78,7 +78,7 @@ void dementiaSos(dementiauid) async {
 void dementiaCloth(dementiauid, cloth) async {
   var headers = {'Content-Type': 'application/x-www-form-urlencoded'};
   var request = http.Request(
-      'PUT', Uri.parse('http://34.22.70.120:8080/api/v1/protege/$dementiauid'));
+      'PUT', Uri.parse('http://34.22.87.100:8080/api/v1/protege/$dementiauid'));
   request.bodyFields = {'clothing': cloth};
   request.headers.addAll(headers);
 
@@ -93,7 +93,7 @@ void dementiaCloth(dementiauid, cloth) async {
 
 void cancleSos(dementauid) async {
   var request = http.Request('DELETE',
-      Uri.parse('http://34.22.70.120:8080/api/v1/protege/$dementauid'));
+      Uri.parse('http://34.22.87.100:8080/api/v1/protege/$dementauid'));
   request.bodyFields = {};
 
   http.StreamedResponse response = await request.send();
@@ -137,7 +137,7 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
     var request = http.MultipartRequest(
         'GET',
         Uri.parse(
-            'http://34.22.70.120:8080/api/v1/ppConnection/protector/$uId'));
+            'http://34.22.87.100:8080/api/v1/ppConnection/protector/$uId'));
 
     http.StreamedResponse response = await request.send();
 

@@ -45,7 +45,7 @@ class DementiaController extends GetxController {
   void loadDementia() async {
     var response = await GetConnect()
         .get(
-            'http://34.22.70.120:8080/api/v1/protege/${FirebaseAuth.instance.currentUser?.uid ?? "-"}')
+            'http://34.22.87.100:8080/api/v1/protege/${FirebaseAuth.instance.currentUser?.uid ?? "-"}')
         .then((value) => value.body['result']);
 
     dementiainfo.value = DementiaInfo(
@@ -61,11 +61,11 @@ class DementiaController extends GetxController {
   void loadPartner() {
     GetConnect()
         .get(
-            'http://34.22.70.120:8080/api/v1/ppConnection/protege/${FirebaseAuth.instance.currentUser?.uid ?? "-"}')
+            'http://34.22.87.100:8080/api/v1/ppConnection/protege/${FirebaseAuth.instance.currentUser?.uid ?? "-"}')
         .asStream()
         .map(
       (event) {
-        if((event.body['result'] as List<dynamic>).isNotEmpty) {
+        if ((event.body['result'] as List<dynamic>).isNotEmpty) {
           return event.body['result'][0];
         }
       },
@@ -73,9 +73,9 @@ class DementiaController extends GetxController {
       (event) {
         if (event != null) {
           partnerInfo.value = PartnerInfo(
-            image: event['imageUrl'],
-            name: event['name'],
-            phone: event['phone']);
+              image: event['imageUrl'],
+              name: event['name'],
+              phone: event['phone']);
         }
       },
     );
@@ -86,7 +86,7 @@ class DementiaController extends GetxController {
     isShowCall.value = false;
 
     var response = await GetConnect()
-        .get('http://34.22.70.120:8080/api/v1/protege/$uid')
+        .get('http://34.22.87.100:8080/api/v1/protege/$uid')
         .then((value) => value.body['result']);
 
     dementiainfo.value = DementiaInfo(
@@ -100,7 +100,7 @@ class DementiaController extends GetxController {
 
     response = await GetConnect()
         .get(
-            'http://34.22.70.120:8080/api/v1/protector/${FirebaseAuth.instance.currentUser?.uid ?? "-"}')
+            'http://34.22.87.100:8080/api/v1/protector/${FirebaseAuth.instance.currentUser?.uid ?? "-"}')
         .then((value) => value.body['result']);
 
     disconnectAndNewConnection(uid);
