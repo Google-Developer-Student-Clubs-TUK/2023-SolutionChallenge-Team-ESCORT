@@ -219,7 +219,8 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
                                             ),
                                             Container(
                                               decoration: BoxDecoration(
-                                                  color: Colors.black12,
+                                                  color: Color.fromRGBO(
+                                                      64, 75, 99, 0.04),
                                                   borderRadius:
                                                       BorderRadius.all(
                                                           Radius.circular(20))),
@@ -345,7 +346,8 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
                                             ),
                                             Container(
                                               decoration: BoxDecoration(
-                                                  color: Colors.black12,
+                                                  color: Color.fromRGBO(
+                                                      64, 75, 99, 0.04),
                                                   borderRadius:
                                                       BorderRadius.all(
                                                           Radius.circular(20))),
