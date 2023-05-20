@@ -961,7 +961,7 @@ class _SignUpState6 extends State<SignUp6> {
       CameraUpdate.newCameraPosition(
         CameraPosition(
           target: _center,
-          zoom: 11.0,
+          zoom: 17.0,
         ),
       ),
     );
@@ -1014,25 +1014,29 @@ class _SignUpState6 extends State<SignUp6> {
               Container(
                 height: 25,
               ),
-              SearchGooglePlacesWidget(
-                placeType: PlaceType
-                    .address, // PlaceType.cities, PlaceType.geocode, PlaceType.region etc
-                placeholder: 'Search',
-                apiKey: kGoogleApiKey,
-                onSearch: (Place place) {},
-                onSelected: (Place place) async {},
-              ),
               SizedBox(
-                width: 350,
-                height: 350,
+                width: 330,
+                height: 500,
                 child: Column(
                   children: [
-                    Expanded(
+                    Container(
+                      width: 330,
+                      child: SearchGooglePlacesWidget(
+                        placeType: PlaceType
+                            .address, // PlaceType.cities, PlaceType.geocode, PlaceType.region etc
+                        placeholder: 'Search',
+                        apiKey: kGoogleApiKey,
+                        onSearch: (Place place) {},
+                        onSelected: (Place place) async {},
+                      ),
+                    ),
+                    Container(
+                      height: 360,
                       child: GoogleMap(
                         onMapCreated: _onMapCreated,
                         initialCameraPosition: CameraPosition(
                           target: _center,
-                          zoom: 11.0,
+                          zoom: 17.0,
                         ),
                         myLocationButtonEnabled: true,
                         myLocationEnabled: true,
