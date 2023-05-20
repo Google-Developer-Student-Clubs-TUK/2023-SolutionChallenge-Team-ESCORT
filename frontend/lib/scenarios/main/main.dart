@@ -20,12 +20,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-<<<<<<< HEAD
-=======
 
-  await dotenv.load();
-
->>>>>>> 3c8d689 (feat : api key to env)
   await Firebase.initializeApp(
     name: 'escort',
     options: DefaultFirebaseOptions.currentPlatform,

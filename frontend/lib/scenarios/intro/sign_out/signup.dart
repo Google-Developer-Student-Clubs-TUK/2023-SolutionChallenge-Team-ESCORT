@@ -912,6 +912,7 @@ class _SignUpState5 extends State<SignUp5> {
 String? kGoogleApiKey = dotenv.env['API_KEY'];
 
 class _SignUpState6 extends State<SignUp6> {
+  Marker? _marker;
   final AuthController authController = Get.put(AuthController());
   GoogleMapController? mapController;
   double _radius = 50; // 초기 반경을 50미터로 설정합니다.

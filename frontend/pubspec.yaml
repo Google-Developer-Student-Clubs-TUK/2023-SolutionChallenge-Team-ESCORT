@@ -60,6 +60,8 @@ dependencies:
   url_launcher: ^6.0.12
   rxdart: ^0.27.7
   flutter_constraintlayout: ^1.6.3-stable
+  flutter_dotenv: ^5.0.2
+  google_places_for_flutter: ^1.0.1
 
 dev_dependencies:
   flutter_test:
