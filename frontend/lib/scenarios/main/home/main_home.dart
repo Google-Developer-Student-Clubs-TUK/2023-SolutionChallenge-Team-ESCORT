@@ -297,7 +297,13 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
                                                           element['safeZones']
                                                               [0],
                                                           style: TextStyle(
-                                                              fontSize: 15),
+                                                              fontSize: 15,
+                                                              color: Color
+                                                                  .fromRGBO(
+                                                                      59,
+                                                                      59,
+                                                                      59,
+                                                                      1)),
                                                           textAlign:
                                                               TextAlign.left,
                                                           maxLines: 2,

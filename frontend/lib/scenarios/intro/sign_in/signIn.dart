@@ -165,7 +165,8 @@ class _SignInState extends State<SignIn> {
 
   bool _obscureText = true;
 
-  String password = '';
+  TextEditingController idController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -217,6 +218,7 @@ class _SignInState extends State<SignIn> {
               SizedBox(
                 width: 350,
                 child: TextFormField(
+                  controller: idController,
                   style: TextStyle(color: Colors.black),
                   decoration: InputDecoration(
                     filled: true,
@@ -232,6 +234,7 @@ class _SignInState extends State<SignIn> {
                   onChanged: (value) => {
                     setState(() {
                       id = value;
+                      print(id);
                     })
                   },
                 ),
@@ -246,6 +249,7 @@ class _SignInState extends State<SignIn> {
               SizedBox(
                 width: 350,
                 child: TextFormField(
+                  controller: passwordController,
                   obscureText: _obscureText,
                   style: TextStyle(color: Colors.black),
                   decoration: InputDecoration(
@@ -275,6 +279,7 @@ class _SignInState extends State<SignIn> {
                   onChanged: (value) => {
                     setState(() {
                       password = value;
+                      print(password);
                     })
                   },
                 ),
@@ -304,7 +309,10 @@ class _SignInState extends State<SignIn> {
           child: SizedBox(
             height: 50,
             child: ElevatedButton(
-              onPressed: () => {firebaseLogin(id, password, context)},
+              onPressed: () => {
+                firebaseLogin(
+                    idController.text, passwordController.text, context)
+              },
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(50.0),
