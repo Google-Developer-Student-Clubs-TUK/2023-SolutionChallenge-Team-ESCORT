@@ -229,7 +229,11 @@ class _SignInState extends State<SignIn> {
                       ),
                     ),
                   ),
-                  onChanged: (value) => {id = value, print(id)},
+                  onChanged: (value) => {
+                    setState(() {
+                      id = value;
+                    })
+                  },
                 ),
               ),
               Padding(
@@ -268,7 +272,11 @@ class _SignInState extends State<SignIn> {
                       ),
                     ),
                   ),
-                  onChanged: (value) => {password = value, print(password)},
+                  onChanged: (value) => {
+                    setState(() {
+                      password = value;
+                    })
+                  },
                 ),
               ),
               Padding(
