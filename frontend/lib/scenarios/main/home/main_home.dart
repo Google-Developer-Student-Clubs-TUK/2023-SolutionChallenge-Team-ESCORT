@@ -206,16 +206,20 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
                                                 0.3,
                                         child: Column(
                                           children: [
-                                            Container(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.05,
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.002,
-                                              color: Colors.grey,
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 10.0),
+                                              child: Container(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.08,
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .height *
+                                                      0.004,
+                                                  color: Color.fromRGBO(
+                                                      207, 204, 212, 1)),
                                             ),
                                             Container(
                                               decoration: BoxDecoration(
@@ -361,16 +365,20 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
                                                 0.35,
                                         child: Column(
                                           children: [
-                                            Container(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.05,
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.002,
-                                              color: Colors.grey,
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 10.0),
+                                              child: Container(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.08,
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .height *
+                                                      0.004,
+                                                  color: Color.fromRGBO(
+                                                      207, 204, 212, 1)),
                                             ),
                                             Container(
                                               decoration: BoxDecoration(
@@ -598,37 +606,44 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
                                                                       child: Container(
                                                                           width: MediaQuery.of(context).size.width,
                                                                           height: MediaQuery.of(context).size.height * 0.35,
-                                                                          child: Column(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.start, children: [
+                                                                          child: Column(children: [
                                                                             Center(
-                                                                              child: Container(
-                                                                                width: MediaQuery.of(context).size.width * 0.05,
-                                                                                height: MediaQuery.of(context).size.height * 0.002,
-                                                                                color: Colors.grey,
-                                                                                margin: EdgeInsets.all(20.0),
+                                                                              child: Padding(
+                                                                                padding: const EdgeInsets.only(top: 10.0),
+                                                                                child: Container(width: MediaQuery.of(context).size.width * 0.08, height: MediaQuery.of(context).size.height * 0.004, color: Color.fromRGBO(207, 204, 212, 1)),
                                                                               ),
                                                                             ),
-                                                                            Text(
-                                                                              "Description",
-                                                                              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                                                                            Padding(
+                                                                              padding: const EdgeInsets.only(top: 20, right: 225.0),
+                                                                              child: Text(
+                                                                                "Description",
+                                                                                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                                                                              ),
                                                                             ),
                                                                             SizedBox(
                                                                               height: 5,
                                                                             ),
-                                                                            Text("If you know what he's wearing today, please write it"),
+                                                                            Padding(
+                                                                              padding: const EdgeInsets.only(right: 25.0),
+                                                                              child: Text(
+                                                                                "If you know what he's wearing today, please write it",
+                                                                                style: TextStyle(fontSize: 12.5),
+                                                                              ),
+                                                                            ),
                                                                             SizedBox(
                                                                               height: 20,
                                                                             ),
                                                                             Center(
                                                                               child: Container(
                                                                                 width: MediaQuery.of(context).size.width * 0.9,
-                                                                                height: MediaQuery.of(context).size.height * 0.06,
+                                                                                height: MediaQuery.of(context).size.height * 0.07,
                                                                                 child: TextFormField(
                                                                                   style: TextStyle(color: Colors.black),
                                                                                   decoration: InputDecoration(
                                                                                     filled: true,
                                                                                     fillColor: Colors.black12,
                                                                                     border: OutlineInputBorder(
-                                                                                      borderRadius: BorderRadius.circular(10.0),
+                                                                                      borderRadius: BorderRadius.circular(20.0),
                                                                                       borderSide: BorderSide(
                                                                                         width: 0,
                                                                                         style: BorderStyle.none,
@@ -649,74 +664,82 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
                                                                             Center(
                                                                               child: Container(
                                                                                 width: MediaQuery.of(context).size.width * 0.9,
-                                                                                height: MediaQuery.of(context).size.height * 0.06,
+                                                                                height: MediaQuery.of(context).size.height * 0.07,
                                                                                 child: ElevatedButton(
-                                                                                    onPressed: () => {
-                                                                                          dementiaSos(element['uid']),
-                                                                                          dementiaCloth(element['uid'], cloth),
-                                                                                          Navigator.pop(context),
-                                                                                          showDialog<void>(
-                                                                                            //다이얼로그 위젯 소환
-                                                                                            context: context,
-                                                                                            barrierDismissible: false, // 다이얼로그 이외의 바탕 눌러도 안꺼지도록 설정
-                                                                                            builder: (BuildContext context) {
-                                                                                              return AlertDialog(
-                                                                                                content: SingleChildScrollView(
-                                                                                                  child: ListBody(
-                                                                                                    //List Body를 기준으로 Text 설정
-                                                                                                    children: <Widget>[
+                                                                                  onPressed: () => {
+                                                                                    dementiaSos(element['uid']),
+                                                                                    dementiaCloth(element['uid'], cloth),
+                                                                                    Navigator.pop(context),
+                                                                                    showDialog<void>(
+                                                                                      //다이얼로그 위젯 소환
+                                                                                      context: context,
+                                                                                      barrierDismissible: false, // 다이얼로그 이외의 바탕 눌러도 안꺼지도록 설정
+                                                                                      builder: (BuildContext context) {
+                                                                                        return AlertDialog(
+                                                                                          content: SingleChildScrollView(
+                                                                                            child: ListBody(
+                                                                                              //List Body를 기준으로 Text 설정
+                                                                                              children: <Widget>[
+                                                                                                Center(
+                                                                                                  child: Column(
+                                                                                                    children: [
+                                                                                                      SizedBox(
+                                                                                                        height: 40,
+                                                                                                      ),
+                                                                                                      Image.asset("assets/signupmark.png"),
+                                                                                                      SizedBox(
+                                                                                                        height: 60,
+                                                                                                      ),
+                                                                                                      Text('Successful in calling', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
                                                                                                       Center(
-                                                                                                        child: Column(
-                                                                                                          children: [
-                                                                                                            SizedBox(
-                                                                                                              height: 40,
+                                                                                                        child: Text('for Help', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+                                                                                                      ),
+                                                                                                      SizedBox(
+                                                                                                        height: 40,
+                                                                                                      ),
+                                                                                                      Center(child: Text('Escorteres can now locate the')),
+                                                                                                      Center(child: Text('patient')),
+                                                                                                      SizedBox(
+                                                                                                        height: 60,
+                                                                                                      ),
+                                                                                                      SizedBox(
+                                                                                                        width: MediaQuery.of(context).size.width * 0.6,
+                                                                                                        height: MediaQuery.of(context).size.height * 0.05,
+                                                                                                        child: ElevatedButton(
+                                                                                                          style: ElevatedButton.styleFrom(
+                                                                                                            primary: Color(0xCC10403B),
+                                                                                                            shape: RoundedRectangleBorder(
+                                                                                                              borderRadius: BorderRadius.circular(30.0),
                                                                                                             ),
-                                                                                                            Image.asset("assets/signupmark.png"),
-                                                                                                            SizedBox(
-                                                                                                              height: 60,
-                                                                                                            ),
-                                                                                                            Text('Successful in calling', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-                                                                                                            Center(
-                                                                                                              child: Text('for Help', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-                                                                                                            ),
-                                                                                                            SizedBox(
-                                                                                                              height: 40,
-                                                                                                            ),
-                                                                                                            Center(child: Text('Escorteres can now locate the')),
-                                                                                                            Center(child: Text('patient')),
-                                                                                                            SizedBox(
-                                                                                                              height: 60,
-                                                                                                            ),
-                                                                                                            SizedBox(
-                                                                                                              width: MediaQuery.of(context).size.width * 0.6,
-                                                                                                              height: MediaQuery.of(context).size.height * 0.05,
-                                                                                                              child: ElevatedButton(
-                                                                                                                style: ElevatedButton.styleFrom(
-                                                                                                                  primary: Color(0xCC10403B),
-                                                                                                                  shape: RoundedRectangleBorder(
-                                                                                                                    borderRadius: BorderRadius.circular(30.0),
-                                                                                                                  ),
-                                                                                                                ),
-                                                                                                                onPressed: () {
-                                                                                                                  Navigator.pop(context);
-                                                                                                                },
-                                                                                                                child: Text('close'),
-                                                                                                              ),
-                                                                                                            ),
-                                                                                                          ],
+                                                                                                          ),
+                                                                                                          onPressed: () {
+                                                                                                            Navigator.pop(context);
+                                                                                                          },
+                                                                                                          child: Text('close'),
                                                                                                         ),
                                                                                                       ),
                                                                                                     ],
                                                                                                   ),
                                                                                                 ),
-                                                                                              );
-                                                                                            },
-                                                                                          )
-                                                                                        },
-                                                                                    child: Text("Continue"),
-                                                                                    style: ElevatedButton.styleFrom(
-                                                                                      primary: Color.fromRGBO(16, 64, 59, 10),
-                                                                                    )),
+                                                                                              ],
+                                                                                            ),
+                                                                                          ),
+                                                                                        );
+                                                                                      },
+                                                                                    )
+                                                                                  },
+                                                                                  child: Text("Continue"),
+                                                                                  style: ButtonStyle(
+                                                                                    backgroundColor: MaterialStateColor.resolveWith(
+                                                                                      (states) => Color.fromRGBO(16, 64, 59, 1),
+                                                                                    ),
+                                                                                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                                                                      RoundedRectangleBorder(
+                                                                                        borderRadius: BorderRadius.circular(20.0),
+                                                                                      ),
+                                                                                    ),
+                                                                                  ),
+                                                                                ),
                                                                               ),
                                                                             ),
                                                                           ])),
