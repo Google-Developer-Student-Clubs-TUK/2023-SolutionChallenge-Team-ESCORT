@@ -267,12 +267,12 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
                                                   width: MediaQuery.of(context)
                                                           .size
                                                           .width *
-                                                      0.4,
+                                                      0.45,
                                                   child: Column(children: [
                                                     Padding(
                                                       padding:
                                                           const EdgeInsets.only(
-                                                              top: 40.0),
+                                                              top: 50.0),
                                                       child: Container(
                                                         width: MediaQuery.of(
                                                                     context)
@@ -290,10 +290,18 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
                                                                     fontSize:
                                                                         20),
                                                               ),
-                                                              Image.asset(
-                                                                "assets/safemarker2.png",
-                                                                width: 20,
-                                                                height: 20,
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                            .only(
+                                                                        left:
+                                                                            7.0),
+                                                                child:
+                                                                    Image.asset(
+                                                                  "assets/safemarker2.png",
+                                                                  width: 18,
+                                                                  height: 18,
+                                                                ),
                                                               )
                                                             ]),
                                                       ),
@@ -301,13 +309,13 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
                                                     Padding(
                                                       padding:
                                                           const EdgeInsets.only(
-                                                              top: 10.0),
+                                                              top: 15.0),
                                                       child: Container(
                                                         width: MediaQuery.of(
                                                                     context)
                                                                 .size
                                                                 .width *
-                                                            0.5,
+                                                            0.6,
                                                         child: Text(
                                                           element['safeZones']
                                                               [0],
