@@ -967,6 +967,11 @@ class _SignUpState6 extends State<SignUp6> {
     );
   }
 
+  Future<List<Location>> getLocationFromAddress(String? address) async {
+    List<Location> locations = await locationFromAddress(address!);
+    return locations;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -1016,7 +1021,7 @@ class _SignUpState6 extends State<SignUp6> {
               ),
               SizedBox(
                 width: 330,
-                height: 500,
+                height: 600,
                 child: Column(
                   children: [
                     Container(
@@ -1027,60 +1032,72 @@ class _SignUpState6 extends State<SignUp6> {
                         placeholder: 'Search',
                         apiKey: kGoogleApiKey,
                         onSearch: (Place place) {},
-                        onSelected: (Place place) async {},
+                        onSelected: (Place place) async {
+                          print(place.description);
+                          var location =
+                              await getLocationFromAddress(place.description);
+                          setState(() {
+                            _center = LatLng(
+                                location[0].latitude, location[0].longitude);
+                          });
+
+                          _onMapCreated(mapController!);
+                        },
                       ),
                     ),
-                    Container(
-                      height: 360,
-                      child: GoogleMap(
-                        onMapCreated: _onMapCreated,
-                        initialCameraPosition: CameraPosition(
-                          target: _center,
-                          zoom: 17.0,
-                        ),
-                        myLocationButtonEnabled: true,
-                        myLocationEnabled: true,
-                        circles: Set<Circle>.of(
-                          [
-                            Circle(
-                              circleId: CircleId("safeZone"),
-                              center: _center,
-                              radius:
-                                  _radius, // 이 값을 사용자가 슬라이더에서 선택한 값으로 변경하십시오.
-                              fillColor: Colors.green.withOpacity(0.5),
-                              strokeWidth: 2,
-                              strokeColor: Colors.green,
-                            ),
-                          ],
-                        ),
-                        onCameraMove: (CameraPosition position) async {
-                          BitmapDescriptor markerIcon =
-                              await BitmapDescriptor.fromAssetImage(
-                            ImageConfiguration(size: Size(48, 48)),
-                            '/assets/setsafezone.png.png',
-                          );
-                          final marker = await Marker(
-                            icon: markerIcon,
-                            markerId: MarkerId(position.target.toString()),
-                            position: position.target,
-                            infoWindow: InfoWindow(
-                              title: 'Camera position',
-                              snippet: position.target.toString(),
-                            ),
-                          );
-                          setState(() {
-                            _marker = Marker(
+                    Flexible(
+                      child: Container(
+                        height: 360,
+                        child: GoogleMap(
+                          onMapCreated: _onMapCreated,
+                          initialCameraPosition: CameraPosition(
+                            target: _center,
+                            zoom: 17.0,
+                          ),
+                          myLocationButtonEnabled: true,
+                          myLocationEnabled: true,
+                          circles: Set<Circle>.of(
+                            [
+                              Circle(
+                                circleId: CircleId("safeZone"),
+                                center: _center,
+                                radius:
+                                    _radius, // 이 값을 사용자가 슬라이더에서 선택한 값으로 변경하십시오.
+                                fillColor: Colors.green.withOpacity(0.5),
+                                strokeWidth: 2,
+                                strokeColor: Colors.green,
+                              ),
+                            ],
+                          ),
+                          onCameraMove: (CameraPosition position) async {
+                            BitmapDescriptor markerIcon =
+                                await BitmapDescriptor.fromAssetImage(
+                              ImageConfiguration(size: Size(48, 48)),
+                              '/assets/setsafezone.png.png',
+                            );
+                            final marker = await Marker(
+                              icon: markerIcon,
                               markerId: MarkerId(position.target.toString()),
                               position: position.target,
-                              icon: markerIcon,
                               infoWindow: InfoWindow(
                                 title: 'Camera position',
                                 snippet: position.target.toString(),
                               ),
                             );
-                          });
-                        },
-                        markers: _marker != null ? {_marker!}.toSet() : {},
+                            setState(() {
+                              _marker = Marker(
+                                markerId: MarkerId(position.target.toString()),
+                                position: position.target,
+                                icon: markerIcon,
+                                infoWindow: InfoWindow(
+                                  title: 'Camera position',
+                                  snippet: position.target.toString(),
+                                ),
+                              );
+                            });
+                          },
+                          markers: _marker != null ? {_marker!}.toSet() : {},
+                        ),
                       ),
                     ),
                     Row(
