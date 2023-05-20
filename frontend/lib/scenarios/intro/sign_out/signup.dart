@@ -1014,12 +1014,13 @@ class _SignUpState6 extends State<SignUp6> {
               Container(
                 height: 25,
               ),
-              Padding(
-                padding: const EdgeInsets.only(right: 270, bottom: 20, top: 20),
-                child: Text(
-                  "Safe Zone",
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
+              SearchGooglePlacesWidget(
+                placeType: PlaceType
+                    .address, // PlaceType.cities, PlaceType.geocode, PlaceType.region etc
+                placeholder: 'Search',
+                apiKey: kGoogleApiKey,
+                onSearch: (Place place) {},
+                onSelected: (Place place) async {},
               ),
               SizedBox(
                 width: 350,
@@ -1216,16 +1217,6 @@ class _SignUpState6 extends State<SignUp6> {
   }
 }
 
-Circle _createSafeZoneCircle() {
-  final double radius = 100; // 초기 safezone 반경 설정 (미터 단위)
-  return Circle(
-    circleId: CircleId('safezone'),
-    center: LatLng(37.7749, -122.4194), // initialCameraPosition target과 동일
-    radius: radius,
-    fillColor: Color.fromRGBO(0, 255, 0, 0.3), // 투명한 녹색 색상
-    strokeWidth: 0,
-  );
-}
 
 
 /*
