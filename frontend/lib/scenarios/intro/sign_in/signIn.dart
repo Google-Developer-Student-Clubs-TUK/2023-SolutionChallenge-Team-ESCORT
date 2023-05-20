@@ -64,7 +64,7 @@ updateDeviceToken(deviceToken, uid) async {
   var request = http.Request(
       'PUT',
       Uri.parse(
-          'http://34.22.70.120:8080/api/v1/ppConnection/deviceToken/$uid'));
+          'http://34.22.87.100:8080/api/v1/ppConnection/deviceToken/$uid'));
   request.bodyFields = {'deviceToken': deviceToken};
   request.headers.addAll(headers);
 
@@ -101,6 +101,9 @@ class _SignInState extends State<SignIn> {
       print("token ! ! !");
       print(token);
 
+      print(id);
+      print(password);
+
       UserCredential userCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: id, password: password)
           //아이디와 비밀번호로 로그인 시도
@@ -113,6 +116,8 @@ class _SignInState extends State<SignIn> {
               .get();
 
           print(documentSnapshot.data());
+
+          print("navigation test");
 
           final data = documentSnapshot.data() as Map<String, dynamic>;
 
@@ -224,7 +229,7 @@ class _SignInState extends State<SignIn> {
                       ),
                     ),
                   ),
-                  onChanged: (value) => {id = value},
+                  onChanged: (value) => {id = value, print(id)},
                 ),
               ),
               Padding(
@@ -263,7 +268,7 @@ class _SignInState extends State<SignIn> {
                       ),
                     ),
                   ),
-                  onChanged: (value) => {password = value},
+                  onChanged: (value) => {password = value, print(password)},
                 ),
               ),
               Padding(

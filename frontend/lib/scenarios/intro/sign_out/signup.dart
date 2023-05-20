@@ -1021,7 +1021,7 @@ class _SignUpState6 extends State<SignUp6> {
               ),
               SizedBox(
                 width: 330,
-                height: 600,
+                height: 500,
                 child: Column(
                   children: [
                     Container(
