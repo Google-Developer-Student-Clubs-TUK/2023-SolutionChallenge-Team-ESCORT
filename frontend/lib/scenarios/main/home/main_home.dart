@@ -232,6 +232,11 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
                                               margin: EdgeInsets.all(16.0),
                                               child: Row(children: [
                                                 Container(
+                                                  decoration: BoxDecoration(
+                                                    borderRadius: BorderRadius
+                                                        .all(Radius.circular(
+                                                            20)), // 20 is the radius
+                                                  ),
                                                   padding: EdgeInsets.all(20),
                                                   width: MediaQuery.of(context)
                                                           .size
@@ -242,9 +247,19 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
                                                           .height *
                                                       0.18,
                                                   child: Container(
-                                                    child: Image.network(
-                                                      element['imageUrl'],
-                                                      fit: BoxFit.fill,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius: BorderRadius
+                                                          .all(Radius.circular(
+                                                              20)), // 20 is the radius
+                                                    ),
+                                                    child: ClipRRect(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              15.0),
+                                                      child: Image.network(
+                                                        element['imageUrl'],
+                                                        fit: BoxFit.fill,
+                                                      ),
                                                     ),
                                                   ),
                                                 ),
