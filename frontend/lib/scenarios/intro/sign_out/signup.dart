@@ -1165,6 +1165,11 @@ class _SignUpState6 extends State<SignUp6> {
                   barrierDismissible: false, // 다이얼로그 이외의 바탕 눌러도 안꺼지도록 설정
                   builder: (BuildContext context) {
                     return AlertDialog(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(30.0),
+                        ),
+                      ),
                       content: SingleChildScrollView(
                         child: ListBody(
                           //List Body를 기준으로 Text 설정
@@ -1177,7 +1182,7 @@ class _SignUpState6 extends State<SignUp6> {
                                   ),
                                   Image.asset("assets/signupmark.png"),
                                   SizedBox(
-                                    height: 60,
+                                    height: 30,
                                   ),
                                   Text('Sign Up Successful!',
                                       style: TextStyle(
@@ -1195,7 +1200,7 @@ class _SignUpState6 extends State<SignUp6> {
                                     width:
                                         MediaQuery.of(context).size.width * 0.6,
                                     height: MediaQuery.of(context).size.height *
-                                        0.05,
+                                        0.07,
                                     child: ElevatedButton(
                                       style: ElevatedButton.styleFrom(
                                         primary: Color(0xCC10403B),

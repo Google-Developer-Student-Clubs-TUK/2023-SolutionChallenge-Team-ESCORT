@@ -676,6 +676,11 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
                                                                                       barrierDismissible: false, // 다이얼로그 이외의 바탕 눌러도 안꺼지도록 설정
                                                                                       builder: (BuildContext context) {
                                                                                         return AlertDialog(
+                                                                                          shape: RoundedRectangleBorder(
+                                                                                            borderRadius: BorderRadius.all(
+                                                                                              Radius.circular(30.0),
+                                                                                            ),
+                                                                                          ),
                                                                                           content: SingleChildScrollView(
                                                                                             child: ListBody(
                                                                                               //List Body를 기준으로 Text 설정
@@ -686,25 +691,25 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
                                                                                                       SizedBox(
                                                                                                         height: 40,
                                                                                                       ),
-                                                                                                      Image.asset("assets/signupmark.png"),
+                                                                                                      Image.asset("assets/calling.png"),
                                                                                                       SizedBox(
-                                                                                                        height: 60,
+                                                                                                        height: 30,
                                                                                                       ),
                                                                                                       Text('Successful in calling', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
                                                                                                       Center(
                                                                                                         child: Text('for Help', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
                                                                                                       ),
                                                                                                       SizedBox(
-                                                                                                        height: 40,
+                                                                                                        height: 30,
                                                                                                       ),
                                                                                                       Center(child: Text('Escorteres can now locate the')),
                                                                                                       Center(child: Text('patient')),
                                                                                                       SizedBox(
-                                                                                                        height: 60,
+                                                                                                        height: 30,
                                                                                                       ),
                                                                                                       SizedBox(
                                                                                                         width: MediaQuery.of(context).size.width * 0.6,
-                                                                                                        height: MediaQuery.of(context).size.height * 0.05,
+                                                                                                        height: MediaQuery.of(context).size.height * 0.08,
                                                                                                         child: ElevatedButton(
                                                                                                           style: ElevatedButton.styleFrom(
                                                                                                             primary: Color(0xCC10403B),
@@ -715,7 +720,7 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
                                                                                                           onPressed: () {
                                                                                                             Navigator.pop(context);
                                                                                                           },
-                                                                                                          child: Text('close'),
+                                                                                                          child: Text('Go to Home'),
                                                                                                         ),
                                                                                                       ),
                                                                                                     ],
