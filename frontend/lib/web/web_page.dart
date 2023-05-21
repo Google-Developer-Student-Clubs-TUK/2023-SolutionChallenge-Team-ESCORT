@@ -5,16 +5,25 @@ import 'package:flutter/material.dart';
 class WebPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final featureGlobalKey = GlobalKey();
     double mediaQuery = MediaQuery.of(context).size.width;
 
     return Scaffold(
       body: Container(
         color: Color(0xFFF2F2F2),
-        child: ListView(
-          children: [
-            buildTitleScreen(mediaQuery),
-            buildFeatureScreen(mediaQuery),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              buildTitleScreen(mediaQuery, () {
+                Scrollable.ensureVisible(
+                  featureGlobalKey.currentContext!,
+                  duration: Duration(milliseconds: 1500),
+                  curve: Curves.easeInOut,
+                );
+              }),
+              buildFeatureScreen(featureGlobalKey, mediaQuery),
+            ],
+          ),
         ),
       ),
     );

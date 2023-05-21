@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Widget buildTitleScreen(double mediaQuery) {
+Widget buildTitleScreen(double mediaQuery, Function() onScrollToFeature) {
   final primaryColor = Color(0xFF10403B);
 
   return Stack(
@@ -16,9 +16,9 @@ Widget buildTitleScreen(double mediaQuery) {
         child: Padding(
           padding: EdgeInsets.fromLTRB(
             mediaQuery * 0.104,
-            58,
+            80,
             mediaQuery * 0.104,
-            120,
+            180,
           ),
           child: Column(
             children: [
@@ -44,7 +44,7 @@ Widget buildTitleScreen(double mediaQuery) {
                   ),
                 ],
               ),
-              SizedBox(height: 70),
+              SizedBox(height: 100),
               Row(
                 children: [
                   Expanded(
@@ -67,28 +67,25 @@ Widget buildTitleScreen(double mediaQuery) {
                           textAlign: TextAlign.start,
                         ),
                         SizedBox(height: 30),
-                        Row(
-                          children: [
-                            InkWell(
-                              onTap: () {},
-                              borderRadius: BorderRadius.circular(100),
-                              child: Ink(
-                                decoration: BoxDecoration(
-                                  color: primaryColor,
-                                  borderRadius: BorderRadius.circular(100),
-                                ),
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 35, vertical: 15),
-                                child: Text(
-                                  'How to use?',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500),
-                                ),
+                        FilledButton(
+                          onPressed: onScrollToFeature,
+                          style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all(primaryColor),
+                            padding: MaterialStateProperty.all(
+                              EdgeInsets.symmetric(
+                                horizontal: 35,
+                                vertical: 25,
                               ),
                             ),
-                          ],
+                          ),
+                          child: Text(
+                            'How to use?',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500),
+                          ),
                         ),
                       ],
                     ),
