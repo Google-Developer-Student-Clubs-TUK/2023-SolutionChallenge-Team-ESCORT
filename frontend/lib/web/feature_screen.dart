@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 Widget buildFeatureScreen(GlobalKey globalKey, double mediaQuery) => Container(
       key: globalKey,
       child: Padding(
-        padding: EdgeInsets.fromLTRB(60, 200, 60, 200),
+        padding: EdgeInsets.fromLTRB(60, 240, 60, 240),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -97,8 +97,6 @@ Widget buildFeatureScreen(GlobalKey globalKey, double mediaQuery) => Container(
     );
 
 Widget _buildNumber(int number) => Container(
-// width: 40,
-// height: 40,
       decoration: BoxDecoration(
         color: Color(0xFF347E5B),
         borderRadius: BorderRadius.circular(20),
@@ -110,7 +108,7 @@ Widget _buildNumber(int number) => Container(
           style: TextStyle(
             color: Colors.white,
             fontSize: 24,
-            fontWeight: FontWeight.bold,
+            fontWeight: FontWeight.w600,
           ),
         ),
       ),
@@ -132,7 +130,7 @@ Widget _buildFeature(int number, String title, String description,
         SizedBox(height: 18),
         Text(
           description,
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
           textAlign: textAlign,
         ),
       ],

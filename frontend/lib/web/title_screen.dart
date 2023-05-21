@@ -23,25 +23,31 @@ Widget buildTitleScreen(double mediaQuery, Function() onScrollToFeature) {
           child: Column(
             children: [
               Row(
-                children: [
+                children: const [
+                  Image(
+                    width: 36,
+                    height: 36,
+                    image: AssetImage('assets/web_logo.png'),
+                  ),
+                  SizedBox(width: 16),
                   Text(
                     'Escort',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(
-                    width: 113,
-                  ),
-                  TextButton(
-                    onPressed: () {},
-                    child: Text('Home'),
-                  ),
-                  SizedBox(
-                    width: 50,
-                  ),
-                  TextButton(
-                    onPressed: () {},
-                    child: Text('Submit'),
-                  ),
+                  // SizedBox(
+                  //   width: 113,
+                  // ),
+                  // TextButton(
+                  //   onPressed: () {},
+                  //   child: Text('Home', style: TextStyle(color: Color(0xFF212121), fontSize: 16, fontWeight: FontWeight.w600),),
+                  // ),
+                  // SizedBox(
+                  //   width: 50,
+                  // ),
+                  // TextButton(
+                  //   onPressed: () {},
+                  //   child: Text('Submit'),
+                  // ),
                 ],
               ),
               SizedBox(height: 100),
@@ -60,10 +66,7 @@ Widget buildTitleScreen(double mediaQuery, Function() onScrollToFeature) {
                         SizedBox(height: 24),
                         Text(
                           'Escort allows people who have family members with dementia or who want to help seniors with dementia to sign up as companions on the app, creating a global network of people andits own hotline.',
-                          style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w300,
-                              height: 1.6),
+                          style: TextStyle(fontSize: 18, height: 1.6),
                           textAlign: TextAlign.start,
                         ),
                         SizedBox(height: 30),
@@ -80,7 +83,7 @@ Widget buildTitleScreen(double mediaQuery, Function() onScrollToFeature) {
                             ),
                           ),
                           child: Text(
-                            'How to use?',
+                            'Discover features',
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 16,
@@ -90,7 +93,7 @@ Widget buildTitleScreen(double mediaQuery, Function() onScrollToFeature) {
                       ],
                     ),
                   ),
-                  SizedBox(width: 230),
+                  SizedBox(width: 520),
                   SizedBox(
                     width: mediaQuery * 0.178,
                     child: Image(

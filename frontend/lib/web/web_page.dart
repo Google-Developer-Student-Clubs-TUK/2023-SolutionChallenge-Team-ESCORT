@@ -1,4 +1,6 @@
+import 'package:escort/web/banner.dart';
 import 'package:escort/web/feature_screen.dart';
+import 'package:escort/web/partner_company_screen.dart';
 import 'package:escort/web/title_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -22,6 +24,14 @@ class WebPage extends StatelessWidget {
                 );
               }),
               buildFeatureScreen(featureGlobalKey, mediaQuery),
+              buildBanner(
+                mediaQuery,
+                'You can join the wait-list now',
+                'Are you a senior or caregiver interested in our service? Join our wait-list today. We\'ll invite you when the service launches.',
+                buttonText: 'Join wait-list',
+                onClick: () {},
+              ),
+              buildPartnerCompanyScreen(mediaQuery)
             ],
           ),
         ),
