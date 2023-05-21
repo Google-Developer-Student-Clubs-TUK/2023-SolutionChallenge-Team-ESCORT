@@ -215,15 +215,15 @@ Widget buildDementia(
               child: PageView(
                 children: [
                   _buildInformation(
-                    'Characteristics',
+                    'Characteristics'.tr,
                     dementiaInfo.characteristics,
                   ),
                   _buildInformation(
-                    'Safe Zone',
+                    'Safe Zone'.tr,
                     dementiaInfo.safeZone,
                   ),
                   _buildInformation(
-                    'Blood Type',
+                    'Blood Type'.tr,
                     dementiaInfo.bloodType,
                   ),
                 ],

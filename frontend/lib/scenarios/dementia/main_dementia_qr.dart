@@ -37,7 +37,7 @@ class MainDementiaQr extends StatelessWidget {
                     width: 12,
                   ),
                   Text(
-                    'QR Code',
+                    'QR Code'.tr,
                     style: TextStyle(
                         color: Color(0xFF10403B),
                         fontSize: 20,
@@ -90,9 +90,9 @@ class MainDementiaQr extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(left: 32, right: 32),
                 child: Column(
-                  children: const [
+                  children: [
                     Text(
-                      'QR code',
+                      'QR code'.tr,
                       style: TextStyle(
                           color: Color(0xFF212121),
                           fontSize: 24,
@@ -102,7 +102,7 @@ class MainDementiaQr extends StatelessWidget {
                       height: 20,
                     ),
                     Text(
-                      'Show Escorter and simply register with each other!',
+                      'Show Escorter and simply register with each other!'.tr,
                       style: TextStyle(
                         color: Color(0xFF212121),
                         fontSize: 16,
@@ -121,7 +121,7 @@ class MainDementiaQr extends StatelessWidget {
                       children: [
                         buildToolButton(
                           Icons.share,
-                          'Share',
+                          'Share'.tr,
                           () {
                             print("Share");
                           },
@@ -131,7 +131,7 @@ class MainDementiaQr extends StatelessWidget {
                         ),
                         buildToolButton(
                           Icons.save_alt,
-                          'Save',
+                          'Save'.tr,
                           () {
                             print("Save");
                           },
