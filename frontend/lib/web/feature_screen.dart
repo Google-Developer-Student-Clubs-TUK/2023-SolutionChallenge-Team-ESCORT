@@ -9,7 +9,7 @@ Widget buildFeatureScreen(GlobalKey globalKey, double mediaQuery) => Container(
         padding: EdgeInsets.fromLTRB(60, 240, 60, 240),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Expanded(
               child: Column(

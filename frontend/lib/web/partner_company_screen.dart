@@ -10,7 +10,7 @@ Widget buildPartnerCompanyScreen(double mediaQuery) {
           fit: FlexFit.tight,
           child: Center(
             child: Image(
-              width: mediaQuery * 0.14,
+              width: 300,
               image: AssetImage('assets/iphone14_splash.png'),
             ),
           ),
@@ -46,7 +46,10 @@ Widget buildPartnerCompanyScreen(double mediaQuery) {
                   onPressed: () {},
                   style: ButtonStyle(
                     padding: MaterialStateProperty.all(
-                      EdgeInsets.symmetric(horizontal: 40, vertical: 25),
+                        EdgeInsets.symmetric(
+                          horizontal: 35,
+                          vertical: 25,
+                        )
                     ),
                     backgroundColor: MaterialStateProperty.all(
                       Color(0xFF10403B),

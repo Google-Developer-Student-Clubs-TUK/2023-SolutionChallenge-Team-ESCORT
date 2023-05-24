@@ -10,7 +10,7 @@ Widget buildTitleScreen(double mediaQuery, Function() onScrollToFeature) {
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: const [Color(0x0A347E5B), Color(0x0AF2F2F2)],
+            colors: const [Color(0x33347E5B), Color(0x0AF2F2F2)],
           ),
         ),
         child: Padding(
@@ -93,9 +93,9 @@ Widget buildTitleScreen(double mediaQuery, Function() onScrollToFeature) {
                       ],
                     ),
                   ),
-                  SizedBox(width: 520),
+                  SizedBox(width: mediaQuery * 0.2),
                   SizedBox(
-                    width: mediaQuery * 0.178,
+                    width: 300,
                     child: Image(
                       image: AssetImage('assets/iphone14_splash.png'),
                     ),
