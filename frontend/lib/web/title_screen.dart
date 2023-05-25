@@ -86,7 +86,7 @@ Widget buildTitleScreen(double mediaQuery, Function() onScrollToFeature) {
                             'Discover features',
                             style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 16,
+                                fontSize: 20,
                                 fontWeight: FontWeight.w500),
                           ),
                         ),

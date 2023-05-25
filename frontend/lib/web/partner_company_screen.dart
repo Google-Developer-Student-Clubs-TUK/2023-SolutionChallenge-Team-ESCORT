@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Widget buildPartnerCompanyScreen(double mediaQuery) {
+Widget buildPartnerCompanyScreen(double mediaQuery, Function() onShowCompanySubmitAlert) {
   return Padding(
     padding: EdgeInsets.symmetric(vertical: 200),
     child: Row(
@@ -43,7 +43,7 @@ Widget buildPartnerCompanyScreen(double mediaQuery) {
                 ),
                 SizedBox(height: 40),
                 FilledButton(
-                  onPressed: () {},
+                  onPressed: onShowCompanySubmitAlert,
                   style: ButtonStyle(
                     padding: MaterialStateProperty.all(
                         EdgeInsets.symmetric(

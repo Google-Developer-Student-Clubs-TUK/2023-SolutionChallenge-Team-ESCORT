@@ -44,7 +44,7 @@ Widget buildBanner(double mediaQuery, String title, String description,
               'Join now',
               style: TextStyle(
                   color: Colors.white,
-                  fontSize: 16,
+                  fontSize: 20,
                   fontWeight: FontWeight.w600),
             ),
           ),
