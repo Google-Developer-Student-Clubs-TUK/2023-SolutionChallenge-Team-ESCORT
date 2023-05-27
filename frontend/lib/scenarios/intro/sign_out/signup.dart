@@ -4,10 +4,14 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:google_places_for_flutter/google_places_for_flutter.dart';
 import 'package:image_picker/image_picker.dart';
+
 import 'package:escort/scenarios/main/main.dart';
 
 import '../../firebase/firebase_auth.dart';
@@ -905,7 +909,10 @@ class _SignUpState5 extends State<SignUp5> {
   }
 }
 
+String? kGoogleApiKey = dotenv.env['API_KEY'];
+
 class _SignUpState6 extends State<SignUp6> {
+  Marker? _marker;
   final AuthController authController = Get.put(AuthController());
   GoogleMapController? mapController;
   double _radius = 50; // 초기 반경을 50미터로 설정합니다.
@@ -954,10 +961,35 @@ class _SignUpState6 extends State<SignUp6> {
       CameraUpdate.newCameraPosition(
         CameraPosition(
           target: _center,
-          zoom: 11.0,
+          zoom: 17.0,
         ),
       ),
     );
+  }
+
+  void _moveCameraToLatLng(LatLng target) {
+    mapController!.animateCamera(
+      CameraUpdate.newCameraPosition(
+        CameraPosition(
+          target: target,
+          zoom: 17.0,
+        ),
+      ),
+    );
+  }
+
+  Future<List<Location>> getLocationFromAddress(String? address) async {
+    List<Location> locations = await locationFromAddress(address!);
+    print("location complete");
+    return locations;
+  }
+
+  void _moveCamera(double latitude, double longitude) {
+    mapController
+        ?.animateCamera(CameraUpdate.newLatLng(LatLng(latitude, longitude)));
+    setState(() {
+      _center = LatLng(latitude, longitude);
+    });
   }
 
   @override
@@ -1001,12 +1033,14 @@ class _SignUpState6 extends State<SignUp6> {
                         TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
               ),
               Padding(
+
                 padding: const EdgeInsets.only(right: 90),
                 child: Text("Search the address or move the map".tr),
               ),
               Container(
                 height: 25,
               ),
+
               Padding(
                 padding: const EdgeInsets.only(right: 270, bottom: 20, top: 20),
                 child: Text(
@@ -1015,16 +1049,33 @@ class _SignUpState6 extends State<SignUp6> {
                 ),
               ),
               SizedBox(
-                width: 350,
-                height: 350,
+                width: 330,
+                height: 500,
                 child: Column(
                   children: [
+                    Container(
+                      width: 330,
+                      child: SearchGooglePlacesWidget(
+                        placeType: PlaceType
+                            .address, // PlaceType.cities, PlaceType.geocode, PlaceType.region etc
+                        placeholder: 'Search',
+                        apiKey: kGoogleApiKey,
+                        onSearch: (Place place) {},
+                        onSelected: (Place place) async {
+                          print('address ${place.description}');
+                          var currLocation =
+                              await getLocationFromAddress(place.description);
+                          _moveCamera(currLocation[0].latitude,
+                              currLocation[0].longitude);
+                        },
+                      ),
+                    ),
                     Expanded(
                       child: GoogleMap(
                         onMapCreated: _onMapCreated,
                         initialCameraPosition: CameraPosition(
                           target: _center,
-                          zoom: 11.0,
+                          zoom: 17.0,
                         ),
                         myLocationButtonEnabled: true,
                         myLocationEnabled: true,
@@ -1041,19 +1092,113 @@ class _SignUpState6 extends State<SignUp6> {
                             ),
                           ],
                         ),
+                        onCameraMove: (CameraPosition position) async {
+                          BitmapDescriptor markerIcon =
+                              await BitmapDescriptor.fromAssetImage(
+                            ImageConfiguration(size: Size(48, 48)),
+                            '/assets/setsafezone.png.png',
+                          );
+                          final marker = await Marker(
+                            icon: markerIcon,
+                            markerId: MarkerId(position.target.toString()),
+                            position: position.target,
+                            infoWindow: InfoWindow(
+                              title: 'Camera position',
+                              snippet: position.target.toString(),
+                            ),
+                          );
+
+                          _onMapCreated(mapController!);
+                        },
                       ),
                     ),
-                    Slider(
-                      value: _radius,
-                      min: 50,
-                      max: 150,
-                      divisions: 100,
-                      label: _radius.round().toString(),
-                      onChanged: (double value) {
-                        setState(() {
-                          _radius = value;
-                        });
-                      },
+                    Flexible(
+                      child: Container(
+                        height: 360,
+                        child: GoogleMap(
+                          onMapCreated: _onMapCreated,
+                          initialCameraPosition: CameraPosition(
+                            target: _center,
+                            zoom: 17.0,
+                          ),
+                          myLocationButtonEnabled: true,
+                          myLocationEnabled: true,
+                          circles: Set<Circle>.of(
+                            [
+                              Circle(
+                                circleId: CircleId("safeZone"),
+                                center: _center,
+                                radius:
+                                    _radius, // 이 값을 사용자가 슬라이더에서 선택한 값으로 변경하십시오.
+                                fillColor: Colors.green.withOpacity(0.5),
+                                strokeWidth: 2,
+                                strokeColor: Colors.green,
+                              ),
+                            ],
+                          ),
+                          onCameraMove: (CameraPosition position) async {
+                            BitmapDescriptor markerIcon =
+                                await BitmapDescriptor.fromAssetImage(
+                              ImageConfiguration(size: Size(48, 48)),
+                              '/assets/setsafezone.png.png',
+                            );
+                            final marker = await Marker(
+                              icon: markerIcon,
+                              markerId: MarkerId(position.target.toString()),
+                              position: position.target,
+                              infoWindow: InfoWindow(
+                                title: 'Camera position',
+                                snippet: position.target.toString(),
+                              ),
+                            );
+                            setState(() {
+                              _marker = Marker(
+                                markerId: MarkerId(position.target.toString()),
+                                position: position.target,
+                                icon: markerIcon,
+                                infoWindow: InfoWindow(
+                                  title: 'Camera position',
+                                  snippet: position.target.toString(),
+                                ),
+                              );
+                            });
+                          },
+                          markers: _marker != null ? {_marker!}.toSet() : {},
+                        ),
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(Icons.zoom_out), // Zoom out icon
+                        Expanded(
+                          child: SliderTheme(
+                            data: SliderTheme.of(context).copyWith(
+                              thumbShape: RoundSliderThumbShape(
+                                  enabledThumbRadius:
+                                      5.0), // Adjust this value to change the thumb size
+
+                              trackHeight: 2.0,
+                            ),
+                            child: Slider(
+                              thumbColor: Color.fromRGBO(16, 64, 59, 10),
+                              activeColor: Color.fromRGBO(16, 64, 59, 10),
+                              inactiveColor: Color.fromRGBO(238, 240, 240, 1),
+                              value: _radius,
+                              min: 0,
+                              max: 150,
+                              divisions: 100,
+                              label: _radius.round().toString(),
+                              onChanged: (double value) {
+                                setState(() {
+                                  _radius = value;
+                                });
+                              },
+                            ),
+                          ),
+                        ),
+                        Icon(Icons.zoom_in), // Zoom in icon
+                      ],
                     ),
                   ],
                 ),
@@ -1087,6 +1232,11 @@ class _SignUpState6 extends State<SignUp6> {
                   barrierDismissible: false, // 다이얼로그 이외의 바탕 눌러도 안꺼지도록 설정
                   builder: (BuildContext context) {
                     return AlertDialog(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(30.0),
+                        ),
+                      ),
                       content: SingleChildScrollView(
                         child: ListBody(
                           //List Body를 기준으로 Text 설정
@@ -1099,7 +1249,7 @@ class _SignUpState6 extends State<SignUp6> {
                                   ),
                                   Image.asset("assets/signupmark.png"),
                                   SizedBox(
-                                    height: 60,
+                                    height: 30,
                                   ),
                                   Text('Sign Up Successful!'.tr,
                                       style: TextStyle(
@@ -1117,7 +1267,7 @@ class _SignUpState6 extends State<SignUp6> {
                                     width:
                                         MediaQuery.of(context).size.width * 0.6,
                                     height: MediaQuery.of(context).size.height *
-                                        0.05,
+                                        0.07,
                                     child: ElevatedButton(
                                       style: ElevatedButton.styleFrom(
                                         primary: Color(0xCC10403B),
@@ -1160,16 +1310,6 @@ class _SignUpState6 extends State<SignUp6> {
   }
 }
 
-Circle _createSafeZoneCircle() {
-  final double radius = 100; // 초기 safezone 반경 설정 (미터 단위)
-  return Circle(
-    circleId: CircleId('safezone'),
-    center: LatLng(37.7749, -122.4194), // initialCameraPosition target과 동일
-    radius: radius,
-    fillColor: Color.fromRGBO(0, 255, 0, 0.3), // 투명한 녹색 색상
-    strokeWidth: 0,
-  );
-}
 
 
 /*

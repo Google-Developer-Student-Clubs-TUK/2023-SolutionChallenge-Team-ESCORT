@@ -64,7 +64,7 @@ class DementiaLocationTracker {
 void dementiaSos(dementiauid) async {
   var headers = {'Content-Type': 'application/x-www-form-urlencoded'};
   var request =
-      http.Request('POST', Uri.parse('http://34.22.70.120:8080/api/v1/sos'));
+      http.Request('POST', Uri.parse('http://34.22.87.100:8080/api/v1/sos'));
   request.bodyFields = {'protegeUId': dementiauid};
   request.headers.addAll(headers);
 
@@ -79,7 +79,7 @@ void dementiaSos(dementiauid) async {
 void dementiaCloth(dementiauid, cloth) async {
   var headers = {'Content-Type': 'application/x-www-form-urlencoded'};
   var request = http.Request(
-      'PUT', Uri.parse('http://34.22.70.120:8080/api/v1/protege/$dementiauid'));
+      'PUT', Uri.parse('http://34.22.87.100:8080/api/v1/protege/$dementiauid'));
   request.bodyFields = {'clothing': cloth};
   request.headers.addAll(headers);
 
@@ -94,7 +94,7 @@ void dementiaCloth(dementiauid, cloth) async {
 
 void cancleSos(dementauid) async {
   var request = http.Request('DELETE',
-      Uri.parse('http://34.22.70.120:8080/api/v1/protege/$dementauid'));
+      Uri.parse('http://34.22.87.100:8080/api/v1/protege/$dementauid'));
   request.bodyFields = {};
 
   http.StreamedResponse response = await request.send();
@@ -138,7 +138,7 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
     var request = http.MultipartRequest(
         'GET',
         Uri.parse(
-            'http://34.22.70.120:8080/api/v1/ppConnection/protector/$uId'));
+            'http://34.22.87.100:8080/api/v1/ppConnection/protector/$uId'));
 
     http.StreamedResponse response = await request.send();
 
@@ -207,20 +207,25 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
                                                 0.3,
                                         child: Column(
                                           children: [
-                                            Container(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.05,
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.002,
-                                              color: Colors.grey,
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 10.0),
+                                              child: Container(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.08,
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .height *
+                                                      0.004,
+                                                  color: Color.fromRGBO(
+                                                      207, 204, 212, 1)),
                                             ),
                                             Container(
                                               decoration: BoxDecoration(
-                                                  color: Colors.black12,
+                                                  color: Color.fromRGBO(
+                                                      64, 75, 99, 0.04),
                                                   borderRadius:
                                                       BorderRadius.all(
                                                           Radius.circular(20))),
@@ -232,6 +237,11 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
                                               margin: EdgeInsets.all(16.0),
                                               child: Row(children: [
                                                 Container(
+                                                  decoration: BoxDecoration(
+                                                    borderRadius: BorderRadius
+                                                        .all(Radius.circular(
+                                                            20)), // 20 is the radius
+                                                  ),
                                                   padding: EdgeInsets.all(20),
                                                   width: MediaQuery.of(context)
                                                           .size
@@ -242,9 +252,19 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
                                                           .height *
                                                       0.18,
                                                   child: Container(
-                                                    child: Image.network(
-                                                      element['imageUrl'],
-                                                      fit: BoxFit.fill,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius: BorderRadius
+                                                          .all(Radius.circular(
+                                                              20)), // 20 is the radius
+                                                    ),
+                                                    child: ClipRRect(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              15.0),
+                                                      child: Image.network(
+                                                        element['imageUrl'],
+                                                        fit: BoxFit.fill,
+                                                      ),
                                                     ),
                                                   ),
                                                 ),
@@ -252,12 +272,12 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
                                                   width: MediaQuery.of(context)
                                                           .size
                                                           .width *
-                                                      0.4,
+                                                      0.45,
                                                   child: Column(children: [
                                                     Padding(
                                                       padding:
                                                           const EdgeInsets.only(
-                                                              top: 40.0),
+                                                              top: 50.0),
                                                       child: Container(
                                                         width: MediaQuery.of(
                                                                     context)
@@ -275,10 +295,18 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
                                                                     fontSize:
                                                                         20),
                                                               ),
-                                                              Image.asset(
-                                                                "assets/safemarker2.png",
-                                                                width: 20,
-                                                                height: 20,
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                            .only(
+                                                                        left:
+                                                                            7.0),
+                                                                child:
+                                                                    Image.asset(
+                                                                  "assets/safemarker2.png",
+                                                                  width: 18,
+                                                                  height: 18,
+                                                                ),
                                                               )
                                                             ]),
                                                       ),
@@ -286,18 +314,24 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
                                                     Padding(
                                                       padding:
                                                           const EdgeInsets.only(
-                                                              top: 10.0),
+                                                              top: 15.0),
                                                       child: Container(
                                                         width: MediaQuery.of(
                                                                     context)
                                                                 .size
                                                                 .width *
-                                                            0.5,
+                                                            0.6,
                                                         child: Text(
                                                           element['safeZones']
                                                               [0],
                                                           style: TextStyle(
-                                                              fontSize: 15),
+                                                              fontSize: 15,
+                                                              color: Color
+                                                                  .fromRGBO(
+                                                                      59,
+                                                                      59,
+                                                                      59,
+                                                                      1)),
                                                           textAlign:
                                                               TextAlign.left,
                                                           maxLines: 2,
@@ -332,21 +366,25 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
                                                 0.35,
                                         child: Column(
                                           children: [
-                                            Container(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.05,
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.002,
-                                              color: Colors.grey,
-                                              margin: EdgeInsets.all(20.0),
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 10.0),
+                                              child: Container(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.08,
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .height *
+                                                      0.004,
+                                                  color: Color.fromRGBO(
+                                                      207, 204, 212, 1)),
                                             ),
                                             Container(
                                               decoration: BoxDecoration(
-                                                  color: Colors.black12,
+                                                  color: Color.fromRGBO(
+                                                      64, 75, 99, 0.04),
                                                   borderRadius:
                                                       BorderRadius.all(
                                                           Radius.circular(20))),
@@ -354,7 +392,7 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
                                               height: MediaQuery.of(context)
                                                       .size
                                                       .height *
-                                                  0.15,
+                                                  0.16,
                                               margin: EdgeInsets.all(16.0),
                                               child: Row(children: [
                                                 Container(
@@ -367,7 +405,10 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
                                                           .size
                                                           .height *
                                                       0.4,
-                                                  child: Container(
+                                                  child: ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            15.0),
                                                     child: Image.network(
                                                       element['imageUrl'],
                                                       fit: BoxFit.fill,
@@ -383,7 +424,7 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
                                                     Padding(
                                                       padding:
                                                           const EdgeInsets.only(
-                                                              top: 22.0),
+                                                              top: 27.0),
                                                       child: Container(
                                                         width: MediaQuery.of(
                                                                     context)
@@ -394,6 +435,10 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
                                                             mainAxisAlignment:
                                                                 MainAxisAlignment
                                                                     .start,
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .center, // Add this
+
                                                             children: [
                                                               Text(
                                                                 element['name'],
@@ -401,10 +446,18 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
                                                                     fontSize:
                                                                         20),
                                                               ),
-                                                              Image.asset(
-                                                                "assets/rounddangermarker2.png",
-                                                                width: 20,
-                                                                height: 20,
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                            .only(
+                                                                        left:
+                                                                            7.0),
+                                                                child:
+                                                                    Image.asset(
+                                                                  "assets/rounddangermarker2.png",
+                                                                  width: 18,
+                                                                  height: 18,
+                                                                ),
                                                               )
                                                             ]),
                                                       ),
@@ -441,12 +494,20 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.center,
                                                   children: [
-                                                    ElevatedButton(
-                                                        style: ElevatedButton
-                                                            .styleFrom(
-                                                                primary: Colors
-                                                                    .black12),
+                                                    Container(
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              0.4,
+                                                      height:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .height *
+                                                              0.08,
+                                                      child: ElevatedButton(
                                                         onPressed: () => {
+
                                                               Navigator.pop(
                                                                   context), // 바텀 시트를 닫습니다.
                                                               cancleSos(element[
@@ -472,14 +533,27 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
                                                           const EdgeInsets.only(
                                                               left: 30.0),
                                                       child: ElevatedButton(
-                                                          style: ElevatedButton
-                                                              .styleFrom(
-                                                            primary:
-                                                                Color.fromRGBO(
-                                                                    16,
-                                                                    64,
-                                                                    59,
-                                                                    10),
+                                                          style: ButtonStyle(
+                                                            backgroundColor:
+                                                                MaterialStateColor
+                                                                    .resolveWith(
+                                                              (states) => Color
+                                                                  .fromRGBO(
+                                                                      16,
+                                                                      64,
+                                                                      59,
+                                                                      1),
+                                                            ),
+                                                            shape: MaterialStateProperty
+                                                                .all<
+                                                                    RoundedRectangleBorder>(
+                                                              RoundedRectangleBorder(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            18.0),
+                                                              ),
+                                                            ),
                                                           ),
                                                           onPressed: () => {
                                                                 Navigator.pop(
@@ -515,15 +589,14 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
                                                                       child: Container(
                                                                           width: MediaQuery.of(context).size.width,
                                                                           height: MediaQuery.of(context).size.height * 0.35,
-                                                                          child: Column(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.start, children: [
+                                                                          child: Column(children: [
                                                                             Center(
-                                                                              child: Container(
-                                                                                width: MediaQuery.of(context).size.width * 0.05,
-                                                                                height: MediaQuery.of(context).size.height * 0.002,
-                                                                                color: Colors.grey,
-                                                                                margin: EdgeInsets.all(20.0),
+                                                                              child: Padding(
+                                                                                padding: const EdgeInsets.only(top: 10.0),
+                                                                                child: Container(width: MediaQuery.of(context).size.width * 0.08, height: MediaQuery.of(context).size.height * 0.004, color: Color.fromRGBO(207, 204, 212, 1)),
                                                                               ),
                                                                             ),
+
                                                                             Text(
                                                                               "Description".tr,
                                                                               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -531,6 +604,7 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
                                                                             SizedBox(
                                                                               height: 5,
                                                                             ),
+
                                                                             Text("If you know what he's wearing today, please write it".tr),
                                                                             SizedBox(
                                                                               height: 20,
@@ -538,14 +612,14 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
                                                                             Center(
                                                                               child: Container(
                                                                                 width: MediaQuery.of(context).size.width * 0.9,
-                                                                                height: MediaQuery.of(context).size.height * 0.06,
+                                                                                height: MediaQuery.of(context).size.height * 0.07,
                                                                                 child: TextFormField(
                                                                                   style: TextStyle(color: Colors.black),
                                                                                   decoration: InputDecoration(
                                                                                     filled: true,
                                                                                     fillColor: Colors.black12,
                                                                                     border: OutlineInputBorder(
-                                                                                      borderRadius: BorderRadius.circular(10.0),
+                                                                                      borderRadius: BorderRadius.circular(20.0),
                                                                                       borderSide: BorderSide(
                                                                                         width: 0,
                                                                                         style: BorderStyle.none,
@@ -566,23 +640,40 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
                                                                             Center(
                                                                               child: Container(
                                                                                 width: MediaQuery.of(context).size.width * 0.9,
-                                                                                height: MediaQuery.of(context).size.height * 0.06,
+                                                                                height: MediaQuery.of(context).size.height * 0.07,
                                                                                 child: ElevatedButton(
-                                                                                    onPressed: () => {
-                                                                                          dementiaSos(element['uid']),
-                                                                                          dementiaCloth(element['uid'], cloth),
-                                                                                          Navigator.pop(context),
-                                                                                          showDialog<void>(
-                                                                                            //다이얼로그 위젯 소환
-                                                                                            context: context,
-                                                                                            barrierDismissible: false, // 다이얼로그 이외의 바탕 눌러도 안꺼지도록 설정
-                                                                                            builder: (BuildContext context) {
-                                                                                              return AlertDialog(
-                                                                                                content: SingleChildScrollView(
-                                                                                                  child: ListBody(
-                                                                                                    //List Body를 기준으로 Text 설정
-                                                                                                    children: <Widget>[
+                                                                                  onPressed: () => {
+                                                                                    dementiaSos(element['uid']),
+                                                                                    dementiaCloth(element['uid'], cloth),
+                                                                                    Navigator.pop(context),
+                                                                                    showDialog<void>(
+                                                                                      //다이얼로그 위젯 소환
+                                                                                      context: context,
+                                                                                      barrierDismissible: false, // 다이얼로그 이외의 바탕 눌러도 안꺼지도록 설정
+                                                                                      builder: (BuildContext context) {
+                                                                                        return AlertDialog(
+                                                                                          shape: RoundedRectangleBorder(
+                                                                                            borderRadius: BorderRadius.all(
+                                                                                              Radius.circular(30.0),
+                                                                                            ),
+                                                                                          ),
+                                                                                          content: SingleChildScrollView(
+                                                                                            child: ListBody(
+                                                                                              //List Body를 기준으로 Text 설정
+                                                                                              children: <Widget>[
+                                                                                                Center(
+                                                                                                  child: Column(
+                                                                                                    children: [
+                                                                                                      SizedBox(
+                                                                                                        height: 40,
+                                                                                                      ),
+                                                                                                      Image.asset("assets/calling.png"),
+                                                                                                      SizedBox(
+                                                                                                        height: 30,
+                                                                                                      ),
+                                                                                                      Text('Successful in calling', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
                                                                                                       Center(
+
                                                                                                         child: Column(
                                                                                                           children: [
                                                                                                             SizedBox(
@@ -620,12 +711,17 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
                                                                                                                 child: Text('close'.tr),
                                                                                                               ),
                                                                                                             ),
-                                                                                                          ],
+                                                                                                          ),
+                                                                                                          onPressed: () {
+                                                                                                            Navigator.pop(context);
+                                                                                                          },
+                                                                                                          child: Text('Go to Home'),
                                                                                                         ),
                                                                                                       ),
                                                                                                     ],
                                                                                                   ),
                                                                                                 ),
+
                                                                                               );
                                                                                             },
                                                                                           )
@@ -651,7 +747,7 @@ class MapSampleState extends State<MapSample> with TickerProviderStateMixin {
                                                                         context)
                                                                     .size
                                                                     .height *
-                                                                0.05,
+                                                                0.08,
                                                             child: Center(
                                                                 child: Text(
                                                                     "Ask For Help".tr)),

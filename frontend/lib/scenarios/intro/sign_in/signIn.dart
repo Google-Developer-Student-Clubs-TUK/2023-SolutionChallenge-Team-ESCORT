@@ -64,7 +64,7 @@ updateDeviceToken(deviceToken, uid) async {
   var request = http.Request(
       'PUT',
       Uri.parse(
-          'http://34.22.70.120:8080/api/v1/ppConnection/deviceToken/$uid'));
+          'http://34.22.87.100:8080/api/v1/ppConnection/deviceToken/$uid'));
   request.bodyFields = {'deviceToken': deviceToken};
   request.headers.addAll(headers);
 
@@ -73,10 +73,15 @@ updateDeviceToken(deviceToken, uid) async {
   print(await response.stream.bytesToString());
 }
 
-class SignIn extends StatelessWidget {
-  final UserInfoController userinfocontroller = Get.put(UserInfoController());
-
+class SignIn extends StatefulWidget {
   SignIn({super.key});
+
+  @override
+  State<SignIn> createState() => _SignInState();
+}
+
+class _SignInState extends State<SignIn> {
+  final UserInfoController userinfocontroller = Get.put(UserInfoController());
 
   Future<void> firebaseLogin(id, password, BuildContext context) async {
     print("logintest");
@@ -96,6 +101,9 @@ class SignIn extends StatelessWidget {
       print("token ! ! !");
       print(token);
 
+      print(id);
+      print(password);
+
       UserCredential userCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: id, password: password)
           //아이디와 비밀번호로 로그인 시도
@@ -108,6 +116,8 @@ class SignIn extends StatelessWidget {
               .get();
 
           print(documentSnapshot.data());
+
+          print("navigation test");
 
           final data = documentSnapshot.data() as Map<String, dynamic>;
 
@@ -152,6 +162,11 @@ class SignIn extends StatelessWidget {
       }
     }
   }
+
+  bool _obscureText = true;
+
+  TextEditingController idController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -203,6 +218,7 @@ class SignIn extends StatelessWidget {
               SizedBox(
                 width: 350,
                 child: TextFormField(
+                  controller: idController,
                   style: TextStyle(color: Colors.black),
                   decoration: InputDecoration(
                     filled: true,
@@ -215,7 +231,12 @@ class SignIn extends StatelessWidget {
                       ),
                     ),
                   ),
-                  onChanged: (value) => {id = value},
+                  onChanged: (value) => {
+                    setState(() {
+                      id = value;
+                      print(id);
+                    })
+                  },
                 ),
               ),
               Padding(
@@ -228,8 +249,23 @@ class SignIn extends StatelessWidget {
               SizedBox(
                 width: 350,
                 child: TextFormField(
+                  controller: passwordController,
+                  obscureText: _obscureText,
                   style: TextStyle(color: Colors.black),
                   decoration: InputDecoration(
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        // Based on passwordVisible state choose the icon
+                        _obscureText ? Icons.visibility_off : Icons.visibility,
+                        color: Color.fromRGBO(16, 64, 59, 10),
+                      ),
+                      onPressed: () {
+                        // Update the state i.e. toogle the state of passwordVisible variable
+                        setState(() {
+                          _obscureText = !_obscureText;
+                        });
+                      },
+                    ),
                     filled: true,
                     fillColor: Colors.black12,
                     border: OutlineInputBorder(
@@ -240,7 +276,12 @@ class SignIn extends StatelessWidget {
                       ),
                     ),
                   ),
-                  onChanged: (value) => {password = value},
+                  onChanged: (value) => {
+                    setState(() {
+                      password = value;
+                      print(password);
+                    })
+                  },
                 ),
               ),
               Padding(
@@ -268,7 +309,10 @@ class SignIn extends StatelessWidget {
           child: SizedBox(
             height: 50,
             child: ElevatedButton(
-              onPressed: () => {firebaseLogin(id, password, context)},
+              onPressed: () => {
+                firebaseLogin(
+                    idController.text, passwordController.text, context)
+              },
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(50.0),

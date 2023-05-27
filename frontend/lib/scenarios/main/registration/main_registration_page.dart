@@ -97,7 +97,9 @@ class RegistrationPage extends StatelessWidget {
           padding: const EdgeInsets.only(bottom: 60.0),
           child: FloatingActionButton(
             onPressed: () {
-              Get.to(QRViewExample(registerController: registrationController,));
+              Get.to(QRViewExample(
+                registerController: registrationController,
+              ));
             },
             backgroundColor: Colors.transparent,
             elevation: 0,
@@ -245,7 +247,8 @@ class QRViewExample extends StatefulWidget {
   QRViewExample({required this.registerController});
 
   @override
-  State<StatefulWidget> createState() => _QRViewExampleState(registerController: registerController);
+  State<StatefulWidget> createState() =>
+      _QRViewExampleState(registerController: registerController);
 }
 
 class _QRViewExampleState extends State<QRViewExample> {
@@ -531,13 +534,10 @@ class _QRViewExampleState extends State<QRViewExample> {
   }
 
   void _requestPostRegisterDementia(String code, void Function(bool) onResult) {
-    GetConnect()
-        .post(
-            'http://34.22.70.120:8080/api/v1/ppConnection',
-            'protectorUId=${FirebaseAuth.instance.currentUser?.uid ?? "-"}&protegeUId=$code',
-            contentType: 'application/x-www-form-urlencoded',
-            headers: {"Accept": "application/json"})
-        .then(
+    GetConnect().post('http://34.22.87.100:8080/api/v1/ppConnection',
+        'protectorUId=${FirebaseAuth.instance.currentUser?.uid ?? "-"}&protegeUId=$code',
+        contentType: 'application/x-www-form-urlencoded',
+        headers: {"Accept": "application/json"}).then(
       (value) {
         onResult(value.body['code'] == 'PP000');
       },

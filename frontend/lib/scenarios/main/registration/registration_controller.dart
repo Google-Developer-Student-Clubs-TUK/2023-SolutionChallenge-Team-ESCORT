@@ -21,7 +21,7 @@ class RegistrationController extends GetxController {
   void loadData() {
     GetConnect()
         .get(
-            'http://34.22.70.120:8080/api/v1/ppConnection/protector/${FirebaseAuth.instance.currentUser!.uid}')
+            'http://34.22.87.100:8080/api/v1/ppConnection/protector/${FirebaseAuth.instance.currentUser!.uid}')
         .then(
           (value) => {registrationList.value = value.body['result']},
         );
@@ -51,7 +51,7 @@ class RegistrationController extends GetxController {
 
   void loadDetail(String uid) async {
     var response = await GetConnect()
-        .get('http://34.22.70.120:8080/api/v1/protege/$uid')
+        .get('http://34.22.87.100:8080/api/v1/protege/$uid')
         .then((value) => value.body['result']);
 
     print(response);
@@ -70,7 +70,8 @@ class RegistrationScreenState {
   RegistrationScreenState._();
 
   factory RegistrationScreenState.list() = RegistrationListScreenState;
-  factory RegistrationScreenState.detail(String uid) = RegistrationDetailScreenState;
+  factory RegistrationScreenState.detail(String uid) =
+      RegistrationDetailScreenState;
 }
 
 class RegistrationListScreenState extends RegistrationScreenState {
