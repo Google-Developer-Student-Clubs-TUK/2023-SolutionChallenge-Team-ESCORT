@@ -1,6 +1,7 @@
 import 'package:escort/scenarios/main/account/main_account.dart';
 import 'package:escort/scenarios/main/home/main_home.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../main/company/company_page.dart';
 import '../main/registration/main_registration.dart';
@@ -84,22 +85,22 @@ class _MainPartnerState extends State<MainPartner> {
           bottomNavigationBar: BottomNavigationBar(
             type: BottomNavigationBarType.fixed, // item이 4개 이상일 경우 추가
 
-            items: const <BottomNavigationBarItem>[
+            items: <BottomNavigationBarItem>[
               BottomNavigationBarItem(
                 icon: Icon(Icons.home_outlined),
-                label: 'Home',
+                label: 'Home'.tr,
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.elderly),
-                label: 'Registration List',
+                label: 'Registration List'.tr,
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.flag_outlined),
-                label: 'Company',
+                label: 'Company'.tr,
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.person),
-                label: 'Account',
+                label: 'Account'.tr,
               ),
             ],
             currentIndex: _selectedIndex, // 지정 인덱스로 이동

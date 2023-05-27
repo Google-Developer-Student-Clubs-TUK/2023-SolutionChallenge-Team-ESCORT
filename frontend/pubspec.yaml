@@ -68,6 +68,8 @@ dependencies:
   flutter_dotenv: ^5.0.2
   google_places_for_flutter: ^1.0.1
 
+  flutter_svg: ^2.0.5
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -111,8 +113,16 @@ flutter:
   fonts:
     - family: Urbanist
       fonts:
-        - asset: assets/font/urbanist/Urbanist-Black.ttf
+        - asset: assets/font/urbanist/Urbanist-Regular.ttf
+          weight: 400
+        - asset: assets/font/urbanist/Urbanist-Medium.ttf
+          weight: 500
+        - asset: assets/font/urbanist/Urbanist-SemiBold.ttf
+          weight: 600
+        - asset: assets/font/urbanist/Urbanist-Bold.ttf
           weight: 700
+        - asset: assets/font/urbanist/Urbanist-Black.ttf
+          weight: 900
 
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

@@ -33,7 +33,7 @@ class CompanyPage extends StatelessWidget {
                   companyController.hideDetail,
                 );
               } else {
-                return Text('Loading');
+                return Text('Loading'.tr);
               }
             }
           },
@@ -48,7 +48,7 @@ class CompanyPage extends StatelessWidget {
   ) {
     return Column(
       children: [
-        buildHeader("Company", icon: Icons.assistant_photo),
+        buildHeader("Company".tr, icon: Icons.assistant_photo),
         Expanded(
           child: Padding(
             padding: EdgeInsets.only(left: 24, top: 16, right: 16),
@@ -153,7 +153,7 @@ class CompanyPage extends StatelessWidget {
 
     return Column(
       children: [
-        buildHeader("Company", enabledBack: true, onClickBack: onClickBack),
+        buildHeader("Company".tr, enabledBack: true, onClickBack: onClickBack),
         Expanded(
           child: ConstraintLayout(
             childConstraints: [
@@ -195,7 +195,7 @@ class CompanyPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Partner Benefit',
+                        'Partner Benefit'.tr,
                         style: TextStyle(
                           color: Color(0xFF212121),
                           fontSize: 18,
@@ -206,7 +206,7 @@ class CompanyPage extends StatelessWidget {
                         height: 8,
                       ),
                       Text(
-                          'Get a place to rest and coffee discounts for families with dementia!',
+                          'Get a place to rest and coffee discounts for families with dementia!'.tr,
                           style: TextStyle(
                             color: Color(0xFF212121),
                             fontSize: 16,

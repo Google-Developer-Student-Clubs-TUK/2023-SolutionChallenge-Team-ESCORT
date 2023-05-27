@@ -197,13 +197,13 @@ class _SignInState extends State<SignIn> {
             children: [
               Padding(
                 padding: const EdgeInsets.only(right: 260, top: 20, bottom: 25),
-                child: Text("Sign In",
+                child: Text("Sign In".tr,
                     style:
                         TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
               ),
               Padding(
                 padding: const EdgeInsets.only(right: 110),
-                child: Text("Please enter Your ID and Password"),
+                child: Text("Please enter Your ID and Password".tr),
               ),
               Container(
                 height: 60,
@@ -211,7 +211,7 @@ class _SignInState extends State<SignIn> {
               Padding(
                 padding: const EdgeInsets.only(right: 325, bottom: 20),
                 child: Text(
-                  "ID",
+                  "ID".tr,
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
@@ -242,7 +242,7 @@ class _SignInState extends State<SignIn> {
               Padding(
                 padding: const EdgeInsets.only(right: 275, bottom: 20, top: 30),
                 child: Text(
-                  "Password",
+                  "Password".tr,
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
@@ -296,7 +296,7 @@ class _SignInState extends State<SignIn> {
                             builder: (context) => ResetPassword()))
                   },
                   child: Text(
-                    "Forgot password? Click here",
+                    "Forgot password? Click here".tr,
                     style: TextStyle(fontSize: 12, color: Colors.blue),
                   ),
                 ),
@@ -320,7 +320,7 @@ class _SignInState extends State<SignIn> {
                 backgroundColor: Color.fromRGBO(16, 64, 59, 10),
                 fixedSize: const Size(250.0, 40.0),
               ),
-              child: Text("Continue"),
+              child: Text("Continue".tr),
             ),
           ),
         ));

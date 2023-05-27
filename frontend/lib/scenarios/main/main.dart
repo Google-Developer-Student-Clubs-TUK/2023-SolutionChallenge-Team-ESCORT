@@ -1,3 +1,4 @@
+import 'package:escort/supports/languages.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -46,7 +47,12 @@ Future<void> main() async {
 
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
-  runApp(const GetMaterialApp(home: MyApp()));
+  runApp(GetMaterialApp(
+    home: MyApp(),
+    translations: Languages(),
+    locale: Get.deviceLocale,
+    fallbackLocale: Locale('en', 'US'),
+  ));
 }
 
 class MyApp extends StatefulWidget {
@@ -71,20 +77,20 @@ class _MyAppState extends State<MyApp> {
           children: [
             PageView(
               controller: _controller,
-              children: const [
+              children: [
                 Page1(
-                  "Welcome To Escort! ",
-                  "Our new platform came to ease you accompanies the elderly with dementia.",
+                  "Welcome To Escort!".tr,
+                  "Our new platform came to ease you accompanies the elderly with dementia.".tr,
                   "assets/onboarding1.png",
                 ),
                 Page1(
-                  "Wherever You Are",
-                  "Our app prevents the disappearance of elderly people with dementia.",
+                  "Wherever You Are".tr,
+                  "Our app prevents the disappearance of elderly people with dementia.".tr,
                   "assets/onboarding2.png",
                 ),
                 Page1(
-                  "Sign Up For Escort",
-                  "You can also participate and help the elderly with dimentia.",
+                  "Sign Up For Escort".tr,
+                  "You can also participate and help the elderly with dimentia.".tr,
                   "assets/onboarding3.png",
                 ),
               ],
@@ -127,8 +133,8 @@ class _MyAppState extends State<MyApp> {
                           backgroundColor: Color.fromRGBO(16, 64, 59, 10),
                           fixedSize: const Size(250.0, 40.0),
                         ),
-                        child: const Text(
-                          "Get Started",
+                        child: Text(
+                          "Get Started".tr,
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                       ),
@@ -153,8 +159,8 @@ class _MyAppState extends State<MyApp> {
                           backgroundColor: Color.fromRGBO(232, 233, 235, 10),
                           fixedSize: const Size(250.0, 40.0),
                         ),
-                        child: const Text(
-                          "I Aleady Have an Account",
+                        child: Text(
+                          "I Already Have an Account".tr,
                           style: TextStyle(
                               fontWeight: FontWeight.bold, color: Colors.black),
                         ),

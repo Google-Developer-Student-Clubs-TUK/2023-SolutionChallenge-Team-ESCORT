@@ -47,7 +47,7 @@ class RegistrationPage extends StatelessWidget {
           return Column(
             children: [
               buildHeader(
-                "Registration",
+                "Registration".tr,
                 icon: Icons.elderly,
                 onClickNotification: () {},
               ),
@@ -164,8 +164,8 @@ class RegistrationPage extends StatelessWidget {
                     SizedBox(
                       height: 6,
                     ),
-                    buildKeyValueInfo('Age', '$age years old'),
-                    buildKeyValueInfo('Safe Zone', safeZone),
+                    buildKeyValueInfo('Age'.tr, age),
+                    buildKeyValueInfo('Safe Zone'.tr, safeZone),
                   ],
                 ),
               ),
@@ -208,7 +208,7 @@ class RegistrationPage extends StatelessWidget {
         child: Column(
           children: [
             buildHeader(
-              "Profile",
+              "Profile".tr,
               enabledBack: true,
               onClickBack: onClickBack,
             ),
@@ -228,7 +228,7 @@ class RegistrationPage extends StatelessWidget {
                       },
                     );
                   } else {
-                    return Text('Loading...');
+                    return Text('Loading...'.tr);
                   }
                 },
               ),
@@ -304,7 +304,7 @@ class _QRViewExampleState extends State<QRViewExample> {
                   ),
                   SizedBox(height: 18),
                   Text(
-                    "Scan QR Code",
+                    "Scan QR Code".tr,
                     style: TextStyle(
                       fontSize: 24,
                       color: Colors.white,
@@ -314,12 +314,12 @@ class _QRViewExampleState extends State<QRViewExample> {
                   Padding(
                     padding: const EdgeInsets.only(top: 16),
                     child: Text(
-                      "Please scan the old man's QR code.",
+                      "Please scan the old man's QR code.".tr,
                       style: TextStyle(color: Colors.white, fontSize: 16),
                     ),
                   ),
                   Text(
-                    "Register the elderly to the registration list.",
+                    "Register the elderly to the registration list.".tr,
                     style: TextStyle(color: Colors.white),
                   ),
                 ],
@@ -375,9 +375,9 @@ class _QRViewExampleState extends State<QRViewExample> {
                   if (onResult) {
                     resultDialog(
                       Icons.check_box,
-                      'Scan Successful!',
-                      'The old man has been registered on the registration list.',
-                      'Go to Home',
+                      'Scan Successful!'.tr,
+                      'The old man has been registered on the registration list.'.tr,
+                      'Go to Home'.tr,
                       () {
                         Navigator.pop(context);
                         Get.back();
@@ -387,9 +387,9 @@ class _QRViewExampleState extends State<QRViewExample> {
                   } else {
                     resultDialog(
                       Icons.error,
-                      'Scan Failure!',
-                      'Invalid qr code or network error.',
-                      'Try again',
+                      'Scan Failure!'.tr,
+                      'Invalid qr code or network error.'.tr,
+                      'Try again'.tr,
                       () {
                         Navigator.pop(context);
                         controller.resumeCamera();
@@ -401,9 +401,9 @@ class _QRViewExampleState extends State<QRViewExample> {
             } else {
               resultDialog(
                 Icons.error,
-                'Scan Failure!',
-                'Invalid qr code.',
-                'Try again',
+                'Scan Failure!'.tr,
+                'Invalid qr code.'.tr,
+                'Try again'.tr,
                 () {
                   Navigator.pop(context);
                   controller.resumeCamera();
@@ -528,7 +528,7 @@ class _QRViewExampleState extends State<QRViewExample> {
     log('${DateTime.now().toIso8601String()}_onPermissionSet $p');
     if (!p) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('no Permission')),
+        SnackBar(content: Text('no Permission'.tr)),
       );
     }
   }
