@@ -286,6 +286,7 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.0.2"
+<<<<<<< HEAD
   flutter_google_places:
     dependency: "direct main"
     description:
@@ -294,6 +295,8 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.3.0"
+=======
+>>>>>>> 2960fe39479b4cde257d43c273edd8c8412f627c
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -456,6 +459,7 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.6"
+<<<<<<< HEAD
   google_maps_webservice:
     dependency: "direct main"
     description:
@@ -464,6 +468,8 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.0.20-nullsafety.5"
+=======
+>>>>>>> 2960fe39479b4cde257d43c273edd8c8412f627c
   google_places_for_flutter:
     dependency: "direct main"
     description:

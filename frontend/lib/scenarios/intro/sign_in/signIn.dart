@@ -101,6 +101,9 @@ class _SignInState extends State<SignIn> {
       print("token ! ! !");
       print(token);
 
+      print(id);
+      print(password);
+
       UserCredential userCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: id, password: password)
           //아이디와 비밀번호로 로그인 시도
@@ -113,6 +116,8 @@ class _SignInState extends State<SignIn> {
               .get();
 
           print(documentSnapshot.data());
+
+          print("navigation test");
 
           final data = documentSnapshot.data() as Map<String, dynamic>;
 
@@ -160,7 +165,8 @@ class _SignInState extends State<SignIn> {
 
   bool _obscureText = true;
 
-  String password = '';
+  TextEditingController idController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -212,6 +218,7 @@ class _SignInState extends State<SignIn> {
               SizedBox(
                 width: 350,
                 child: TextFormField(
+                  controller: idController,
                   style: TextStyle(color: Colors.black),
                   decoration: InputDecoration(
                     filled: true,
@@ -224,7 +231,12 @@ class _SignInState extends State<SignIn> {
                       ),
                     ),
                   ),
-                  onChanged: (value) => {id = value},
+                  onChanged: (value) => {
+                    setState(() {
+                      id = value;
+                      print(id);
+                    })
+                  },
                 ),
               ),
               Padding(
@@ -237,6 +249,7 @@ class _SignInState extends State<SignIn> {
               SizedBox(
                 width: 350,
                 child: TextFormField(
+                  controller: passwordController,
                   obscureText: _obscureText,
                   style: TextStyle(color: Colors.black),
                   decoration: InputDecoration(
@@ -263,7 +276,12 @@ class _SignInState extends State<SignIn> {
                       ),
                     ),
                   ),
-                  onChanged: (value) => {password = value},
+                  onChanged: (value) => {
+                    setState(() {
+                      password = value;
+                      print(password);
+                    })
+                  },
                 ),
               ),
               Padding(
@@ -291,7 +309,10 @@ class _SignInState extends State<SignIn> {
           child: SizedBox(
             height: 50,
             child: ElevatedButton(
-              onPressed: () => {firebaseLogin(id, password, context)},
+              onPressed: () => {
+                firebaseLogin(
+                    idController.text, passwordController.text, context)
+              },
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(50.0),

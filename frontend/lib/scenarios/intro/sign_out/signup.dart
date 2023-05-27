@@ -912,6 +912,7 @@ class _SignUpState5 extends State<SignUp5> {
 String? kGoogleApiKey = dotenv.env['API_KEY'];
 
 class _SignUpState6 extends State<SignUp6> {
+  Marker? _marker;
   final AuthController authController = Get.put(AuthController());
   GoogleMapController? mapController;
   double _radius = 50; // 초기 반경을 50미터로 설정합니다.
@@ -991,8 +992,6 @@ class _SignUpState6 extends State<SignUp6> {
     });
   }
 
-  Marker? _marker;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -1042,7 +1041,7 @@ class _SignUpState6 extends State<SignUp6> {
               ),
               SizedBox(
                 width: 330,
-                height: 460,
+                height: 500,
                 child: Column(
                   children: [
                     Container(
@@ -1099,19 +1098,64 @@ class _SignUpState6 extends State<SignUp6> {
                               snippet: position.target.toString(),
                             ),
                           );
-                          setState(() {
-                            _marker = Marker(
+
+                          _onMapCreated(mapController!);
+                        },
+                      ),
+                    ),
+                    Flexible(
+                      child: Container(
+                        height: 360,
+                        child: GoogleMap(
+                          onMapCreated: _onMapCreated,
+                          initialCameraPosition: CameraPosition(
+                            target: _center,
+                            zoom: 17.0,
+                          ),
+                          myLocationButtonEnabled: true,
+                          myLocationEnabled: true,
+                          circles: Set<Circle>.of(
+                            [
+                              Circle(
+                                circleId: CircleId("safeZone"),
+                                center: _center,
+                                radius:
+                                    _radius, // 이 값을 사용자가 슬라이더에서 선택한 값으로 변경하십시오.
+                                fillColor: Colors.green.withOpacity(0.5),
+                                strokeWidth: 2,
+                                strokeColor: Colors.green,
+                              ),
+                            ],
+                          ),
+                          onCameraMove: (CameraPosition position) async {
+                            BitmapDescriptor markerIcon =
+                                await BitmapDescriptor.fromAssetImage(
+                              ImageConfiguration(size: Size(48, 48)),
+                              '/assets/setsafezone.png.png',
+                            );
+                            final marker = await Marker(
+                              icon: markerIcon,
                               markerId: MarkerId(position.target.toString()),
                               position: position.target,
-                              icon: markerIcon,
                               infoWindow: InfoWindow(
                                 title: 'Camera position',
                                 snippet: position.target.toString(),
                               ),
                             );
-                          });
-                        },
-                        markers: _marker != null ? {_marker!}.toSet() : {},
+                            setState(() {
+                              _marker = Marker(
+                                markerId: MarkerId(position.target.toString()),
+                                position: position.target,
+                                icon: markerIcon,
+                                infoWindow: InfoWindow(
+                                  title: 'Camera position',
+                                  snippet: position.target.toString(),
+                                ),
+                              );
+                            });
+                          },
+                          markers: _marker != null ? {_marker!}.toSet() : {},
+                        ),
                       ),
                     ),
                     Row(
@@ -1179,6 +1223,11 @@ class _SignUpState6 extends State<SignUp6> {
                   barrierDismissible: false, // 다이얼로그 이외의 바탕 눌러도 안꺼지도록 설정
                   builder: (BuildContext context) {
                     return AlertDialog(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(30.0),
+                        ),
+                      ),
                       content: SingleChildScrollView(
                         child: ListBody(
                           //List Body를 기준으로 Text 설정
@@ -1191,7 +1240,7 @@ class _SignUpState6 extends State<SignUp6> {
                                   ),
                                   Image.asset("assets/signupmark.png"),
                                   SizedBox(
-                                    height: 60,
+                                    height: 30,
                                   ),
                                   Text('Sign Up Successful!',
                                       style: TextStyle(
@@ -1209,7 +1258,7 @@ class _SignUpState6 extends State<SignUp6> {
                                     width:
                                         MediaQuery.of(context).size.width * 0.6,
                                     height: MediaQuery.of(context).size.height *
-                                        0.05,
+                                        0.07,
                                     child: ElevatedButton(
                                       style: ElevatedButton.styleFrom(
                                         primary: Color(0xCC10403B),
@@ -1251,7 +1300,6 @@ class _SignUpState6 extends State<SignUp6> {
         ));
   }
 }
-
 
 
 
