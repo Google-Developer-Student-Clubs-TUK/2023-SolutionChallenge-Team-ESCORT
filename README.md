@@ -55,8 +55,12 @@ Escort is an app that allows people who have family members with dementia or who
 <br/>
 
 
+# 🏅.  Hardware prototype
+<img width="100%" alt="Screenshot 2023-03-30 at 9 53 44 PM" src="https://github.com/Google-Developer-Student-Clubs-TUK/2023-SolutionChallenge-Team-ESCORT/assets/52617204/fdba4933-b634-492f-a1b0-b131efb78c74">
+<img width="100%" alt="Screenshot 2023-03-30 at 9 53 44 PM" src="https://github.com/Google-Developer-Student-Clubs-TUK/2023-SolutionChallenge-Team-ESCORT/assets/52617204/171a3c8b-ffb1-4173-a109-885c3c62844d">
 
-
+<br/>
+<br/>
 
 # 🛰️.  Tech Stack
 
@@ -68,6 +72,7 @@ Escort is an app that allows people who have family members with dementia or who
 <br>
 
 </div>
+
 
 
 
