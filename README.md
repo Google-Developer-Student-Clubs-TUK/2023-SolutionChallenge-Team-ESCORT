@@ -75,11 +75,13 @@ Escort is an app that allows people who have family members with dementia or who
 # 🏃‍♂️.  How to Use
 
 ![readme1](https://user-images.githubusercontent.com/52617204/228844955-3ef90d17-868e-4f02-aaa4-856eecc82e9c.gif)
-![readme2](https://user-images.githubusercontent.com/52617204/228844961-0bac82b4-b821-4be4-8dfa-6eac0071390c.gif)
-![readme3](https://user-images.githubusercontent.com/52617204/228844975-110980fe-6097-49f3-814c-0bc227b79b00.gif)
-![readme4](https://user-images.githubusercontent.com/52617204/228844984-a1ded1d5-ec73-4cb1-9045-8e1a43bdbc69.gif)
-![readme5](https://user-images.githubusercontent.com/52617204/228845034-1c5770b8-21b6-404a-9124-9f7bef2a9867.gif)
+![readme2](https://github.com/Google-Developer-Student-Clubs-TUK/2023-SolutionChallenge-Team-ESCORT/assets/52617204/cab8a31d-0c28-4341-a587-0d3ab9f3274a)
+![readme3](https://github.com/Google-Developer-Student-Clubs-TUK/2023-SolutionChallenge-Team-ESCORT/assets/52617204/17b0d236-e42d-4055-802b-9550df2df161)
+![readme4](https://github.com/Google-Developer-Student-Clubs-TUK/2023-SolutionChallenge-Team-ESCORT/assets/52617204/f96c6ad2-9c91-4039-baee-8de16c3e2cbf)
+![readme5](https://github.com/Google-Developer-Student-Clubs-TUK/2023-SolutionChallenge-Team-ESCORT/assets/52617204/431b0f7b-6e5f-485e-917d-bc194e5eaee1)
 ![readme6](https://user-images.githubusercontent.com/52617204/228845050-d2ca8d36-e588-4765-9038-a6fd0fe249e4.gif)
+![README7](https://github.com/Google-Developer-Student-Clubs-TUK/2023-SolutionChallenge-Team-ESCORT/assets/52617204/714351be-fd35-46fb-831f-87a9b8a49ae8)
+![README8](https://github.com/Google-Developer-Student-Clubs-TUK/2023-SolutionChallenge-Team-ESCORT/assets/52617204/83b4abd4-1f20-4f74-881f-25202116a507)
 
 
 
