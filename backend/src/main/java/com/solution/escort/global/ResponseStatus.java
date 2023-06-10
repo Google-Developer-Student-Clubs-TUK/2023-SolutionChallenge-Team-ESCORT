@@ -32,7 +32,12 @@ public enum ResponseStatus {
     //동행기업 응답 status
     POST_COMPANY_SUCCESS("COM000", "동행기업 생성 성공"),
     GET_COMPANY_BY_ID_SUCCESS("COM001", "동행기업 id별 정보 가져오기 성공"),
-    GET_COMPANY_SUCCESS("COM002", "모든 동행 기업 정보 가져오기 성공");
+    GET_COMPANY_SUCCESS("COM002", "모든 동행 기업 정보 가져오기 성공"),
+
+
+    //랜딩페이지 유저 응답 status
+    POST_LANDING_USER_SUCCESS("LUSER000","랜딩페이지 유저 요청 생성 성공"),
+    POST_LANDING_COMPANY_SUCCESS("LCOMPANY000","랜딩페이지 회사 요청 생성 성공");
 
 
     private final String code;
